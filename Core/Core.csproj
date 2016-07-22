@@ -39,9 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Managers\DefectReportManager.cs" />
-    <Compile Include="Managers\Interfaces\IDefectReportManager.cs" />
+    <Compile Include="Aggregators\DefectReportAggregator.cs" />
+    <Compile Include="Aggregators\Interfaces\IDefectReportAggregator.cs" />
+    <Compile Include="Models\Execution.cs" />
     <Compile Include="Models\IsitLaunchCriticalMain.cs" />
+    <Compile Include="Models\TestStep.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\DefectReportRepository.cs" />
     <Compile Include="Repositories\Interfaces\IDefectReportRepository.cs" />
@@ -49,7 +51,12 @@
     <Compile Include="VmBuilders\FlowStatisticsVmBuilder.cs" />
     <Compile Include="VmBuilders\Interfaces\IFlowStatisticsVmBuilder.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{31be8653-0084-4627-8b0b-cdb6818ab8b4}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Core.Managers.Interfaces;
 
-namespace Core.Managers
+namespace Core.Aggregators.Interfaces
 {
-	public class DefectReportManager : IDefectReportManager
+	public interface IDefectReportAggregator
 	{
 	}
 }
