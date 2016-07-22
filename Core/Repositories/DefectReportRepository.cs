@@ -1,6 +1,8 @@
-﻿namespace Core.Repositories
+﻿using Core.Repositories.Interfaces;
+
+namespace Core.Repositories
 {
-	public class DefectReportRepository
+	public class DefectReportRepository : IDefectReportRepository
 	{
-	}
+    }
 }

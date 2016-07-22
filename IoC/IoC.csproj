@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AED81B80-2866-4557-9E46-A7A9B4356894}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{A6C27638-F027-4A26-9BD7-043934BE55DA}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>JiraDataAggregator</RootNamespace>
-    <AssemblyName>JiraDataAggregator</AssemblyName>
+    <RootNamespace>IoC</RootNamespace>
+    <AssemblyName>IoC</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -49,23 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Initialize\Application.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="[Configuration]\ConfigurationHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{d654ad0e-d4d5-4bfa-a83d-9ac6aa8232fa}</Project>
-      <Name>Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IoC\IoC.csproj">
-      <Project>{a6c27638-f027-4a26-9bd7-043934be55da}</Project>
-      <Name>IoC</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
