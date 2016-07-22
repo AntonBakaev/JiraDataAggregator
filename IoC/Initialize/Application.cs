@@ -1,5 +1,5 @@
-﻿using StructureMap;
-using System;
+﻿using System;
+using StructureMap;
 
 namespace IoC.Initialize
 {

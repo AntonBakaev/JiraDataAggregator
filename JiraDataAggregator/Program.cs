@@ -1,7 +1,5 @@
-﻿using IoC.Initialize;
-using System;
-using System.Collections.Generic;
-using Core.Managers.Interfaces;
+﻿using Core.Managers.Interfaces;
+using IoC.Initialize;
 
 namespace JiraDataAggregator
 {
@@ -18,7 +16,7 @@ namespace JiraDataAggregator
             
             public void Execute()
             {
-                Console.WriteLine(defectManager.GetMessage());
+
             }
         }
 
