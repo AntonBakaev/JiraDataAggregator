@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Core.Repositories.Interfaces;
 
 namespace Core.Repositories
 {
-	public class DefectReportRepository
+	public class DefectReportRepository : IDefectReportRepository
 	{
-	}
+        public string GetMessage()
+        {
+            return "Hello, world!";
+        }
+    }
 }
