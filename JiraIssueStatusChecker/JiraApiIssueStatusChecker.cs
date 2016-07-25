@@ -1,16 +1,15 @@
 ﻿using System;
-using JiraIssueStatusChecker.Abstract;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using Core.Enums;
 using Core.Exceptions;
+using JiraIssueStatusChecker.Interfaces;
 
 namespace JiraIssueStatusChecker
 {
-    class JiraApiIssueStatusChecker: IJiraIssueStatusChecker
+    class JiraApiIssueStatusChecker : IJiraIssueStatusChecker
     {
-        //todo base address should be "https://telenor-ose.atlassian.net/rest/api/2/" and moved to config file
         public JiraApiIssueStatusChecker(string authString, string baseAddress)
         {
             this.authString = authString;
@@ -24,7 +23,7 @@ namespace JiraIssueStatusChecker
         {
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authString);
 
-            HttpResponseMessage response = httpClient.GetAsync("issue/" + issueKey + "/?fields=status").Result; //?
+            HttpResponseMessage response = httpClient.GetAsync("issue/" + issueKey + "/?fields=status").Result; 
             if (response.IsSuccessStatusCode)
             {
                 string jsonResult = response.Content.ReadAsStringAsync().Result;

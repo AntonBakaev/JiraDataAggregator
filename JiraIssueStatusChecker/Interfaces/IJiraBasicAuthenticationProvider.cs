@@ -1,7 +1,7 @@
-﻿namespace JiraIssueStatusChecker.Abstract
+﻿namespace JiraIssueStatusChecker.Interfaces
 {
     public interface IJiraBasicAuthenticationProvider
     {
         string GetAuthString(string username, string password);
-    } 
+    }
 }

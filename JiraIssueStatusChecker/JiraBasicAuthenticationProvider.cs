@@ -1,12 +1,13 @@
-﻿using JiraIssueStatusChecker.Abstract;
+﻿using System;
+using JiraIssueStatusChecker.Interfaces;
 
 namespace JiraIssueStatusChecker
 {
-    class JiraBasicAuthenticationProvider: IJiraBasicAuthenticationProvider
+    class JiraBasicAuthenticationProvider : IJiraBasicAuthenticationProvider
     {
         public string GetAuthString(string username, string password)
         {
-            return Base64Encode(username + ":" + password);
+            return Base64Encode(String.Format(username + ":" + password));
         }
 
         private string Base64Encode(string plainText)
