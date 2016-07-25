@@ -1,8 +1,8 @@
 ﻿using System.Xml.Serialization;
 
-namespace Common.Enums
+namespace Core.Enums
 {
-	public enum StepStatus
+	public enum ExecutedStatus
 	{
 		[XmlEnum("")]
 		Undefined,
@@ -12,6 +12,9 @@ namespace Common.Enums
 
 		[XmlEnum("FAIL")]
 		Fail,
+
+		[XmlEnum("WIP")]
+		WIP,
 
 		[XmlEnum("UNEXECUTED")]
 		Unexecuted,
