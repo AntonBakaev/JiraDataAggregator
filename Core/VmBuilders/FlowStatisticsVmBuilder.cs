@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Enums;
 using Core.Models;
 using Core.ViewModels;
+using Core.VmBuilders.Interfaces;
 
 namespace Core.VmBuilders
 {
-	public class FlowStatisticsVmBuilder
+	public class FlowStatisticsVmBuilder : IFlowStatisticsVmBuilder
 	{
 		private const string RetailStr = "Shop_E2E: Retail";
 
@@ -22,7 +22,7 @@ namespace Core.VmBuilders
 			};
 		}
 
-		public FlowStatisticsVm GetRetailShopStatisticsVm(List<Execution> executionsList)
+		public FlowStatisticsVm GetFlowStatisticsVmByFilter(List<Execution> executionsList)
 		{
 			return GetFlowStatisticsVm(executionsList.Where(e => e.TestSummary.Trim().StartsWith(RetailStr)).ToList());
 		}
