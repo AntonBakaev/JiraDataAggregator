@@ -59,7 +59,6 @@
     <Compile Include="ViewModels\DefectVm.cs" />
     <Compile Include="ViewModels\FlowStatisticsVm.cs" />
     <Compile Include="ViewModels\IssueVm.cs" />
-    <Compile Include="ViewModels\RetailShopFlowStatisticsVm.cs" />
     <Compile Include="VmBuilders\AllBlockingDefectsVmBuilder.cs" />
     <Compile Include="VmBuilders\BlockingIssuesVmBuilder.cs" />
     <Compile Include="VmBuilders\FlowStatisticsVmBuilder.cs" />

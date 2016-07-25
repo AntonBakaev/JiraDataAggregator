@@ -32,9 +32,15 @@ namespace JiraDataAggregator
 
 			List<Execution> executionsList = SerializeHelper.DeserializeXml(args[0]);
 
+			var vmBuilder = new FlowStatisticsVmBuilder();
+
+			var flowStatisticsVm = vmBuilder.GetFlowStatisticsVm(executionsList);
+			var filteredFlowStatisticsVm = vmBuilder.GetFlowStatisticsVmByFilter(executionsList);
+
 			var blockingIssuesVmBuilder = new BlockingIssuesVmBuilder();
 			var blockingIssuesList = blockingIssuesVmBuilder.GetTopBlockingIssues(executionsList,
 															 Convert.ToInt32(ConfigurationManager.AppSettings["NumberOfTopBlockingIssues"]));
+
 			var allBlockingDefectsVmBuilder = new AllBlockingDefectsVmBuilder();
 			var allBlockingDefects = allBlockingDefectsVmBuilder.GetAllBlockingDefects(executionsList);
 		}

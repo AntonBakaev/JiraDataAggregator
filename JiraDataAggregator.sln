@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\Unit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoC", "IoC\IoC.csproj", "{A6C27638-F027-4A26-9BD7-043934BE55DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraIssueStatusChecker", "JiraIssueStatusChecker\JiraIssueStatusChecker.csproj", "{F8E59FB6-0158-40DA-9CAB-3B9CD7937CFD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "JiraIssueStatusChecker\DataAccess.csproj", "{F8E59FB6-0158-40DA-9CAB-3B9CD7937CFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
