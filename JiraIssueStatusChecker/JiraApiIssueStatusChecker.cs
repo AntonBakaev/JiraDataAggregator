@@ -10,6 +10,9 @@ namespace JiraIssueStatusChecker
 {
 	class JiraApiIssueStatusChecker : IJiraIssueStatusChecker
 	{
+		private string authString;
+		private HttpClient httpClient;
+
 		public JiraApiIssueStatusChecker(string authString, string baseAddress)
 		{
 			this.authString = authString;
@@ -34,8 +37,5 @@ namespace JiraIssueStatusChecker
 			}
 			throw new JiraDataAggregatorException("Call to API resulted in: " + response.StatusCode);
 		}
-
-		private string authString;
-		private HttpClient httpClient;
 	}
 }
