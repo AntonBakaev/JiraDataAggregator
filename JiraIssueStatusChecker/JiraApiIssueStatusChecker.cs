@@ -3,8 +3,6 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
-using Core.Enums;
-using Core.Exceptions;
 using JiraIssueStatusChecker.Interfaces;
 
 namespace JiraIssueStatusChecker
