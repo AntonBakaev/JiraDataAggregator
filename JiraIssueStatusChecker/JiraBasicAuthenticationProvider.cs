@@ -7,7 +7,7 @@ namespace JiraIssueStatusChecker
 	{
 		public string GetAuthString(string username, string password)
 		{
-			return Base64Encode(String.Format(username + ":" + password));
+			return Base64Encode(username + ":" + password);
 		}
 
 		private string Base64Encode(string plainText)
