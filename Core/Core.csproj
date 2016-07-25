@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Aggregators\DefectReportAggregator.cs" />
     <Compile Include="Aggregators\Interfaces\IDefectReportAggregator.cs" />
+    <Compile Include="Exceptions\JiraDataAggregatorException.cs" />
     <Compile Include="Models\Execution.cs" />
     <Compile Include="Models\IsitLaunchCriticalMain.cs" />
     <Compile Include="Models\TestStep.cs" />

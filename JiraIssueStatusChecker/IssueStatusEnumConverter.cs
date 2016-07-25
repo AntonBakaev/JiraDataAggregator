@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common.Enums;
+using Core.Exceptions;
 
 namespace JiraIssueStatusChecker
 {
@@ -24,7 +25,7 @@ namespace JiraIssueStatusChecker
                 case "In progress":
                     return  IssueStatus.InProgress;
                 default:
-                    throw new Exception("Unexpected status"); //todo use custom exception
+                    throw new JiraDataAggregatorException("Unexpected status"); //todo use custom exception
             }
         }
     }
