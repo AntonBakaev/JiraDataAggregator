@@ -31,7 +31,7 @@ namespace JiraDataAggregator
 
 			public void Execute(string fileName)
 			{
-				IEnumerable<Execution> executionsList = defectReportAggregator.GetDeserializedExecutions(fileName);
+				IEnumerable<Execution> executionsList = defectReportAggregator.GetIsitLaunchCriticalViewData(fileName);
 
 				FlowStatisticsVm flowStatistics = flowStatisticsVmBuilder.GetFlowStatisticsVm(executionsList);
 				FlowStatisticsVm filteredFlowStatistics = flowStatisticsVmBuilder.GetFlowStatisticsVmByFilter(executionsList);

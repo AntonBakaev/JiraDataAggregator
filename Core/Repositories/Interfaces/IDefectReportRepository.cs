@@ -5,6 +5,6 @@ namespace Core.Repositories.Interfaces
 {
 	public interface IDefectReportRepository
 	{
-		IEnumerable<Execution> GetDeserilizationData(string filePath);
+		IEnumerable<Execution> GetIsitLaunchCriticalViewData(string filePath);
 	}
 }
