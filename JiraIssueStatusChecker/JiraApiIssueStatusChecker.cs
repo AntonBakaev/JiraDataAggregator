@@ -10,7 +10,6 @@ namespace JiraIssueStatusChecker
 {
     class JiraApiIssueStatusChecker : IJiraIssueStatusChecker
     {
-        //todo base address should be "https://telenor-ose.atlassian.net/rest/api/2/" and moved to config file
         public JiraApiIssueStatusChecker(string authString, string baseAddress)
         {
             this.authString = authString;
