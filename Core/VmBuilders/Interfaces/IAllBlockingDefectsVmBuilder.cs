@@ -5,6 +5,6 @@ namespace Core.VmBuilders.Interfaces
 {
 	public interface IAllBlockingDefectsVmBuilder
 	{
-		IEnumerable<string> GetAllBlockingDefects(List<Execution> executionsList);
+		IEnumerable<string> GetAllBlockingDefects(IEnumerable<Execution> executionsList);
 	}
 }

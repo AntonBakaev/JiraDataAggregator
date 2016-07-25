@@ -6,6 +6,6 @@ namespace Core.VmBuilders.Interfaces
 {
 	public interface IBlockingIssuesVmBuilder
 	{
-		IEnumerable<DefectVm> GetTopBlockingIssues(List<Execution> executionsList, int numberOfBlockingIssues);
+		IEnumerable<DefectVm> GetTopBlockingIssues(IEnumerable<Execution> executionsList, int numberOfBlockingIssues);
 	}
 }

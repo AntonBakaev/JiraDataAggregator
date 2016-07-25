@@ -11,7 +11,7 @@ namespace Core.VmBuilders
 	{
 		private const string RetailStr = "Shop_E2E: Retail";
 
-		public FlowStatisticsVm GetFlowStatisticsVm(List<Execution> executionsList)
+		public FlowStatisticsVm GetFlowStatisticsVm(IEnumerable<Execution> executionsList)
 		{
 			return new FlowStatisticsVm
 			{
@@ -22,7 +22,7 @@ namespace Core.VmBuilders
 			};
 		}
 
-		public FlowStatisticsVm GetFlowStatisticsVmByFilter(List<Execution> executionsList)
+		public FlowStatisticsVm GetFlowStatisticsVmByFilter(IEnumerable<Execution> executionsList)
 		{
 			return GetFlowStatisticsVm(executionsList.Where(e => e.TestSummary.Trim().StartsWith(RetailStr)).ToList());
 		}

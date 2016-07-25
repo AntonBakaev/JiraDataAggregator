@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using Common.Helpers;
 using Core.Aggregators.Interfaces;
 using Core.Models;
-using Core.VmBuilders;
+using Core.ViewModels;
+using Core.VmBuilders.Interfaces;
 using IoC.Initialize;
 
 namespace JiraDataAggregator
@@ -13,36 +13,40 @@ namespace JiraDataAggregator
 	{
 		public class ConsoleRunner
 		{
-			private readonly IDefectReportAggregator defectAggregator;
+			private readonly IDefectReportAggregator defectReportAggregator;
+			private readonly IAllBlockingDefectsVmBuilder allBlockingDefectsVmBuilder;
+			private readonly IBlockingIssuesVmBuilder blockingIssuesVmBuilder;
+			private readonly IFlowStatisticsVmBuilder flowStatisticsVmBuilder;
 
-			public ConsoleRunner(IDefectReportAggregator manager)
+			public ConsoleRunner(IDefectReportAggregator defectReportAggregator,
+								 IAllBlockingDefectsVmBuilder allBlockingDefectsVmBuilder,
+								 IBlockingIssuesVmBuilder blockingIssuesVmBuilder,
+								 IFlowStatisticsVmBuilder flowStatisticsVmBuilder)
 			{
-				this.defectAggregator = manager;
+				this.defectReportAggregator = defectReportAggregator;
+				this.allBlockingDefectsVmBuilder = allBlockingDefectsVmBuilder;
+				this.blockingIssuesVmBuilder = blockingIssuesVmBuilder;
+				this.flowStatisticsVmBuilder = flowStatisticsVmBuilder;
 			}
 
-			public void Execute()
+			public void Execute(string fileName)
 			{
+				IEnumerable<Execution> executionsList = defectReportAggregator.GetDeserializedExecutions(fileName);
+
+				FlowStatisticsVm flowStatistics = flowStatisticsVmBuilder.GetFlowStatisticsVm(executionsList);
+				FlowStatisticsVm filteredFlowStatistics = flowStatisticsVmBuilder.GetFlowStatisticsVmByFilter(executionsList);
+
+				IEnumerable<DefectVm> blockingIssuesList = blockingIssuesVmBuilder.GetTopBlockingIssues(executionsList,
+																 Convert.ToInt32(ConfigurationManager.AppSettings["NumberOfTopBlockingIssues"]));
+
+				IEnumerable<string> allBlockingDefects = allBlockingDefectsVmBuilder.GetAllBlockingDefects(executionsList);
 			}
 		}
 
 		static void Main(string[] args)
 		{
 			Application.Initialize(ConfigurationHelper.ConfigureDependencies);
-			Application.Current.Container.GetInstance<ConsoleRunner>().Execute();
-
-			List<Execution> executionsList = SerializeHelper.DeserializeXml(args[0]);
-
-			var vmBuilder = new FlowStatisticsVmBuilder();
-
-			var flowStatisticsVm = vmBuilder.GetFlowStatisticsVm(executionsList);
-			var filteredFlowStatisticsVm = vmBuilder.GetFlowStatisticsVmByFilter(executionsList);
-
-			var blockingIssuesVmBuilder = new BlockingIssuesVmBuilder();
-			var blockingIssuesList = blockingIssuesVmBuilder.GetTopBlockingIssues(executionsList,
-															 Convert.ToInt32(ConfigurationManager.AppSettings["NumberOfTopBlockingIssues"]));
-
-			var allBlockingDefectsVmBuilder = new AllBlockingDefectsVmBuilder();
-			var allBlockingDefects = allBlockingDefectsVmBuilder.GetAllBlockingDefects(executionsList);
+			Application.Current.Container.GetInstance<ConsoleRunner>().Execute(args[0]);
 		}
 	}
 }
