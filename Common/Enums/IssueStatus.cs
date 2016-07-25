@@ -6,6 +6,8 @@
         Resolved,
         Closed,
         Reopened,
-        InProgress
+        InProgress,
+        Done,
+        Unknown
     }
 }

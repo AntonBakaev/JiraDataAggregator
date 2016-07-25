@@ -22,10 +22,13 @@ namespace JiraIssueStatusChecker
                     return IssueStatus.Closed;
                 case "Reopened":
                     return IssueStatus.Reopened;
-                case "In progress":
+                case "In Progress":
                     return  IssueStatus.InProgress;
+                case "Dones":
+                    return IssueStatus.Done;
                 default:
-                    throw new JiraDataAggregatorException("Unexpected status"); //todo use custom exception
+                    return IssueStatus.Unknown;
+                //throw new JiraDataAggregatorException("Unexpected status"); 
             }
         }
     }

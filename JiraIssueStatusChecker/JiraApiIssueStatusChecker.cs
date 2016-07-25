@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using Common.Enums;
+using Core.Exceptions;
 
 namespace JiraIssueStatusChecker
 {
@@ -40,7 +41,7 @@ namespace JiraIssueStatusChecker
 
                 return IssueStatusEnumConverter.ConvertToenum(status);
             }
-            throw new Exception("Call to API resulted in:" + response.StatusCode);
+            throw new JiraDataAggregatorException("Call to API resulted in:" + response.StatusCode);
         }
     }
 }

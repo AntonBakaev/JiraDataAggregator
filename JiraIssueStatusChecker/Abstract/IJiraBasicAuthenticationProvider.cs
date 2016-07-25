@@ -8,7 +8,7 @@ namespace JiraIssueStatusChecker.Abstract
 {
     public interface IJiraBasicAuthenticationProvider
     {
-        bool Authorize(string username, string password);
-        string AuthString { get; set; }
+        Task<bool> Authorize(string username, string password);
+        string AuthString { get; }
     }
 }
