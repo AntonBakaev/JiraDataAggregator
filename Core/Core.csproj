@@ -55,7 +55,6 @@
     <Compile Include="Repositories\Interfaces\IDefectReportRepository.cs" />
     <Compile Include="ViewModels\IssueVm.cs" />
     <Compile Include="ViewModels\FlowStatisticsVm.cs" />
-    <Compile Include="ViewModels\RetailShopFlowStatisticsVm.cs" />
     <Compile Include="VmBuilders\FlowStatisticsVmBuilder.cs" />
     <Compile Include="VmBuilders\Interfaces\IFlowStatisticsVmBuilder.cs" />
   </ItemGroup>
