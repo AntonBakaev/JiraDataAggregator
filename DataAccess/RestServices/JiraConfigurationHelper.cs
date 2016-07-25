@@ -16,7 +16,7 @@ namespace DataAccess.RestServices
 			string authSettings = String.Format("{0}:{1}", ConfigurationManager.AppSettings[JiraLogin],
 				ConfigurationManager.AppSettings[JiraPassword]);
 
-			return StringExtensions.ToToBase64String(authSettings);
+			return StringExtensions.ToBase64String(authSettings);
 		}
 
 		public string GetBaseAddress()
