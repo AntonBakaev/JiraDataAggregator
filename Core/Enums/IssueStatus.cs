@@ -1,4 +1,4 @@
-﻿namespace Common.Enums
+﻿namespace Core.Enums
 {
     public enum IssueStatus
     {
@@ -6,6 +6,8 @@
         Resolved,
         Closed,
         Reopened,
-        InProgress
+        InProgress,
+        Done,
+        Unknown
     }
 }

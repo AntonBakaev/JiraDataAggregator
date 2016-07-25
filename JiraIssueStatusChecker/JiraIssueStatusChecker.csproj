@@ -48,6 +48,7 @@
     <Compile Include="Abstract\IJiraBasicAuthenticationProvider.cs" />
     <Compile Include="IssueStatusEnumConverter.cs" />
     <Compile Include="JiraApiIssueStatusChecker.cs" />
+    <Compile Include="JiraBasicAuthenticationProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
