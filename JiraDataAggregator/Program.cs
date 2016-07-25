@@ -2,6 +2,7 @@
 using Common.Helpers;
 using Core.Aggregators.Interfaces;
 using Core.Models;
+using Core.VmBuilders;
 using IoC.Initialize;
 
 namespace JiraDataAggregator
@@ -28,6 +29,11 @@ namespace JiraDataAggregator
 			Application.Current.Container.GetInstance<ConsoleRunner>().Execute();
 
 			List<Execution> executionsList = SerializeHelper.DeserializeXml(args[0]);
+
+			var vmBuilder = new FlowStatisticsVmBuilder();
+
+			var flowStatisticsVm = vmBuilder.GetFlowStatisticsVm(executionsList);
+			var filteredFlowStatisticsVm = vmBuilder.GetFlowStatisticsVmByFilter(executionsList);
 		}
 	}
 }
