@@ -1,9 +1,8 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
-using Core.Enums;
-using Core.Exceptions;
 using JiraIssueStatusChecker.Interfaces;
 
 namespace JiraIssueStatusChecker
@@ -22,8 +21,10 @@ namespace JiraIssueStatusChecker
 			httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 		}
 
-		public IssueStatus GetIssueStatus(string issueKey)
+		public HttpStatusCode GetIssueStatus(string issueKey, out string status)
 		{
+			status = String.Empty;
+			
 			httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authString);
 
 			HttpResponseMessage response = httpClient.GetAsync("issue/" + issueKey + "/?fields=status").Result;
@@ -31,11 +32,12 @@ namespace JiraIssueStatusChecker
 			{
 				string jsonResult = response.Content.ReadAsStringAsync().Result;
 
-				string status = JObject.Parse(jsonResult)["fields"]["status"]["name"].ToString();
+				status = JObject.Parse(jsonResult)["fields"]["status"]["name"].ToString();
 
-				return IssueStatusEnumConverter.ConvertToenum(status);
+				//return IssueStatusEnumConverter.ConvertToenum(status);
 			}
-			throw new JiraDataAggregatorException("Call to API resulted in: " + response.StatusCode);
+			//throw new JiraDataAggregatorException("Call to API resulted in: " + response.StatusCode);
+			return response.StatusCode;
 		}
 	}
 }
