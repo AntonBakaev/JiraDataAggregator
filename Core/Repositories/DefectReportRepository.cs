@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Common.Helpers;
 using Core.Models;
 using Core.Repositories.Interfaces;
+using Common.Helpers;
 
 namespace Core.Repositories
 {
