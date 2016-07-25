@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Common.Enums
+namespace Core.Enums
 {
 	public enum ComponentType
 	{
