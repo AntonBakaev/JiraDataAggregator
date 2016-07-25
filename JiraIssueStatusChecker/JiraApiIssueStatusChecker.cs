@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using JiraIssueStatusChecker.Abstract;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -12,24 +11,23 @@ namespace JiraIssueStatusChecker
     class JiraApiIssueStatusChecker: IJiraIssueStatusChecker
     {
         //todo base address should be "https://telenor-ose.atlassian.net/rest/api/2/" and moved to config file
-        public JiraApiIssueStatusChecker(IJiraBasicAuthenticationProvider authenticationProvider, string baseAddress)
+        public JiraApiIssueStatusChecker(string authString, string baseAddress)
         {
-            this.authenticationProvider = authenticationProvider;
+            this.authString = authString;
             httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(baseAddress);
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<IssueStatus> GetIssueStatus(string issueKey)
+        public IssueStatus GetIssueStatus(string issueKey)
         {
-            string authString = authenticationProvider.AuthString;
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authString);
 
-            HttpResponseMessage response = await httpClient.GetAsync("issue/" + issueKey + "/?fields=status"); //use .Result and remove async?
+            HttpResponseMessage response = httpClient.GetAsync("issue/" + issueKey + "/?fields=status").Result; //?
             if (response.IsSuccessStatusCode)
             {
-                string jsonResult = await response.Content.ReadAsStringAsync();
+                string jsonResult = response.Content.ReadAsStringAsync().Result;
 
                 string status = JObject.Parse(jsonResult)["fields"]["status"]["name"].ToString();
 
@@ -38,7 +36,7 @@ namespace JiraIssueStatusChecker
             throw new JiraDataAggregatorException("Call to API resulted in: " + response.StatusCode);
         }
 
-        private IJiraBasicAuthenticationProvider authenticationProvider; //use only AuthString?
+        private string authString;
         private HttpClient httpClient;
     }
 }

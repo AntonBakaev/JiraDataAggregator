@@ -22,7 +22,6 @@ namespace JiraIssueStatusChecker
                     return IssueStatus.Done;
                 default:
                     return IssueStatus.Unknown;
-                //throw new JiraDataAggregatorException("Unexpected status"); 
             }
         }
     }
