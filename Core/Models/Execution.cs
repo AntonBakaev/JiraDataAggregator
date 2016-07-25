@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 using Core.Enums;
 
@@ -9,6 +10,10 @@ namespace Core.Models
 	[XmlType("execution")]
 	public class Execution
 	{
+		private const string DefectsCategoriesSeparator = " | ";
+		private const char DefectsSeparator = ',';
+		private IEnumerable<string> executionDefects;
+
 		[XmlElement("executionId")]
 		public string ExecutionId { get; set; }
 
@@ -43,7 +48,7 @@ namespace Core.Models
 		public ExecutedStatus ExecutedStatus { get; set; }
 
 		[XmlElement("executionDefects")]
-		public string ExecutionDefects { get; set; }
+		public string AllExecutionDefectsFullString { get; set; }
 
 		[XmlElement("creationDate")]
 		public string CreationDate { get; set; }
@@ -51,5 +56,17 @@ namespace Core.Models
 		[XmlArray("teststeps")]
 		[XmlArrayItem("teststep", typeof(TestStep))]
 		public List<TestStep> TestSteps { get; set; }
+
+		[XmlIgnore]
+		public IEnumerable<string> ExecutionDefects
+		{
+			get
+			{
+				return executionDefects ?? (executionDefects = AllExecutionDefectsFullString
+																  .Replace(DefectsCategoriesSeparator, DefectsSeparator.ToString())
+																  .Split(DefectsSeparator)
+																  .Distinct());
+			}
+		}
 	}
 }

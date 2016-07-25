@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using Common.Helpers;
 using Core.Aggregators.Interfaces;
 using Core.Models;
+using Core.VmBuilders;
 using IoC.Initialize;
 
 namespace JiraDataAggregator
@@ -28,6 +31,12 @@ namespace JiraDataAggregator
 			Application.Current.Container.GetInstance<ConsoleRunner>().Execute();
 
 			List<Execution> executionsList = SerializeHelper.DeserializeXml(args[0]);
+
+			var blockingIssuesVmBuilder = new BlockingIssuesVmBuilder();
+			var blockingIssuesList = blockingIssuesVmBuilder.GetTopBlockingIssues(executionsList,
+															 Convert.ToInt32(ConfigurationManager.AppSettings["NumberOfTopBlockingIssues"]));
+			var allBlockingDefectsVmBuilder = new AllBlockingDefectsVmBuilder();
+			var allBlockingDefects = allBlockingDefectsVmBuilder.GetAllBlockingDefects(executionsList);
 		}
 	}
 }
