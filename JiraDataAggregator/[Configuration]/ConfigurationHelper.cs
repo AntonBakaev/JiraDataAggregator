@@ -15,7 +15,7 @@ namespace JiraDataAggregator
             x.For<IDefectReportAggregator>().Use<DefectReportAggregator>();
             x.For<IDefectReportRepository>().Use<DefectReportRepository>();
 
-			x.For<IAllBlockingDefectsVmBuilder>().Use<AllBlockingDefectsVmBuilder>();
+			x.For<IAllDefectKeysVmBuilder>().Use<AllDefectKeysVmBuilder>();
 			x.For<IBlockingIssuesVmBuilder>().Use<BlockingIssuesVmBuilder>();
 			x.For<IFlowStatisticsVmBuilder>().Use<FlowStatisticsVmBuilder>();
         }

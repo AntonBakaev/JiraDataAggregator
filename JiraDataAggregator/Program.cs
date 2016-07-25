@@ -14,12 +14,12 @@ namespace JiraDataAggregator
 		public class ConsoleRunner
 		{
 			private readonly IDefectReportAggregator defectReportAggregator;
-			private readonly IAllBlockingDefectsVmBuilder allBlockingDefectsVmBuilder;
+			private readonly IAllDefectKeysVmBuilder allBlockingDefectsVmBuilder;
 			private readonly IBlockingIssuesVmBuilder blockingIssuesVmBuilder;
 			private readonly IFlowStatisticsVmBuilder flowStatisticsVmBuilder;
 
 			public ConsoleRunner(IDefectReportAggregator defectReportAggregator,
-								 IAllBlockingDefectsVmBuilder allBlockingDefectsVmBuilder,
+								 IAllDefectKeysVmBuilder allBlockingDefectsVmBuilder,
 								 IBlockingIssuesVmBuilder blockingIssuesVmBuilder,
 								 IFlowStatisticsVmBuilder flowStatisticsVmBuilder)
 			{
@@ -36,10 +36,10 @@ namespace JiraDataAggregator
 				FlowStatisticsVm flowStatistics = flowStatisticsVmBuilder.GetFlowStatisticsVm(executionsList);
 				FlowStatisticsVm filteredFlowStatistics = flowStatisticsVmBuilder.GetFlowStatisticsVmByFilter(executionsList);
 
-				IEnumerable<DefectVm> blockingIssuesList = blockingIssuesVmBuilder.GetTopBlockingIssues(executionsList,
+				BlockingIssuesVm blockingIssuesList = blockingIssuesVmBuilder.GetTopBlockingIssues(executionsList,
 																 Convert.ToInt32(ConfigurationManager.AppSettings["NumberOfTopBlockingIssues"]));
 
-				IEnumerable<string> allBlockingDefects = allBlockingDefectsVmBuilder.GetAllBlockingDefects(executionsList);
+				AllDefectKeysVm allDefectKeys = allBlockingDefectsVmBuilder.GetAllBlockingDefects(executionsList);
 			}
 		}
 
