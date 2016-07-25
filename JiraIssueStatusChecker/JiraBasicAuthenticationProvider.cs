@@ -1,5 +1,5 @@
 ﻿using System;
-using JiraIssueStatusChecker.Abstract;
+using JiraIssueStatusChecker.Interfaces;
 
 namespace JiraIssueStatusChecker
 {

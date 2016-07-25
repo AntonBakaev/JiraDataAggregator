@@ -1,4 +1,4 @@
-﻿namespace JiraIssueStatusChecker.Abstract
+﻿namespace JiraIssueStatusChecker.Interfaces
 {
     public interface IJiraBasicAuthenticationProvider
     {

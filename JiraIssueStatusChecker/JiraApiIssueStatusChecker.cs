@@ -1,10 +1,10 @@
 ﻿using System;
-using JiraIssueStatusChecker.Abstract;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using Core.Enums;
 using Core.Exceptions;
+using JiraIssueStatusChecker.Interfaces;
 
 namespace JiraIssueStatusChecker
 {
@@ -23,7 +23,7 @@ namespace JiraIssueStatusChecker
         {
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authString);
 
-            HttpResponseMessage response = httpClient.GetAsync("issue/" + issueKey + "/?fields=status").Result; //?
+            HttpResponseMessage response = httpClient.GetAsync("issue/" + issueKey + "/?fields=status").Result; 
             if (response.IsSuccessStatusCode)
             {
                 string jsonResult = response.Content.ReadAsStringAsync().Result;
