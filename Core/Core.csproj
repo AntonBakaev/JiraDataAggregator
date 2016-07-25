@@ -41,6 +41,10 @@
   <ItemGroup>
     <Compile Include="Aggregators\DefectReportAggregator.cs" />
     <Compile Include="Aggregators\Interfaces\IDefectReportAggregator.cs" />
+    <Compile Include="Enums\ComponentType.cs" />
+    <Compile Include="Enums\ExecutedStatus.cs" />
+    <Compile Include="Enums\PriorityType.cs" />
+    <Compile Include="Enums\StepStatus.cs" />
     <Compile Include="Exceptions\JiraDataAggregatorException.cs" />
     <Compile Include="Models\Execution.cs" />
     <Compile Include="Models\IsitLaunchCriticalMain.cs" />
@@ -51,12 +55,6 @@
     <Compile Include="ViewModels\FlowStatisticsVm.cs" />
     <Compile Include="VmBuilders\FlowStatisticsVmBuilder.cs" />
     <Compile Include="VmBuilders\Interfaces\IFlowStatisticsVmBuilder.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{31be8653-0084-4627-8b0b-cdb6818ab8b4}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
