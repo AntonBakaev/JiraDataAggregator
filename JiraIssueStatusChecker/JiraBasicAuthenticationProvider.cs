@@ -11,8 +11,6 @@ namespace JiraIssueStatusChecker
 {
     class JiraBasicAuthenticationProvider: IJiraBasicAuthenticationProvider
     {
-        private HttpClient httpClient;
-
         public JiraBasicAuthenticationProvider(string baseAddress)
         {
             httpClient = new HttpClient();
@@ -21,7 +19,7 @@ namespace JiraIssueStatusChecker
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<bool> Authorize(string username, string password)
+        public async Task<bool> CheckAuthentication(string username, string password)
         {
             string authString = Base64Encode(username + ":" + password);
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authString);
@@ -36,6 +34,8 @@ namespace JiraIssueStatusChecker
         }
 
         public string AuthString { get; private set; }
+
+        private HttpClient httpClient;
 
         private string Base64Encode(string plainText)
         {

@@ -4,11 +4,11 @@ namespace JiraIssueStatusChecker
 {
     static class IssueStatusEnumConverter
     {
-         public static IssueStatus ConvertToenum(string issueStatus)
+        public static IssueStatus ConvertToenum(string issueStatus)
         {
             switch (issueStatus)
             {
-                case "Open": 
+                case "Open":
                     return IssueStatus.Open;
                 case "Resolved":
                     return IssueStatus.Resolved;
@@ -17,7 +17,7 @@ namespace JiraIssueStatusChecker
                 case "Reopened":
                     return IssueStatus.Reopened;
                 case "In Progress":
-                    return  IssueStatus.InProgress;
+                    return IssueStatus.InProgress;
                 case "Done":
                     return IssueStatus.Done;
                 default:

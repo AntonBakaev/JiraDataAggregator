@@ -11,9 +11,6 @@ namespace JiraIssueStatusChecker
 {
     class JiraApiIssueStatusChecker: IJiraIssueStatusChecker
     {
-        private IJiraBasicAuthenticationProvider authenticationProvider;
-        private HttpClient httpClient;
-
         //todo base address should be "https://telenor-ose.atlassian.net/rest/api/2/" and moved to config file
         public JiraApiIssueStatusChecker(IJiraBasicAuthenticationProvider authenticationProvider, string baseAddress)
         {
@@ -29,7 +26,7 @@ namespace JiraIssueStatusChecker
             string authString = authenticationProvider.AuthString;
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authString);
 
-            HttpResponseMessage response = await httpClient.GetAsync("issue/" + issueKey + "/?fields=status"); //use result and remove async?
+            HttpResponseMessage response = await httpClient.GetAsync("issue/" + issueKey + "/?fields=status"); //use .Result and remove async?
             if (response.IsSuccessStatusCode)
             {
                 string jsonResult = await response.Content.ReadAsStringAsync();
@@ -40,5 +37,8 @@ namespace JiraIssueStatusChecker
             }
             throw new JiraDataAggregatorException("Call to API resulted in: " + response.StatusCode);
         }
+
+        private IJiraBasicAuthenticationProvider authenticationProvider; //use only AuthString?
+        private HttpClient httpClient;
     }
 }
