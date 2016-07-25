@@ -1,6 +1,6 @@
 ﻿namespace Core.ViewModels
 {
-	public class FlowStatisticsVm
+	public class RetailShopFlowStatisticsVm
 	{
 		public int Passed { get; set; }
 		public int Failed { get; set; }
