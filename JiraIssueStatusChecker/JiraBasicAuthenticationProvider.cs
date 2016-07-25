@@ -4,10 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using JiraIssueStatusChecker.Abstract;
-using Newtonsoft.Json.Linq;
 
 namespace JiraIssueStatusChecker
 {
@@ -29,7 +27,7 @@ namespace JiraIssueStatusChecker
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authString);
 
             HttpResponseMessage response = await httpClient.GetAsync(String.Empty);
-            if (response.StatusCode != HttpStatusCode.Unauthorized)
+            if (response.StatusCode != HttpStatusCode.Unauthorized && response.StatusCode != HttpStatusCode.NotFound)
             {
                 AuthString = authString;
                 return true;

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using JiraIssueStatusChecker.Abstract;
 using System.Net.Http;
@@ -32,7 +29,7 @@ namespace JiraIssueStatusChecker
             string authString = authenticationProvider.AuthString;
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authString);
 
-            HttpResponseMessage response = await httpClient.GetAsync("issue/" + issueKey + "/?fields=status");
+            HttpResponseMessage response = await httpClient.GetAsync("issue/" + issueKey + "/?fields=status"); //use result and remove async?
             if (response.IsSuccessStatusCode)
             {
                 string jsonResult = await response.Content.ReadAsStringAsync();
@@ -41,7 +38,7 @@ namespace JiraIssueStatusChecker
 
                 return IssueStatusEnumConverter.ConvertToenum(status);
             }
-            throw new JiraDataAggregatorException("Call to API resulted in:" + response.StatusCode);
+            throw new JiraDataAggregatorException("Call to API resulted in: " + response.StatusCode);
         }
     }
 }

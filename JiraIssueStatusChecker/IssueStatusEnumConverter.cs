@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Core.Enums;
-using Core.Exceptions;
+﻿using Core.Enums;
 
 namespace JiraIssueStatusChecker
 {
@@ -24,7 +18,7 @@ namespace JiraIssueStatusChecker
                     return IssueStatus.Reopened;
                 case "In Progress":
                     return  IssueStatus.InProgress;
-                case "Dones":
+                case "Done":
                     return IssueStatus.Done;
                 default:
                     return IssueStatus.Unknown;
