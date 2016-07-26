@@ -9,7 +9,7 @@ namespace IntegrationTests
 	[TestFixture]
 	public class RestClientTests
 	{
-		//private readonly IJiraConfigurationHelper jiraConfiguration = new JiraConfigurationHelper();
+		//private readonly IJiraConfigurationHelper jiraConfiguration = new JiraConfigurationHelper(); todo cleanup
 
 		[Test]
 		public async Task GetIssueStatus_ValidData_ReturnsSuccess()
