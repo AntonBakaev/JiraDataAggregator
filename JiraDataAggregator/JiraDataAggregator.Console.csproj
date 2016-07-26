@@ -67,6 +67,10 @@
       <Project>{d654ad0e-d4d5-4bfa-a83d-9ac6aa8232fa}</Project>
       <Name>Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{F8E59FB6-0158-40DA-9CAB-3B9CD7937CFD}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IoC\IoC.csproj">
       <Project>{a6c27638-f027-4a26-9bd7-043934be55da}</Project>
       <Name>IoC</Name>

@@ -10,7 +10,7 @@ namespace Core.VmBuilders
 {
 	public class BlockingIssuesVmBuilder : IBlockingIssuesVmBuilder
 	{
-		public IEnumerable<DefectVm> GetTopBlockingIssues(IEnumerable<Execution> executionsList, int numberOfTopBlockingIssues)
+		public BlockingIssuesVm GetTopBlockingIssues(IEnumerable<Execution> executionsList, int numberOfTopBlockingIssues)
 		{
 			var defectsList = GetDefectsList(GetIssuesList(executionsList));
 
@@ -30,7 +30,13 @@ namespace Core.VmBuilders
 					BlockingIssues = issuesVmList
 				});
 			}
-			return defectsVmList.Take(numberOfTopBlockingIssues).OrderByDescending(d => d.BlockingIssues.Count).ToList();
+
+			return new BlockingIssuesVm()
+			{
+				DefectsList = defectsVmList.Take(numberOfTopBlockingIssues)
+										   .OrderByDescending(d => d.BlockingIssues.Count)
+										   .ToList()
+			};
 		}
 
 		private List<Issue> GetIssuesList(IEnumerable<Execution> executionsList)

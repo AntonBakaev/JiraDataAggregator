@@ -39,7 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comparators\DictionaryComparer.cs" />
+    <Compile Include="Helpers\ConvertHelper.cs" />
     <Compile Include="Helpers\SerializeHelper.cs" />
+    <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

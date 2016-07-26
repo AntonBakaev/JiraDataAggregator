@@ -7,16 +7,16 @@ namespace Core.Aggregators
 {
 	public class DefectReportAggregator : IDefectReportAggregator
 	{
-        private readonly IDefectReportRepository defectReportRepository;
+		private readonly IDefectReportRepository defectReportRepository;
 
 		public DefectReportAggregator(IDefectReportRepository defectReportRepository)
-	    {
-			this.defectReportRepository = defectReportRepository;
-	    }
-
-		public IEnumerable<Execution> GetDeserializedExecutions(string fileName)
 		{
-			return defectReportRepository.GetDeserilizationData(fileName);
+			this.defectReportRepository = defectReportRepository;
+		}
+
+		public IEnumerable<Execution> GetIsitLaunchCriticalViewData(string fileName)
+		{
+			return defectReportRepository.GetIsitLaunchCriticalViewData(fileName);
 		}
 	}
 }

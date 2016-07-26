@@ -7,7 +7,7 @@ namespace Core.Repositories
 {
 	public class DefectReportRepository : IDefectReportRepository
 	{
-		public IEnumerable<Execution> GetDeserilizationData(string filePath)
+		public IEnumerable<Execution> GetIsitLaunchCriticalViewData(string filePath)
 		{
 			return SerializeHelper<Execution>.DeserializeXml(filePath);
 		}

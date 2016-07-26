@@ -56,13 +56,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\DefectReportRepository.cs" />
     <Compile Include="Repositories\Interfaces\IDefectReportRepository.cs" />
+    <Compile Include="ViewModels\AllDefectKeysVm.cs" />
+    <Compile Include="ViewModels\BlockingIssuesVm.cs" />
     <Compile Include="ViewModels\DefectVm.cs" />
     <Compile Include="ViewModels\FlowStatisticsVm.cs" />
     <Compile Include="ViewModels\IssueVm.cs" />
-    <Compile Include="VmBuilders\AllBlockingDefectsVmBuilder.cs" />
+    <Compile Include="VmBuilders\AllDefectKeysVmBuilder.cs" />
     <Compile Include="VmBuilders\BlockingIssuesVmBuilder.cs" />
     <Compile Include="VmBuilders\FlowStatisticsVmBuilder.cs" />
-    <Compile Include="VmBuilders\Interfaces\IAllBlockingDefectsVmBuilder.cs" />
+    <Compile Include="VmBuilders\Interfaces\IAllDefectKeysVmBuilder.cs" />
     <Compile Include="VmBuilders\Interfaces\IBlockingIssuesVmBuilder.cs" />
     <Compile Include="VmBuilders\Interfaces\IFlowStatisticsVmBuilder.cs" />
   </ItemGroup>
