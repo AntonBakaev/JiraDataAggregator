@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using System.Configuration;
+using System.IO;
 
 namespace Common.Helpers
 {
@@ -33,6 +33,23 @@ namespace Common.Helpers
             }
 
             return template;
+        }
+
+
+        public static void GenerateReport(Dictionary<string, string> allModels)
+        {
+            string path = ConfigurationManager.ConnectionStrings["TemplatePath"].ConnectionString;
+            string report_path = ConfigurationManager.ConnectionStrings["ReportPath"].ConnectionString;
+
+            string template = File.ReadAllText(path);
+
+            string datetime = DateTime.Now.ToString("yyyy-M-d hh:mm");
+
+            allModels.Add("Date.Time", datetime);
+
+            template = GenerateRtfReport(template, allModels);
+
+            File.WriteAllText(report_path, template);
         }
     }
 }
