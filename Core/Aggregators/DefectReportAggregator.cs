@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Core.Aggregators.Interfaces;
+using Core.Enums;
 using Core.Models;
 using Core.Repositories.Interfaces;
 
@@ -14,9 +17,24 @@ namespace Core.Aggregators
 			this.defectReportRepository = defectReportRepository;
 		}
 
-		public IEnumerable<Execution> GetIsitLaunchCriticalViewData(string fileName)
+		public async Task<IEnumerable<Execution>> GetIsitLaunchCriticalViewData(string fileName)
 		{
-			return defectReportRepository.GetIsitLaunchCriticalViewData(fileName);
+			IEnumerable<Execution> executions = defectReportRepository.GetIsitLaunchCriticalViewData(fileName);
+			//todo filter executionDefects 
+			foreach (Execution execution in executions)
+			{
+				List<string> filteredExecutionDefects = new List<string>();
+				foreach (string executionDefect in execution.ExecutionDefects)
+				{
+					IssueStatus executionDefectStatus = await defectReportRepository.GetIssueStatus(executionDefect);
+					if (executionDefectStatus != IssueStatus.Done)
+					{
+						filteredExecutionDefects.Add(executionDefect);
+					}
+				}
+				execution.ExecutionDefects = filteredExecutionDefects;
+			}
+			return executions;
 		}
 	}
 }

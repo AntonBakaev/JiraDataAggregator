@@ -30,9 +30,9 @@ namespace JiraDataAggregator
 				this.flowStatisticsVmBuilder = flowStatisticsVmBuilder;
 			}
 
-			public void Execute(string fileName)
+			public async void Execute(string fileName)
 			{
-				IEnumerable<Execution> executionsList = defectReportAggregator.GetIsitLaunchCriticalViewData(fileName);
+				IEnumerable<Execution> executionsList = await defectReportAggregator.GetIsitLaunchCriticalViewData(fileName);
 
 				FlowStatisticsVm flowStatistics = flowStatisticsVmBuilder.GetFlowStatisticsVm(executionsList);
 				FlowStatisticsVm filteredFlowStatistics = flowStatisticsVmBuilder.GetFlowStatisticsVmByFilter(executionsList);

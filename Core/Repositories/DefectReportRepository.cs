@@ -29,8 +29,7 @@ namespace Core.Repositories
 
 			string statusString = JObject.FromObject(dataObject)["fields"]["status"]["name"].ToString();
 
-			
+			return ConvertHelper.ToEnum<IssueStatus>(statusString);
 		}
 	}
 }
-
