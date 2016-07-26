@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using Core.Enums;
 
 namespace JiraIssueStatusChecker.Interfaces
 {

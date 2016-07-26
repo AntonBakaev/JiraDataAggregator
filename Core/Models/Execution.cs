@@ -63,9 +63,14 @@ namespace Core.Models
 			get
 			{
 				return executionDefects ?? (executionDefects = AllExecutionDefectsFullString
-																  .Replace(DefectsCategoriesSeparator, DefectsSeparator.ToString())
-																  .Split(DefectsSeparator)
-																  .Distinct());
+					.Replace(DefectsCategoriesSeparator, DefectsSeparator.ToString())
+					.Split(DefectsSeparator)
+					.Distinct());
+			}
+			set
+			{
+				executionDefects = value;
+				AllExecutionDefectsFullString = String.Join(",", executionDefects);
 			}
 		}
 	}
