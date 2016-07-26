@@ -10,14 +10,16 @@ namespace Core.VmBuilders
 {
 	public class BlockingIssuesVmBuilder : IBlockingIssuesVmBuilder
 	{
+		private const string BaseLinkFormatConfigKey = "BaseLinkFormat";
+
 		public BlockingIssuesVm GetTopBlockingIssues(IEnumerable<Execution> executionsList, int numberOfTopBlockingIssues)
 		{
-			var defectsList = GetDefectsList(GetIssuesList(executionsList));
+			var defectsList = GetDefectsList(executionsList);
 
-			string baseLinkFormat = ConfigurationManager.AppSettings["BaseLinkFormat"];
+			string baseLinkFormat = ConfigurationManager.AppSettings[BaseLinkFormatConfigKey];
 
 			var defectsVmList = new List<DefectVm>();
-			 foreach (var defect in defectsList)
+			foreach (var defect in defectsList)
 			{
 				var issuesVmList = new List<IssueVm>();
 				foreach (var issueKey in defect.BlockingIssuesKeys)
@@ -39,30 +41,25 @@ namespace Core.VmBuilders
 			};
 		}
 
-		private List<Issue> GetIssuesList(IEnumerable<Execution> executionsList)
-		{
-			var issuesList = new List<Issue>();
-			foreach (var execution in executionsList)
-				issuesList.Add(new Issue() { Key = execution.IssueKey, ExecutedDeffectsKeys = execution.ExecutionDefects.ToList() });
-			return issuesList;
-		}
-
-		private List<Defect> GetDefectsList(List<Issue> issuesList)
+		private List<Defect> GetDefectsList(IEnumerable<Execution> executionsList)
 		{
 			var defectsList = new List<Defect>();
-			foreach (var issue in issuesList)
+
+			foreach (var issue in executionsList)
 			{
-				foreach (var defectKey in issue.ExecutedDeffectsKeys)
+				foreach (var defectKey in issue.ExecutionDefects)
 				{
 					if (defectKey == String.Empty)
 						continue;
+
 					int defectIndex = -1;
 					if ((defectIndex = defectsList.FindIndex(d => d.Key == defectKey)) != -1)
-						defectsList[defectIndex].BlockingIssuesKeys.Add(issue.Key);
+						defectsList[defectIndex].BlockingIssuesKeys.Add(issue.IssueKey);
 					else
-						defectsList.Add(new Defect() { Key = defectKey, BlockingIssuesKeys = new List<string>() { issue.Key } });
+						defectsList.Add(new Defect() { Key = defectKey, BlockingIssuesKeys = new List<string>() { issue.IssueKey } });
 				}
 			}
+
 			return defectsList;
 		}
 	}
