@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace JiraDataAggregator._Configuration_.RestService
+namespace DataAccess.RestServices.RestServiceConfig
 {
 	public class RestServicesCollection : ConfigurationElementCollection
 	{

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Configuration;
 using System.Linq;
-using JiraDataAggregator._Configuration_.JiraConnection;
-using JiraDataAggregator._Configuration_.RestService;
+using DataAccess.RestServices.JiraConnectionConfig;
+using DataAccess.RestServices.RestServiceConfig;
 
-namespace JiraDataAggregator._Configuration_.Helpers
+namespace DataAccess.RestServices
 {
 	public static class RestServicesHelper
 	{
@@ -32,10 +32,13 @@ namespace JiraDataAggregator._Configuration_.Helpers
 			var section = (RestServicesSection)ConfigurationManager.GetSection(RestServicesSectionName);
 			if (section == null)
 				throw new Exception("RestServices section not found.");
+
 			var services = section.Services.Cast<RestServiceElement>();
-			RestServiceElement service;
-			if ((service = services.FirstOrDefault(s => s.Name == serviceName)) != null)
+
+			RestServiceElement service = services.FirstOrDefault(s => s.Name == serviceName);
+			if (service != null)
 				return service;
+
 			throw new Exception("Service name is invalid.");
 		}
 
@@ -44,10 +47,13 @@ namespace JiraDataAggregator._Configuration_.Helpers
 			var section = (JiraConnectionsSection)ConfigurationManager.GetSection(JiraConnectionsSectionName);
 			if (section == null)
 				throw new Exception("JiraConnections section not found.");
+
 			var connections = section.Connections.Cast<JiraConnectionElement>();
-			JiraConnectionElement connection;
-			if ((connection = connections.FirstOrDefault(c => c.Name == endPointName)) != null)
+
+			JiraConnectionElement connection = connections.FirstOrDefault(c => c.Name == endPointName);
+			if (connection != null)
 				return connection;
+
 			throw new Exception("Connection name is invalid.");
 		}
 	}

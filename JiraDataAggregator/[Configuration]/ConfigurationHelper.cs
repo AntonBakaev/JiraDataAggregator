@@ -4,8 +4,6 @@ using Core.Repositories;
 using Core.Repositories.Interfaces;
 using Core.VmBuilders;
 using Core.VmBuilders.Interfaces;
-using DataAccess.RestServices;
-using DataAccess.RestServices.Interfaces;
 using StructureMap;
 
 namespace JiraDataAggregator._Configuration_
@@ -20,8 +18,6 @@ namespace JiraDataAggregator._Configuration_
 			x.For<IAllDefectKeysVmBuilder>().Use<AllDefectKeysVmBuilder>();
 			x.For<IBlockingIssuesVmBuilder>().Use<BlockingIssuesVmBuilder>();
 			x.For<IFlowStatisticsVmBuilder>().Use<FlowStatisticsVmBuilder>();
-
-			x.For<IJiraConfigurationHelper>().Use<JiraConfigurationHelper>();
 		}
 	}
 }

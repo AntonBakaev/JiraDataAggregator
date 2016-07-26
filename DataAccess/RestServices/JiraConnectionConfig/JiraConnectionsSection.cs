@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace JiraDataAggregator._Configuration_.JiraConnection
+namespace DataAccess.RestServices.JiraConnectionConfig
 {
 	public class JiraConnectionsSection : ConfigurationSection
 	{

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
 
-namespace JiraDataAggregator._Configuration_.RestService
+namespace DataAccess.RestServices.RestServiceConfig
 {
 	public class RestServiceElement : ConfigurationElement
 	{

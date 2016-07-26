@@ -48,9 +48,15 @@
     <Compile Include="Interfaces\IJiraIssueStatusChecker.cs" />
     <Compile Include="Interfaces\IJiraBasicAuthenticationProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RestServices\JiraConfigurationHelper.cs" />
     <Compile Include="RestServices\Interfaces\IJiraConfigurationHelper.cs" />
+    <Compile Include="RestServices\JiraConnectionConfig\JiraConnectionElement.cs" />
+    <Compile Include="RestServices\JiraConnectionConfig\JiraConnectionsCollection.cs" />
+    <Compile Include="RestServices\JiraConnectionConfig\JiraConnectionsSection.cs" />
     <Compile Include="RestServices\RestClient.cs" />
+    <Compile Include="RestServices\RestServiceConfig\RestServiceElement.cs" />
+    <Compile Include="RestServices\RestServiceConfig\RestServicesCollection.cs" />
+    <Compile Include="RestServices\RestServiceConfig\RestServicesSection.cs" />
+    <Compile Include="RestServices\RestServicesHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
