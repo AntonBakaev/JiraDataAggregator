@@ -27,7 +27,7 @@ namespace Common.Helpers
 				.GetField(name)
 				.GetCustomAttributes(typeof(EnumMemberAttribute), true))
 				.Single();
-			
+
 			return enumMemberAttribute.Value;
 		}
 
@@ -39,9 +39,9 @@ namespace Common.Helpers
 				var enumMemberAttribute = ((EnumMemberAttribute[])enumType
 					.GetField(name)
 					.GetCustomAttributes(typeof(EnumMemberAttribute), true))
-					.Single();
+					.FirstOrDefault();
 
-				if (enumMemberAttribute.Value == str)
+				if (enumMemberAttribute != null && enumMemberAttribute.Value == str)
 				{
 					return (T)Enum.Parse(enumType, name);
 				}

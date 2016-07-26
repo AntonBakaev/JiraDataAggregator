@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using Common.Comparators;
 using Common.Helpers;
+using Core.Enums;
 using NUnit.Framework;
 
 namespace UnitTests.Common.Helpers
@@ -27,6 +28,36 @@ namespace UnitTests.Common.Helpers
 			var actualDict = ConvertHelper.ToDictionary(testObject);
 
 			Assert.IsTrue(DictionaryComparer.Equals(actualDict, expectedDict));
+		}
+
+		[Test]
+		public void ToEnum_ExistingValue_ReturnsCorrespondingEnum()
+		{
+			string issueString = "Done";
+
+			IssueStatus issueStatus = ConvertHelper.ToEnum<IssueStatus>(issueString);
+
+			Assert.AreEqual(IssueStatus.Done, issueStatus);
+		}
+
+		[Test]
+		public void ToEnum_NonExistingValue_ReturnsDefault()
+		{
+			string issueString = "aDone";
+
+			IssueStatus issueStatus = ConvertHelper.ToEnum<IssueStatus>(issueString);
+
+			Assert.AreEqual(default(IssueStatus), issueStatus);
+		}
+
+		[Test]
+		public void ToEnumString_ExistingValue_ReturnsCorrespondingValue()
+		{
+			IssueStatus issueStatus = IssueStatus.InProgress;
+
+			string issueString = ConvertHelper.ToEnumString<IssueStatus>(issueStatus);
+
+			Assert.AreEqual("In progress", issueString);
 		}
 	}
 }

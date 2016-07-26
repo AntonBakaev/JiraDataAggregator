@@ -31,7 +31,7 @@ namespace DataAccess.RestServices
 		{
 			var section = (RestServicesSection)ConfigurationManager.GetSection(RestServicesSectionName);
 			if (section == null)
-				throw new Exception("RestServices section not found.");
+				throw new Exception("RestServices section not found."); //todo: use custom exception
 
 			var services = section.Services.Cast<RestServiceElement>();
 
@@ -39,14 +39,14 @@ namespace DataAccess.RestServices
 			if (service != null)
 				return service;
 
-			throw new Exception("Service name is invalid.");
+			throw new Exception("Service name is invalid.");//todo: use custom exception
 		}
 
 		private static JiraConnectionElement GetConnection(string endPointName)
 		{
 			var section = (JiraConnectionsSection)ConfigurationManager.GetSection(JiraConnectionsSectionName);
 			if (section == null)
-				throw new Exception("JiraConnections section not found.");
+				throw new Exception("JiraConnections section not found.");//todo: use custom exception
 
 			var connections = section.Connections.Cast<JiraConnectionElement>();
 
@@ -54,7 +54,7 @@ namespace DataAccess.RestServices
 			if (connection != null)
 				return connection;
 
-			throw new Exception("Connection name is invalid.");
+			throw new Exception("Connection name is invalid.");//todo: use custom exception
 		}
 	}
 }
