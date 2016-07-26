@@ -21,8 +21,8 @@ namespace DataAccess.RestServices
 		{
 			using (var client = new HttpClient())
 			{
-				string baseAddress = RestServicesHelper.GetJiraConnectionBaseUrl("");
-				string authString = RestServicesHelper.GetJiraConnectionAuthData("");
+				string baseAddress = RestServicesHelper.GetJiraConnectionBaseUrl("GetIssueStatus");
+				string authString = RestServicesHelper.GetJiraConnectionAuthData("GetIssueStatus");
 
 				//string baseAddress = jiraConfiguration.GetAuthenticationString();
 				//string authString = jiraConfiguration.GetBaseAddress();
