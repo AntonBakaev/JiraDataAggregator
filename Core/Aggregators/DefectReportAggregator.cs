@@ -20,7 +20,7 @@ namespace Core.Aggregators
 		public async Task<IEnumerable<Execution>> GetIsitLaunchCriticalViewData(string fileName)
 		{
 			IEnumerable<Execution> executions = defectReportRepository.GetIsitLaunchCriticalViewData(fileName);
-			//todo filter executionDefects 
+
 			foreach (Execution execution in executions)
 			{
 				List<string> filteredExecutionDefects = new List<string>();

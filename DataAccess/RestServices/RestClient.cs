@@ -10,33 +10,31 @@ namespace DataAccess.RestServices
 {
 	public class RestClient
 	{
-		//private readonly IJiraConfigurationHelper jiraConfiguration;
-
-		//public RestClient(IJiraConfigurationHelper jiraConfiguration)
-		//{
-		//	this.jiraConfiguration = jiraConfiguration;
-		//}
-
-		//ToDo: serviceUrl should be changed to serviceName after restservice section is added to configuration
-		async public Task<TResponse> Get<TResponse>(string serviceUrl, object parameters = null) where TResponse : new()
+		async public Task<TResponse> Get<TResponse>(string serviceName, string[] urlParameters = null, object queryStringParameters = null) where TResponse : new()
 		{
 			using (var client = new HttpClient())
 			{
-				string baseAddress = RestServicesHelper.GetJiraConnectionBaseUrl("GetIssueStatus");
-				string authString = RestServicesHelper.GetJiraConnectionAuthData("GetIssueStatus");
+				string authString = RestServicesHelper.GetJiraConnectionAuthData(serviceName);
+				string baseAddress = RestServicesHelper.GetJiraConnectionBaseUrl(serviceName);
+				string serviceUrlFormatString = RestServicesHelper.GetServiceUrl(serviceName);
+
+				string serviceUrl = String.Empty;
 				string queryString = String.Empty;
 
-				//string baseAddress = jiraConfiguration.GetAuthenticationString();
-				//string authString = jiraConfiguration.GetBaseAddress();
 
 				client.BaseAddress = new Uri(baseAddress);
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authString);
 
-				if (parameters != null)
+				if (urlParameters != null)
 				{
-					queryString = ConvertHelper.ToQueryString(parameters);
+					serviceUrl = String.Format(serviceUrlFormatString, urlParameters);
+				}
+
+				if (queryStringParameters != null)
+				{
+					queryString = ConvertHelper.ToQueryString(queryStringParameters);
 				}
 
 				HttpResponseMessage response = await client.GetAsync(serviceUrl + queryString);

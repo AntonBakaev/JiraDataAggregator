@@ -25,7 +25,10 @@ namespace Core.Repositories
 
 		public async Task<IssueStatus> GetIssueStatus(string issueKey)
 		{
-			var dataObject = await restClient.Get<object>("issue/"+issueKey+"/?fields=status");
+			//var dataObject = await restClient.Get<object>("GetIssueStatus", new string[] { issueKey });
+			var dataObject = await restClient.Get<object>("GetIssueStatus", new string[] { issueKey }, new { fields = "status" });
+
+
 
 			string statusString = JObject.FromObject(dataObject)["fields"]["status"]["name"].ToString();
 
