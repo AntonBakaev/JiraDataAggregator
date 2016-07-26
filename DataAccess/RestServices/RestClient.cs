@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Common.Helpers;
 using DataAccess.RestServices.Interfaces;
 using Newtonsoft.Json;
 
@@ -23,6 +24,7 @@ namespace DataAccess.RestServices
 			{
 				string baseAddress = RestServicesHelper.GetJiraConnectionBaseUrl("GetIssueStatus");
 				string authString = RestServicesHelper.GetJiraConnectionAuthData("GetIssueStatus");
+				string queryString = String.Empty;
 
 				//string baseAddress = jiraConfiguration.GetAuthenticationString();
 				//string authString = jiraConfiguration.GetBaseAddress();
@@ -32,9 +34,12 @@ namespace DataAccess.RestServices
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authString);
 
-				//string callUrlFormat
+				if (parameters != null)
+				{
+					queryString = ConvertHelper.ToQueryString(parameters);
+				}
 
-				HttpResponseMessage response = await client.GetAsync(serviceUrl);
+				HttpResponseMessage response = await client.GetAsync(serviceUrl + queryString);
 				if (response.IsSuccessStatusCode)
 				{
 					string jsonResult = await response.Content.ReadAsStringAsync();

@@ -11,14 +11,14 @@ namespace UnitTests.Common.Helpers
 	[TestFixture]
 	public class ConvertHelperTests
 	{
-		private readonly IEqualityComparer<Dictionary<string, string>> DictionaryComparer 
+		private readonly IEqualityComparer<Dictionary<string, string>> DictionaryComparer
 			= new DictionaryComparer<string, string>(StringComparer.Create(new CultureInfo("en-EN"), false));
 
 		[Test]
 		public void ToDictionary_AnonymousObject_ReturnsSuccess()
 		{
-			object testObject = new {intValue = 123, stringValue = "abcd"};
-			
+			object testObject = new { intValue = 123, stringValue = "abcd" };
+
 			var expectedDict = new Dictionary<string, string>
 			{
 				{"intValue", "123"},
@@ -58,6 +58,33 @@ namespace UnitTests.Common.Helpers
 			string issueString = ConvertHelper.ToEnumString<IssueStatus>(issueStatus);
 
 			Assert.AreEqual("In progress", issueString);
+		}
+
+
+		[Test]
+		public void ToQueryString_CorrectData_ReturnsCorrespondingQueryString()
+		{
+			object parameters = new
+			{
+				Property1 = "value1",
+				Property2 = "value2"
+			};
+
+			string queryString = ConvertHelper.ToQueryString(parameters);
+			queryString = queryString.Remove(queryString.Length - 1);
+
+			Assert.AreEqual("?Property1=value1,Property2=value2", queryString);
+		}
+
+		[Test]
+		public void ToQueryString_Null_ReturnsEmptyString()
+		{
+			object parameters = null;
+
+			string queryString = ConvertHelper.ToQueryString(parameters);
+			//queryString = queryString.Remove(queryString.Length - 1);
+
+			Assert.AreEqual(String.Empty, queryString);
 		}
 	}
 }
