@@ -10,8 +10,6 @@ namespace Common.Helpers
 {
 	public class ConvertHelper
 	{
-		private static string queryParameterFormatString = "{0}={1},";
-
 		public static Dictionary<string, string> ToDictionary(object data)
 		{
 			if (data == null)
@@ -52,28 +50,6 @@ namespace Common.Helpers
 			}
 
 			return default(T);
-		}
-
-		public static string ToQueryString(object parameters)
-		{
-			StringBuilder callUrlSb = new StringBuilder("?");
-
-			if (parameters == null)
-			{
-				return  String.Empty;
-			}
-
-			Type type = parameters.GetType();
-			PropertyInfo[] properties = type.GetProperties();
-
-			foreach (PropertyInfo property in properties)
-			{
-				string value = property.GetValue(parameters) as string;
-
-				callUrlSb.Append(String.Format(queryParameterFormatString, property.Name, value));
-			}
-
-			return callUrlSb.ToString();
 		}
 	}
 }

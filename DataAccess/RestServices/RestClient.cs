@@ -10,6 +10,7 @@ namespace DataAccess.RestServices
 {
 	public class RestClient
 	{
+		//todo: urlParameters should also be an object
 		async public Task<TResponse> Get<TResponse>(string serviceName, string[] urlParameters = null, object queryStringParameters = null) where TResponse : new()
 		{
 			using (var client = new HttpClient())
@@ -34,7 +35,7 @@ namespace DataAccess.RestServices
 
 				if (queryStringParameters != null)
 				{
-					queryString = ConvertHelper.ToQueryString(queryStringParameters);
+					//queryString = ConvertHelper.ToQueryString(queryStringParameters); todo: make helper method to convert dictionary to queryStringParameters
 				}
 
 				HttpResponseMessage response = await client.GetAsync(serviceUrl + queryString);
