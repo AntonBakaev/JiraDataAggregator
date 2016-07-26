@@ -7,6 +7,7 @@ using Core.Models;
 using Core.ViewModels;
 using Core.VmBuilders.Interfaces;
 using IoC.Initialize;
+using JiraDataAggregator._Configuration_;
 
 namespace JiraDataAggregator
 {
@@ -42,31 +43,31 @@ namespace JiraDataAggregator
 
 				AllDefectKeysVm allDefectKeys = allBlockingDefectsVmBuilder.GetAllBlockingDefects(executionsList);
 
-                Dictionary<string, string> fs = ConvertHelper.ToDictionary(flowStatistics);
-                Dictionary<string, string> ffs = ConvertHelper.ToDictionary(filteredFlowStatistics);
-                Dictionary<string, string> bil = ConvertHelper.ToDictionary(blockingIssuesList);
-                Dictionary<string, string> adk = ConvertHelper.ToDictionary(allDefectKeys);
+				Dictionary<string, string> fs = ConvertHelper.ToDictionary(flowStatistics);
+				Dictionary<string, string> ffs = ConvertHelper.ToDictionary(filteredFlowStatistics);
+				Dictionary<string, string> bil = ConvertHelper.ToDictionary(blockingIssuesList);
+				Dictionary<string, string> adk = ConvertHelper.ToDictionary(allDefectKeys);
 
-                Dictionary<string, string> allModels = new Dictionary<string, string>();
+				Dictionary<string, string> allModels = new Dictionary<string, string>();
 
-                foreach (var key in fs.Keys)
-			    {
-			        allModels.Add(key, fs[key]);
-			    }
-                foreach (var key in ffs.Keys)
-                {
-                    allModels.Add(key, ffs[key]);
-                }
-                foreach (var key in bil.Keys)
-                {
-                    allModels.Add(key, bil[key]);
-                }
-                foreach (var key in adk.Keys)
-                {
-                    allModels.Add(key, adk[key]);
-                }
+				foreach (var key in fs.Keys)
+				{
+					allModels.Add(key, fs[key]);
+				}
+				foreach (var key in ffs.Keys)
+				{
+					allModels.Add(key, ffs[key]);
+				}
+				foreach (var key in bil.Keys)
+				{
+					allModels.Add(key, bil[key]);
+				}
+				foreach (var key in adk.Keys)
+				{
+					allModels.Add(key, adk[key]);
+				}
 
-                ReportGeneratorHelper.GenerateReport(allModels);
+				ReportGeneratorHelper.GenerateReport(allModels);
 			}
 		}
 

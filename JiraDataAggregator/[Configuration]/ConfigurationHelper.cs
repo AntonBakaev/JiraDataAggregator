@@ -8,7 +8,7 @@ using DataAccess.RestServices;
 using DataAccess.RestServices.Interfaces;
 using StructureMap;
 
-namespace JiraDataAggregator
+namespace JiraDataAggregator._Configuration_
 {
 	public class ConfigurationHelper
 	{

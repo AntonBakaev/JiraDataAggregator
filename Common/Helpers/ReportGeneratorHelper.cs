@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Common.Helpers
 {
-    class ReportGeneratorHelper
+    public class ReportGeneratorHelper
     {
         public static string GenerateRtfReport(string template, IDictionary<string, string> parameters = null)
         {
