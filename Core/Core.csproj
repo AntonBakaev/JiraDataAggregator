@@ -56,7 +56,6 @@
     <Compile Include="Models\Defect.cs" />
     <Compile Include="Models\Execution.cs" />
     <Compile Include="Models\IsitLaunchCriticalMain.cs" />
-    <Compile Include="Models\Issue.cs" />
     <Compile Include="Models\TestStep.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\DefectReportRepository.cs" />
