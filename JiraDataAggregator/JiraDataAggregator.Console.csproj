@@ -53,9 +53,13 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="[Configuration]\ConfigurationHelper.cs" />
+    <Compile Include="[Configuration]\Helpers\RestServicesHelper.cs" />
     <Compile Include="[Configuration]\JiraConnection\JiraConnectionElement.cs" />
     <Compile Include="[Configuration]\JiraConnection\JiraConnectionsSection.cs" />
     <Compile Include="[Configuration]\JiraConnection\JiraConnectionsCollection.cs" />
+    <Compile Include="[Configuration]\RestService\RestServiceElement.cs" />
+    <Compile Include="[Configuration]\RestService\RestServicesCollection.cs" />
+    <Compile Include="[Configuration]\RestService\RestServicesSection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

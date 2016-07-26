@@ -47,9 +47,6 @@
   <ItemGroup>
     <Compile Include="Interfaces\IJiraIssueStatusChecker.cs" />
     <Compile Include="Interfaces\IJiraBasicAuthenticationProvider.cs" />
-    <Compile Include="IssueStatusEnumConverter.cs" />
-    <Compile Include="JiraApiIssueStatusChecker.cs" />
-    <Compile Include="JiraBasicAuthenticationProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RestServices\JiraConfigurationHelper.cs" />
     <Compile Include="RestServices\Interfaces\IJiraConfigurationHelper.cs" />
