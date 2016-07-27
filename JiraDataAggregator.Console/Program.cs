@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Threading.Tasks;
-using Common.Helpers;
 using Core.Aggregators.Interfaces;
 using Core.Models;
 using Core.Reports;
@@ -35,10 +34,16 @@ namespace JiraDataAggregator
 
 			public async Task Execute(string fileName)
 			{
-				//IEnumerable<Execution> executionsList = await defectReportAggregator.GetIsitLaunchCriticalViewData(fileName);
+				IEnumerable<Execution> executionsList = await defectReportAggregator.GetIsitLaunchCriticalViewData(fileName);
 
-				IEnumerable<Execution> executionsList = SerializeHelper<Execution>.DeserializeXml(fileName); //temp
+				DefectReportVm defectReportVm = GenerateDefectReportVm(executionsList);
 
+				GenerateXmlDefectReport(defectReportVm);
+				GenerateRtfDefectReport(defectReportVm);
+			}
+
+			private DefectReportVm GenerateDefectReportVm(IEnumerable<Execution> executionsList)
+			{
 				FlowStatisticsVm flowStatistics = flowStatisticsVmBuilder.GetFlowStatisticsVm(executionsList);
 				FlowStatisticsVm filteredFlowStatistics = flowStatisticsVmBuilder.GetFlowStatisticsVmByFilter(executionsList);
 
@@ -47,17 +52,25 @@ namespace JiraDataAggregator
 
 				AllDefectKeysVm allDefectKeys = allBlockingDefectsVmBuilder.GetAllBlockingDefects(executionsList);
 
-				var defectReportVm = new DefectReportVm()
-				{
-					FlowStatisticsVm = flowStatistics,
-					RetailShopFlowStatisticsVm = filteredFlowStatistics,
-					BlockingIssuesVm = blockingIssuesList,
-					AllDefectKeysVm = allDefectKeys
-				};
+				return new DefectReportVm()
+					{
+						FlowStatisticsVm = flowStatistics,
+						RetailShopFlowStatisticsVm = filteredFlowStatistics,
+						BlockingIssuesVm = blockingIssuesList,
+						AllDefectKeysVm = allDefectKeys
+					};
+			}
+
+			private void GenerateXmlDefectReport(DefectReportVm defectReportVm)
+			{
 				var xmlReporter = new XmlDefectReporter();
 				xmlReporter.Generate(defectReportVm);
-                var rtfReporter = new RtfDefectReporter();
-                rtfReporter.Generate(defectReportVm);
+			}
+
+			private void GenerateRtfDefectReport(DefectReportVm defectReportVm)
+			{
+				var rtfReporter = new RtfDefectReporter();
+				rtfReporter.Generate(defectReportVm);
 			}
 		}
 
