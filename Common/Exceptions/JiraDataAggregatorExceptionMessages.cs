@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Common
+﻿namespace Common.Exceptions
 {
-	public static class JiraDataAggregatorExceptionKeys
+	public static class JiraDataAggregatorExceptionMessages
 	{
-
-
-		public static class RestExceptionKeys
+		public static class RestExceptionMessages
 		{
 			public const string BadRequestError = "The request could not be understood by the server due to malformed syntax.";
 			public const string UnauthorizedError = "The request requires user authentication.";

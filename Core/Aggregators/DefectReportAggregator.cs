@@ -27,9 +27,10 @@ namespace Core.Aggregators
 		{
 			IEnumerable<Execution> executions = defectReportRepository.GetIsitLaunchCriticalViewData(fileName);
 
-			foreach (Execution execution in executions)
+			foreach (Execution execution in executions.Take(5))
 			{
 				List<string> filteredExecutionDefects = new List<string>();
+				var tasks = new List<Task<Tuple<int, bool>>>();
 				foreach (string executionDefect in execution.ExecutionDefects)
 				{
 					//todo: there must be issukey validation somewhere
