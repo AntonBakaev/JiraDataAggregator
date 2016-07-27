@@ -7,12 +7,14 @@ namespace Core.ViewModels
 	[Serializable]
 	public class DefectVm
 	{
-		[XmlAttribute("key")]
+		[XmlElement("key")]
 		public string DefectName { get; set; }
 
-		[XmlAttribute("link")]
+		[XmlElement("link")]
 		public string Link { get; set; }
 
+		[XmlArray("blockedIssues")]
+		[XmlArrayItem("issue", typeof(IssueVm))]
 		public List<IssueVm> BlockingIssues { get; set; }
 
 		[XmlIgnore]

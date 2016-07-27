@@ -35,9 +35,9 @@ namespace JiraDataAggregator
 
 			public async Task Execute(string fileName)
 			{
-				//IEnumerable<Execution> executionsList = await defectReportAggregator.GetIsitLaunchCriticalViewData(fileName);
+				IEnumerable<Execution> executionsList = await defectReportAggregator.GetIsitLaunchCriticalViewData(fileName);
 
-				IEnumerable<Execution> executionsList = SerializeHelper<Execution>.DeserializeXml(fileName);
+				//IEnumerable<Execution> executionsList = SerializeHelper<Execution>.DeserializeXml(fileName); //temp
 
 				FlowStatisticsVm flowStatistics = flowStatisticsVmBuilder.GetFlowStatisticsVm(executionsList);
 				FlowStatisticsVm filteredFlowStatistics = flowStatisticsVmBuilder.GetFlowStatisticsVmByFilter(executionsList);
@@ -56,32 +56,6 @@ namespace JiraDataAggregator
 				};
 				var xmlReporter = new XmlDefectReporter();
 				xmlReporter.Generate(defectReportVm);
-
-				Dictionary<string, string> fs = ConvertHelper.ToDictionary(flowStatistics);
-				Dictionary<string, string> ffs = ConvertHelper.ToDictionary(filteredFlowStatistics);
-				Dictionary<string, string> bil = ConvertHelper.ToDictionary(blockingIssuesList);
-				Dictionary<string, string> adk = ConvertHelper.ToDictionary(allDefectKeys);
-
-				Dictionary<string, string> allModels = new Dictionary<string, string>();
-
-				foreach (var key in fs.Keys)
-				{
-					allModels.Add(key, fs[key]);
-				}
-				foreach (var key in ffs.Keys)
-				{
-					allModels.Add(key, ffs[key]);
-				}
-				foreach (var key in bil.Keys)
-				{
-					allModels.Add(key, bil[key]);
-				}
-				foreach (var key in adk.Keys)
-				{
-					allModels.Add(key, adk[key]);
-				}
-
-				ReportGeneratorHelper.GenerateReport(allModels);
 			}
 		}
 

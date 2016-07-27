@@ -16,32 +16,26 @@ namespace DataAccess.RestServices
 				string authString = RestServicesHelper.GetJiraConnectionAuthData(serviceName);
 				Uri baseAddress = new Uri(RestServicesHelper.GetJiraConnectionBaseUrl(serviceName));
 				UriTemplate serviceUrlTemplate = new UriTemplate(RestServicesHelper.GetServiceUrl(serviceName));
-
-				Uri serviceUrl = serviceUrlTemplate.BindByName(baseAddress, ConvertHelper.ToDictionary(parameters));
+				//todo: rethrow argumentException
+				Uri serviceUrl = serviceUrlTemplate.BindByName(baseAddress, ConvertHelper.ToDictionary(parameters)); 
 
 				client.BaseAddress = baseAddress;
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authString);
-
-				try
+				
+				//todo: rethrow possible exception
+				HttpResponseMessage response = await client.GetAsync(serviceUrl); 
+				if (!response.IsSuccessStatusCode)
 				{
-					//todo: throw exception if no access to jira
-					HttpResponseMessage response = await client.GetAsync(serviceUrl);
-					if (response.IsSuccessStatusCode)
-					{
-						string jsonResult = await response.Content.ReadAsStringAsync();
-						return JsonConvert.DeserializeObject<TResponse>(jsonResult);
-					}
-				}
-				catch (Exception ex)
-				{
-					
+					throw JiraDataAggragatorRestExceptionFactory.GetSpecificRestException(response.StatusCode, serviceUrl.AbsoluteUri);
 				}
 
+				string jsonResult = await response.Content.ReadAsStringAsync();
+				return JsonConvert.DeserializeObject<TResponse>(jsonResult);
 			}
 
-			return default(TResponse);
+			//return default(TResponse);
 		}
 	}
 }

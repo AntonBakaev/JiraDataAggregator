@@ -65,7 +65,9 @@ namespace Core.Models
 				return executionDefects ?? (executionDefects = AllExecutionDefectsFullString
 					.Replace(DefectsCategoriesSeparator, DefectsSeparator.ToString())
 					.Split(DefectsSeparator)
-					.Distinct());
+					.Distinct()
+					.Select(x => x.Trim())
+					.Where(x => !String.IsNullOrEmpty(x)));
 			}
 			set
 			{
