@@ -42,7 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comparators\DictionaryComparer.cs" />
+    <Compile Include="Exceptions\JiraDataAggregatorException.cs" />
+    <Compile Include="JiraDataAggregatorExceptionKeys.cs" />
     <Compile Include="Helpers\ConvertHelper.cs" />
+    <Compile Include="Helpers\ConsoleLogger.cs" />
+    <Compile Include="Helpers\Interfaces\ILogger.cs" />
+    <Compile Include="JiraDataAggregatorExceptionKeys.cs" />
+    <Compile Include="Helpers\JiraDataAggragatorRestExceptionFactory.cs" />
     <Compile Include="Helpers\ReportGeneratorHelper.cs" />
     <Compile Include="Helpers\SerializeHelper.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />

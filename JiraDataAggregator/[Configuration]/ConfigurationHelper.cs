@@ -1,4 +1,7 @@
-﻿using Core.Aggregators;
+﻿using System;
+using Common.Helpers;
+using Common.Helpers.Interfaces;
+using Core.Aggregators;
 using Core.Aggregators.Interfaces;
 using Core.Repositories;
 using Core.Repositories.Interfaces;
@@ -18,6 +21,7 @@ namespace JiraDataAggregator._Configuration_
 			x.For<IAllDefectKeysVmBuilder>().Use<AllDefectKeysVmBuilder>();
 			x.For<IBlockingIssuesVmBuilder>().Use<BlockingIssuesVmBuilder>();
 			x.For<IFlowStatisticsVmBuilder>().Use<FlowStatisticsVmBuilder>();
+			x.For<ILogger>().Use<ConsoleLogger>();
 		}
 	}
 }
