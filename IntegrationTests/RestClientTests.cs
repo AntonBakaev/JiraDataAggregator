@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DataAccess.RestServices;
-using DataAccess.RestServices.Interfaces;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
