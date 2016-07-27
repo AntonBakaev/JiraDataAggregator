@@ -17,7 +17,7 @@ namespace DataAccess.RestServices
 				Uri baseAddress = new Uri(RestServicesHelper.GetJiraConnectionBaseUrl(serviceName));
 				UriTemplate serviceUrlTemplate = new UriTemplate(RestServicesHelper.GetServiceUrl(serviceName));
 				//todo: rethrow argumentException
-				Uri serviceUrl = serviceUrlTemplate.BindByName(baseAddress, ConvertHelper.ToDictionary(parameters));
+				Uri serviceUrl = serviceUrlTemplate.BindByName(baseAddress, ConvertHelper.ToDictionary(parameters)); 
 
 				client.BaseAddress = baseAddress;
 				client.DefaultRequestHeaders.Accept.Clear();
@@ -25,16 +25,17 @@ namespace DataAccess.RestServices
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authString);
 				
 				//todo: rethrow possible exception
-				HttpResponseMessage response = await client.GetAsync(serviceUrl);
-				if (response.IsSuccessStatusCode)
+				HttpResponseMessage response = await client.GetAsync(serviceUrl); 
+				if (!response.IsSuccessStatusCode)
 				{
-					string jsonResult = await response.Content.ReadAsStringAsync();
-					return JsonConvert.DeserializeObject<TResponse>(jsonResult);
+					throw JiraDataAggragatorRestExceptionFactory.GetSpecificRestException(response.StatusCode, serviceUrl.AbsoluteUri);
 				}
-				//todo check status and throw corresponding exception
+
+				string jsonResult = await response.Content.ReadAsStringAsync();
+				return JsonConvert.DeserializeObject<TResponse>(jsonResult);
 			}
 
-			return default(TResponse);
+			//return default(TResponse);
 		}
 	}
 }
