@@ -12,11 +12,11 @@ using Common.Helpers;
 
 namespace Core.Reports
 {
-    class RtfDefectReporter
+    public class RtfDefectReporter : RtfReporter<DefectReportVm>
     {
         private const string RtfReportFileConfigKey = "RtfDefectReportFileName";
 
-        public static void Generate(DefectReportVm defectReportVm)
+        public void Generate(DefectReportVm defectReportVm)
         {
             StringBuilder flowStatisticsStr = new StringBuilder();
 
@@ -37,11 +37,11 @@ namespace Core.Reports
 
             foreach (DefectVm defect in defectReportVm.BlockingIssuesVm.DefectsList)
             {
-                blockingIssuesBuilder.AppendLine(string.Format("\t * {0} - blocks {1} flows", defect.DefectName, defect.BlockingIssuesCount));
+                blockingIssuesBuilder.AppendLine(string.Format("* {0} - blocks {1} flows", defect.DefectName, defect.BlockingIssuesCount));
 
                 foreach (IssueVm issue in defect.BlockingIssues)
                 {
-                    blockingIssuesBuilder.AppendLine("\t\t *" + string.Format("{0} {1}", issue.IssueName, issue.Link));
+                    blockingIssuesBuilder.AppendLine("\t *" + string.Format("{0} {1}", issue.IssueName, issue.Link));
                 }
             }
 
@@ -115,7 +115,7 @@ namespace Core.Reports
             rtbBox.AppendText(line);
             rtbBox.Select(start, line.Length);
 
-            rtbBox.SelectionFont = new Font("Arial", 13);
+            rtbBox.SelectionFont = new Font("Arial", 11);
 
             start = rtbBox.TextLength;
             line = "\nList of all defects that blocks E2E flow\n\n";
@@ -130,13 +130,14 @@ namespace Core.Reports
             rtbBox.AppendText(line);
             rtbBox.Select(start, line.Length);
 
-            rtbBox.SelectionFont = new Font("Arial", 13);
+            rtbBox.SelectionFont = new Font("Arial", 11);
 
             string filePath = ConfigurationManager.AppSettings[RtfReportFileConfigKey];
 
             if (!File.Exists(filePath))
             {
-                File.Create(filePath);
+                FileStream stream = File.Create(filePath);
+                stream.Close();
             }
 
             rtbBox.SaveFile(filePath, RichTextBoxStreamType.RichText);

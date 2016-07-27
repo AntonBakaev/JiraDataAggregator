@@ -5,17 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core.ViewModels;
+using Core.ViewModels.Interfaces;
 
 namespace Core.Reports
 {
-    class RtfReporter
+    public class RtfReporter<TViewModel> where TViewModel : IViewModel, new()
     {
         private const string RtfReportFileConfigKey = "RtfDefectReportFileName";
 
-        public void Generate(DefectReportVm defectReportVm)
+        public virtual void Generate(IViewModel defectReportVm)
         {
-
-
         }
     }
 }
