@@ -29,20 +29,26 @@ namespace Core.Aggregators
 
 		public async Task<IEnumerable<Execution>> GetIsitLaunchCriticalViewData(string fileName)
 		{
-			List<Task<Tuple<string, IssueStatus>>> tasks = new List<Task<Tuple<string, IssueStatus>>>();
-			List<string> issueKeysScheduledForChecking = new List<string>();
-			Stopwatch sw = new Stopwatch();
-			sw.Start();
-
-
 			IEnumerable<Execution> executions = defectReportRepository.GetIsitLaunchCriticalViewData(fileName);
+			
+			return await FilterExecutionDefects(executions);
+		}
+
+		private async Task<IEnumerable<Execution>> FilterExecutionDefects(IEnumerable<Execution> executions)
+		{
+			List<Task<Tuple<string, IssueStatus>>> tasks = new List<Task<Tuple<string, IssueStatus>>>();
+			List<string> scheduledForCheckingIssueKeysList = new List<string>();
+
+			//Stopwatch sw = new Stopwatch();
+			//sw.Start();
+			
 			foreach (Execution execution in executions)
 			{
 				foreach (string executionDefect in execution.ExecutionDefects)
 				{
-					if (!issueKeysScheduledForChecking.Contains(executionDefect))
+					if (!scheduledForCheckingIssueKeysList.Contains(executionDefect))
 					{
-						issueKeysScheduledForChecking.Add(executionDefect);
+						scheduledForCheckingIssueKeysList.Add(executionDefect);
 						tasks.Add(GetIssueStatusWrapper(executionDefect));
 					}
 				}
@@ -71,10 +77,9 @@ namespace Core.Aggregators
 				execution.ExecutionDefects = filteredExecutionDefects;
 			}
 
-
-			sw.Stop();
 			return executions;
-		}
+			//sw.Stop();
+		} 
 
 		private async Task<Tuple<string, IssueStatus>> GetIssueStatusWrapper(string issueKey)
 		{
