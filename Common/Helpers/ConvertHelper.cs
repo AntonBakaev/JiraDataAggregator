@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.Serialization;
-using System.Text;
-
 
 namespace Common.Helpers
 {
@@ -33,7 +30,7 @@ namespace Common.Helpers
 			return enumMemberAttribute.Value;
 		}
 
-		public static T ToEnum<T>(string str)
+		public static T ToEnum<T>(string value)
 		{
 			var enumType = typeof(T);
 			foreach (var name in Enum.GetNames(enumType))
@@ -43,7 +40,7 @@ namespace Common.Helpers
 					.GetCustomAttributes(typeof(EnumMemberAttribute), true))
 					.FirstOrDefault();
 
-				if (enumMemberAttribute != null && enumMemberAttribute.Value == str)
+				if (enumMemberAttribute != null && enumMemberAttribute.Value == value)
 				{
 					return (T)Enum.Parse(enumType, name);
 				}
