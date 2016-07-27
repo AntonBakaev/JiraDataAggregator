@@ -7,5 +7,6 @@ namespace Core.ViewModels
 		public string DefectName { get; set; }
 		public string Link { get; set; }
 		public List<IssueVm> BlockingIssues { get; set; }
+		public int BlockingIssuesCount { get { return BlockingIssues.Count; } }
 	}
 }

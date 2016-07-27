@@ -115,9 +115,9 @@ namespace UnitTests.Core.VmBuilders
 												 .OrderByDescending(d => d.BlockingIssues.Count)
 												 .ToList();
 
-			var actualVm = blockingIssuesVmBuilder.GetTopBlockingIssues(executionsList, 5);
+			BlockingIssuesVm actualVm = blockingIssuesVmBuilder.GetTopBlockingIssues(executionsList, 5);
 
-			CollectionAssert.AreEqual(expectedVm.DefectsList, actualVm.DefectsList);
+			Assert.IsTrue(IsBlockingIssuesVmsEquivalent(expectedVm, actualVm));
 		}
 
 		private void InitializeExecutionsList()
@@ -217,6 +217,41 @@ namespace UnitTests.Core.VmBuilders
 					CreationDate = "Tue Jun 21 05:04:16 PDT 2016"
 				}
 			);
+		}
+
+		private bool IsBlockingIssuesVmsEquivalent(BlockingIssuesVm expectedVm, BlockingIssuesVm actualVm)
+		{
+			if (expectedVm.DefectsList.Count() != actualVm.DefectsList.Count())
+				return false;
+
+			for (int i = 0; i < expectedVm.DefectsList.Count(); i++)
+				if (!IsDefectVmsEquivalent(expectedVm.DefectsList.ElementAt(i), actualVm.DefectsList.ElementAt(i)))
+					return false;
+
+			return true;
+		}
+
+		private bool IsDefectVmsEquivalent(DefectVm expectedDefectVm, DefectVm actualDefectVm)
+		{
+			if (expectedDefectVm.DefectName != actualDefectVm.DefectName
+				|| expectedDefectVm.Link != actualDefectVm.Link
+				|| expectedDefectVm.BlockingIssues.Count != actualDefectVm.BlockingIssues.Count)
+				return false;
+
+			for (int i = 0; i < expectedDefectVm.BlockingIssues.Count; i++)
+				if (!IsIssueVmsEquivalent(expectedDefectVm.BlockingIssues[i], actualDefectVm.BlockingIssues[i]))
+					return false;
+
+			return true;
+		}
+
+		private bool IsIssueVmsEquivalent(IssueVm expectedIssueVm, IssueVm actualIssueVm)
+		{
+			if (expectedIssueVm.IssueName != actualIssueVm.IssueName
+			    || expectedIssueVm.Link != actualIssueVm.Link)
+				return false;
+
+			return true;
 		}
 	}
 }
