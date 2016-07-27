@@ -10,7 +10,7 @@ using Core.VmBuilders.Interfaces;
 using IoC.Initialize;
 using JiraDataAggregator._Configuration_;
 
-namespace JiraDataAggregator
+namespace JiraDataAggregator.Console
 {
 	public class Program
 	{
@@ -53,12 +53,12 @@ namespace JiraDataAggregator
 				AllDefectKeysVm allDefectKeys = allBlockingDefectsVmBuilder.GetAllBlockingDefects(executionsList);
 
 				return new DefectReportVm()
-					{
-						FlowStatisticsVm = flowStatistics,
-						RetailShopFlowStatisticsVm = filteredFlowStatistics,
-						BlockingIssuesVm = blockingIssuesList,
-						AllDefectKeysVm = allDefectKeys
-					};
+				{
+					FlowStatisticsVm = flowStatistics,
+					RetailShopFlowStatisticsVm = filteredFlowStatistics,
+					BlockingIssuesVm = blockingIssuesList,
+					AllDefectKeysVm = allDefectKeys
+				};
 			}
 
 			private void GenerateXmlDefectReport(DefectReportVm defectReportVm)
