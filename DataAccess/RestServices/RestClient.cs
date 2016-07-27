@@ -24,12 +24,19 @@ namespace DataAccess.RestServices
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authString);
 
-				//todo: throw exception if no access to jira
-				HttpResponseMessage response = await client.GetAsync(serviceUrl);
-				if (response.IsSuccessStatusCode)
+				try
 				{
-					string jsonResult = await response.Content.ReadAsStringAsync();
-					return JsonConvert.DeserializeObject<TResponse>(jsonResult);
+					//todo: throw exception if no access to jira
+					HttpResponseMessage response = await client.GetAsync(serviceUrl);
+					if (response.IsSuccessStatusCode)
+					{
+						string jsonResult = await response.Content.ReadAsStringAsync();
+						return JsonConvert.DeserializeObject<TResponse>(jsonResult);
+					}
+				}
+				catch (Exception ex)
+				{
+					
 				}
 
 			}

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Threading.Tasks;
 using Common.Helpers;
 using Core.Aggregators.Interfaces;
 using Core.Models;
@@ -31,7 +32,7 @@ namespace JiraDataAggregator
 				this.flowStatisticsVmBuilder = flowStatisticsVmBuilder;
 			}
 
-			public async void Execute(string fileName)
+			public async Task Execute(string fileName)
 			{
 				IEnumerable<Execution> executionsList = await defectReportAggregator.GetIsitLaunchCriticalViewData(fileName);
 
@@ -74,7 +75,7 @@ namespace JiraDataAggregator
 		static void Main(string[] args)
 		{
 			Application.Initialize(ConfigurationHelper.ConfigureDependencies);
-			Application.Current.Container.GetInstance<ConsoleRunner>().Execute(args[0]);
+			Application.Current.Container.GetInstance<ConsoleRunner>().Execute(args[0]).Wait();
 		}
 	}
 }

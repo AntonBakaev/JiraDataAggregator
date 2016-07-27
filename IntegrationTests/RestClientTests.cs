@@ -16,7 +16,7 @@ namespace IntegrationTests
 		public async Task GetIssueStatus_ValidData_ReturnsSuccess()
 		{
 			var client = new RestClient();
-			var dataObject = await client.Get<object>("GetIssueStatus", new { issuekey = "ONESCREEN-12551" });
+			var dataObject = await client.Get<object>("GetIssueStatus", new { issuekey = "ONESCREEN-11682" });
 
 			Assert.IsNotNull(dataObject);
 			Assert.DoesNotThrow(() => JObject.FromObject(dataObject)["fields"]["status"]["name"].ToString());
