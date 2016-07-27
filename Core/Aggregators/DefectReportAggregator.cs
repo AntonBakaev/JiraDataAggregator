@@ -8,18 +8,21 @@ using Core.Aggregators.Interfaces;
 using Core.Enums;
 using Core.Models;
 using Core.Repositories.Interfaces;
+using NLog;
 
 namespace Core.Aggregators
 {
 	public class DefectReportAggregator : IDefectReportAggregator
 	{
+		private static Logger logger = LogManager.GetCurrentClassLogger();
+
 		private readonly IDefectReportRepository defectReportRepository;
-		private ILogger logger;
+		//private ILogger logger;
 		
-		public DefectReportAggregator(IDefectReportRepository defectReportRepository, ILogger logger)
+		public DefectReportAggregator(IDefectReportRepository defectReportRepository/*, ILogger logger*/)
 		{
 			this.defectReportRepository = defectReportRepository;
-			this.logger = logger;
+			//this.logger = logger;
 		}
 
 		
@@ -44,7 +47,8 @@ namespace Core.Aggregators
 					}
 					catch (JiraDataAggregatorException ex)
 					{
-						logger.Log(ex);
+						//logger.Log(ex);
+						logger.Error(ex.Message);
 					}
 				}
 				execution.ExecutionDefects = filteredExecutionDefects;
