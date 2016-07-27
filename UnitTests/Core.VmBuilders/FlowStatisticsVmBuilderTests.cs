@@ -6,7 +6,7 @@ using Core.VmBuilders;
 using Core.VmBuilders.Interfaces;
 using NUnit.Framework;
 
-namespace UnitTests
+namespace UnitTests.Core.VmBuilders
 {
 	[TestFixture]
 	public class FlowStatisticsVmBuilderTests
@@ -36,7 +36,7 @@ namespace UnitTests
 					ExecutedStatus = ExecutedStatus.Pass,
 					AllExecutionDefectsFullString = "ONESCREEN-11608,ONESCREEN-11979 | ONESCREEN-11979",
 					CreationDate = "Tue Jun 21 05:04:12 PDT 2016"
-				} 
+				}
 				);
 
 			executionsList.Add(
@@ -153,9 +153,9 @@ namespace UnitTests
 		private bool CompareViewModels(FlowStatisticsVm expectedViewModel, FlowStatisticsVm actualViewModel)
 		{
 			return (expectedViewModel.Blocked == actualViewModel.Blocked) &&
-			       (expectedViewModel.Failed == actualViewModel.Failed) &&
-			       (expectedViewModel.Passed == actualViewModel.Passed) &&
-			       (expectedViewModel.Wip == actualViewModel.Wip);
+				   (expectedViewModel.Failed == actualViewModel.Failed) &&
+				   (expectedViewModel.Passed == actualViewModel.Passed) &&
+				   (expectedViewModel.Wip == actualViewModel.Wip);
 		}
 
 		#endregion HelperMethods
