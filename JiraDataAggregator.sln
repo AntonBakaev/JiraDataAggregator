@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraDataAggregator.Console", "JiraDataAggregator\JiraDataAggregator.Console.csproj", "{AED81B80-2866-4557-9E46-A7A9B4356894}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{D654AD0E-D4D5-4BFA-A83D-9AC6AA8232FA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{31BE8653-0084-4627-8B0B-CDB6818AB8B4}"
@@ -15,16 +13,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "Integra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{F8E59FB6-0158-40DA-9CAB-3B9CD7937CFD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraDataAggregator.Console", "JiraDataAggregator.Console\JiraDataAggregator.Console.csproj", "{AED81B80-2866-4557-9E46-A7A9B4356894}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AED81B80-2866-4557-9E46-A7A9B4356894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AED81B80-2866-4557-9E46-A7A9B4356894}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AED81B80-2866-4557-9E46-A7A9B4356894}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AED81B80-2866-4557-9E46-A7A9B4356894}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D654AD0E-D4D5-4BFA-A83D-9AC6AA8232FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D654AD0E-D4D5-4BFA-A83D-9AC6AA8232FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D654AD0E-D4D5-4BFA-A83D-9AC6AA8232FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -49,6 +45,10 @@ Global
 		{F8E59FB6-0158-40DA-9CAB-3B9CD7937CFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8E59FB6-0158-40DA-9CAB-3B9CD7937CFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8E59FB6-0158-40DA-9CAB-3B9CD7937CFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AED81B80-2866-4557-9E46-A7A9B4356894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AED81B80-2866-4557-9E46-A7A9B4356894}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AED81B80-2866-4557-9E46-A7A9B4356894}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AED81B80-2866-4557-9E46-A7A9B4356894}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

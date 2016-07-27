@@ -1,13 +1,13 @@
 ﻿using System;
 using Common.Helpers.Interfaces;
 
-namespace JiraDataAggregator.Utilities
+namespace JiraDataAggregator.Console.Utilities
 {
 	public class ConsoleLogger: ILogger
 	{
 		public void Log(Exception ex)
 		{
-			Console.WriteLine(ex.Message);
+			System.Console.WriteLine(ex.Message);
 		}
 	}
 }

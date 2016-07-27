@@ -7,7 +7,7 @@ using Core.Repositories;
 using Core.Repositories.Interfaces;
 using Core.VmBuilders;
 using Core.VmBuilders.Interfaces;
-using JiraDataAggregator.Utilities;
+using JiraDataAggregator.Console.Utilities;
 using StructureMap;
 
 namespace JiraDataAggregator._Configuration_

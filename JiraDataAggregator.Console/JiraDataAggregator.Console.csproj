@@ -7,8 +7,8 @@
     <ProjectGuid>{AED81B80-2866-4557-9E46-A7A9B4356894}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>JiraDataAggregator</RootNamespace>
-    <AssemblyName>JiraDataAggregator</AssemblyName>
+    <RootNamespace>JiraDataAggregator.Console</RootNamespace>
+    <AssemblyName>JiraDataAggregator.Console</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
