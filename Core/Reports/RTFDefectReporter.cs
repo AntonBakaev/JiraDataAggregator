@@ -21,27 +21,27 @@ namespace Core.Reports
             StringBuilder flowStatisticsStr = new StringBuilder();
 
             // first piece
-            flowStatisticsStr.AppendLine("\t * Passed: " + defectReportVm.FlowStatisticsVm.Passed);
-            flowStatisticsStr.AppendLine("\t * Failed: " + defectReportVm.FlowStatisticsVm.Failed);
-            flowStatisticsStr.AppendLine("\t * Wip: " + defectReportVm.FlowStatisticsVm.Wip);
-            flowStatisticsStr.AppendLine("\t * Blocked: " + defectReportVm.FlowStatisticsVm.Blocked);
+            flowStatisticsStr.AppendLine("\t • Passed: " + defectReportVm.FlowStatisticsVm.Passed);
+            flowStatisticsStr.AppendLine("\t • Failed: " + defectReportVm.FlowStatisticsVm.Failed);
+            flowStatisticsStr.AppendLine("\t • Wip: " + defectReportVm.FlowStatisticsVm.Wip);
+            flowStatisticsStr.AppendLine("\t • Blocked: " + defectReportVm.FlowStatisticsVm.Blocked);
 
             StringBuilder retailShopFlowStatisticsStr = new StringBuilder();
             // first piece
-            retailShopFlowStatisticsStr.AppendLine("\t * Passed: " + defectReportVm.FlowStatisticsVm.Passed);
-            retailShopFlowStatisticsStr.AppendLine("\t * Failed: " + defectReportVm.FlowStatisticsVm.Failed);
-            retailShopFlowStatisticsStr.AppendLine("\t * Wip: " + defectReportVm.FlowStatisticsVm.Wip);
-            retailShopFlowStatisticsStr.AppendLine("\t * Blocked: " + defectReportVm.FlowStatisticsVm.Blocked);
+            retailShopFlowStatisticsStr.AppendLine("\t • Passed: " + defectReportVm.FlowStatisticsVm.Passed);
+            retailShopFlowStatisticsStr.AppendLine("\t • Failed: " + defectReportVm.FlowStatisticsVm.Failed);
+            retailShopFlowStatisticsStr.AppendLine("\t • Wip: " + defectReportVm.FlowStatisticsVm.Wip);
+            retailShopFlowStatisticsStr.AppendLine("\t • Blocked: " + defectReportVm.FlowStatisticsVm.Blocked);
 
             StringBuilder blockingIssuesBuilder = new StringBuilder();
 
             foreach (DefectVm defect in defectReportVm.BlockingIssuesVm.DefectsList)
             {
-                blockingIssuesBuilder.AppendLine(string.Format("* {0} - blocks {1} flows", defect.DefectName, defect.BlockingIssuesCount));
+                blockingIssuesBuilder.AppendLine(string.Format("\n• {0} - blocks {1} flows\n", defect.DefectName, defect.BlockingIssuesCount));
 
                 foreach (IssueVm issue in defect.BlockingIssues)
                 {
-                    blockingIssuesBuilder.AppendLine("\t *" + string.Format("{0} {1}", issue.IssueName, issue.Link));
+                    blockingIssuesBuilder.AppendLine("∘ " + string.Format("{0} {1} ", issue.IssueName, issue.Link));
                 }
             }
 
@@ -49,7 +49,7 @@ namespace Core.Reports
 
             foreach (string defectKey in defectReportVm.AllDefectKeysVm.AllDefectKeys)
             {
-                allDefectKeysStr.AppendLine("\t *" + defectKey);
+                allDefectKeysStr.AppendLine("\t • " + defectKey);
             }
 
             RichTextBox rtbBox = new RichTextBox();
