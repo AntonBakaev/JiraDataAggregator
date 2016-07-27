@@ -28,7 +28,7 @@ namespace DataAccess.RestServices
 				HttpResponseMessage response = await client.GetAsync(serviceUrl); 
 				if (!response.IsSuccessStatusCode)
 				{
-					throw JiraDataAggragatorRestExceptionFactory.GetSpecificRestException(response.StatusCode, serviceUrl.AbsoluteUri);
+					throw JiraDataAggregatorRestExceptionFactory.GetSpecificRestException(response.StatusCode, serviceUrl.AbsoluteUri);
 				}
 
 				string jsonResult = await response.Content.ReadAsStringAsync();
