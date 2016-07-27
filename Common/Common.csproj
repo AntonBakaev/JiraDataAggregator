@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comparators\DictionaryComparer.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Helpers\ConvertHelper.cs" />
     <Compile Include="Helpers\ReportGeneratorHelper.cs" />
     <Compile Include="Helpers\SerializeHelper.cs" />
