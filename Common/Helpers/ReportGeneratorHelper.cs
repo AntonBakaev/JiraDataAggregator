@@ -5,29 +5,29 @@ using System.Text.RegularExpressions;
 using System.Configuration;
 using System.IO;
 using System.Text;
-using Core.ViewModels;
+//using Core.ViewModels;
 
 namespace Common.Helpers
 {
 	public class ReportGeneratorHelper
 	{
 
-        public static string GenerateBlockingIssues(BlockingIssuesVm blockingIssues)
-        {
-            StringBuilder blockingIssuesPart = new StringBuilder();
-            foreach (var defect in blockingIssues.DefectsList)
-            {
-                string defectLine = string.Format("{0} - blocks {1} flows", defect.DefectName, defect.BlockingIssues.Count);
-                blockingIssuesPart.Append("\\line \\bullet ");
-                foreach (var issue in defect.BlockingIssues)
-                {
-                    string issueLine = string.Format("{0} {1}", issue.IssueName, issue.Link);
+		//public static string GenerateBlockingIssues(BlockingIssuesVm blockingIssues)
+		//{
+		//	StringBuilder blockingIssuesPart = new StringBuilder();
+		//	foreach (var defect in blockingIssues.DefectsList)
+		//	{
+		//		string defectLine = string.Format("{0} - blocks {1} flows", defect.DefectName, defect.BlockingIssues.Count);
+		//		blockingIssuesPart.Append("\\line \\bullet ");
+		//		foreach (var issue in defect.BlockingIssues)
+		//		{
+		//			string issueLine = string.Format("{0} {1}", issue.IssueName, issue.Link);
 
-                    blockingIssuesPart.Append("\\line \\tab \\u9632 " + issueLine + "}");
-                }
-            }
-            return blockingIssuesPart.ToString();
-        }
+		//			blockingIssuesPart.Append("\\line \\tab \\u9632 " + issueLine + "}");
+		//		}
+		//	}
+		//	return blockingIssuesPart.ToString();
+		//}
 
         public static string GenerateRtfReport(string template, IDictionary<string, string> parameters)
         {
