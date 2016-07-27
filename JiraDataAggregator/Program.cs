@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using Common.Helpers;
 using Core.Aggregators.Interfaces;
 using Core.Models;
+using Core.Reports;
 using Core.ViewModels;
 using Core.VmBuilders.Interfaces;
 using IoC.Initialize;
@@ -33,7 +35,9 @@ namespace JiraDataAggregator
 
 			public async void Execute(string fileName)
 			{
-				IEnumerable<Execution> executionsList = await defectReportAggregator.GetIsitLaunchCriticalViewData(fileName);
+				//IEnumerable<Execution> executionsList = await defectReportAggregator.GetIsitLaunchCriticalViewData(fileName);
+
+				IEnumerable<Execution> executionsList = SerializeHelper<Execution>.DeserializeXml(fileName);
 
 				FlowStatisticsVm flowStatistics = flowStatisticsVmBuilder.GetFlowStatisticsVm(executionsList);
 				FlowStatisticsVm filteredFlowStatistics = flowStatisticsVmBuilder.GetFlowStatisticsVmByFilter(executionsList);
@@ -42,6 +46,16 @@ namespace JiraDataAggregator
 																 Convert.ToInt32(ConfigurationManager.AppSettings["NumberOfTopBlockingIssues"]));
 
 				AllDefectKeysVm allDefectKeys = allBlockingDefectsVmBuilder.GetAllBlockingDefects(executionsList);
+
+				var defectReportVm = new DefectReportVm()
+				{
+					FlowStatisticsVm = flowStatistics,
+					RetailShopFlowStatisticsVm = filteredFlowStatistics,
+					BlockingIssuesVm = blockingIssuesList,
+					AllDefectKeysVm = allDefectKeys
+				};
+				var xmlReporter = new XmlDefectReporter();
+				xmlReporter.Generate(defectReportVm);
 
 				Dictionary<string, string> fs = ConvertHelper.ToDictionary(flowStatistics);
 				Dictionary<string, string> ffs = ConvertHelper.ToDictionary(filteredFlowStatistics);

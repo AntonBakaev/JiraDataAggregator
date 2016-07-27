@@ -30,5 +30,15 @@ namespace Common.Helpers
 				return (List<T>)serializer.Deserialize(reader);
 			}
 		}
+
+		public static void Serialize(string fileNameToGenerate, object objectToSerialize)
+		{
+			var serializer = new XmlSerializer(typeof(T));
+			File.Delete(fileNameToGenerate);
+			using (var stream = new FileStream(fileNameToGenerate, FileMode.OpenOrCreate))
+			{
+				serializer.Serialize(stream, objectToSerialize);
+			}
+		}
 	}
 }

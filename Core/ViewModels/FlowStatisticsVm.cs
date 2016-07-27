@@ -4,7 +4,6 @@ using System.Xml.Serialization;
 namespace Core.ViewModels
 {
 	[Serializable]
-	[XmlType("flowStatistic")]
 	public class FlowStatisticsVm
 	{
 		[XmlElement("passed")]
