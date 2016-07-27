@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DataAccess.RestServices;
 using DataAccess.RestServices.Interfaces;
 using Newtonsoft.Json.Linq;
@@ -21,14 +22,12 @@ namespace IntegrationTests
 			Assert.DoesNotThrow(() => JObject.FromObject(dataObject)["fields"]["status"]["name"].ToString());
 		}
 
-		[Test]
-		public async Task GetIssueStatus_InvalidParameters_Throws()
-		{
-			var client = new RestClient();
-			var dataObject = await client.Get<object>("GetIssueStatus", new { d12 = "ONESCREEN-12551" });
+		//[Test]
+		//public async Task GetIssueStatus_InvalidParameters_ThrowsArgumentException()
+		//{
+		//	var client = new RestClient();
 
-			Assert.IsNotNull(dataObject);
-			Assert.DoesNotThrow(() => JObject.FromObject(dataObject)["fields"]["status"]["name"].ToString());
-		}
+		//	Assert.Throws<ArgumentException>(() => client.Get<object>("GetIssueStatus", new { d12 = "ONESCREEN-12551" }));
+		//}
 	}
 }
