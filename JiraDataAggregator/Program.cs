@@ -35,9 +35,9 @@ namespace JiraDataAggregator
 
 			public async Task Execute(string fileName)
 			{
-				//IEnumerable<Execution> executionsList = await defectReportAggregator.GetIsitLaunchCriticalViewData(fileName);
+				IEnumerable<Execution> executionsList = await defectReportAggregator.GetIsitLaunchCriticalViewData(fileName);
 
-				IEnumerable<Execution> executionsList = SerializeHelper<Execution>.DeserializeXml(fileName); //temp
+				//IEnumerable<Execution> executionsList = SerializeHelper<Execution>.DeserializeXml(fileName); //temp
 
 				FlowStatisticsVm flowStatistics = flowStatisticsVmBuilder.GetFlowStatisticsVm(executionsList);
 				FlowStatisticsVm filteredFlowStatistics = flowStatisticsVmBuilder.GetFlowStatisticsVmByFilter(executionsList);

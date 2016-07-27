@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Aggregators.Interfaces;
@@ -21,16 +22,19 @@ namespace Core.Aggregators
 		{
 			IEnumerable<Execution> executions = defectReportRepository.GetIsitLaunchCriticalViewData(fileName);
 
+
 			foreach (Execution execution in executions)
 			{
 				List<string> filteredExecutionDefects = new List<string>();
 				foreach (string executionDefect in execution.ExecutionDefects)
 				{
+					//todo: there must be issukey validation somewhere
 					IssueStatus executionDefectStatus = await defectReportRepository.GetIssueStatus(executionDefect);
 					if (executionDefectStatus != IssueStatus.Done)
 					{
 						filteredExecutionDefects.Add(executionDefect);
 					}
+
 				}
 				execution.ExecutionDefects = filteredExecutionDefects;
 			}
