@@ -7,7 +7,8 @@ namespace Core.ViewModels
 	[Serializable]
 	public class AllDefectKeysVm
 	{
+		[XmlArray("defectKeys")]
 		[XmlArrayItem("defectKey")]
-		public IEnumerable<string> AllDefectKeys { get; set; }
+		public List<string> AllDefectKeys { get; set; }
 	}
 }
