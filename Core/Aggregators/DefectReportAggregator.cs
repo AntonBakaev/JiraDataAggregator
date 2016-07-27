@@ -22,6 +22,7 @@ namespace Core.Aggregators
 			this.logger = logger;
 		}
 
+		
 		public async Task<IEnumerable<Execution>> GetIsitLaunchCriticalViewData(string fileName)
 		{
 			IEnumerable<Execution> executions = defectReportRepository.GetIsitLaunchCriticalViewData(fileName);

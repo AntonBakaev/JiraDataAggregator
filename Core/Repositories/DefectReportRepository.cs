@@ -11,6 +11,7 @@ namespace Core.Repositories
 {
 	public class DefectReportRepository : IDefectReportRepository
 	{
+		// todo: consider using interface
 		private RestClient restClient;
 
 		public DefectReportRepository(RestClient restClient)
@@ -26,9 +27,6 @@ namespace Core.Repositories
 		public async Task<IssueStatus> GetIssueStatus(string issueKey)
 		{
 			var dataObject = await restClient.Get<object>("GetIssueStatus", new { issueKey }); 
-			//var dataObject = await restClient.Get<object>("GetIssueStatus", new string[] { issueKey }, new { fields = "status" });
-
-
 
 			string statusString = JObject.FromObject(dataObject)["fields"]["status"]["name"].ToString();
 

@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using Common.Exceptions;
 
 namespace Common.Helpers
@@ -7,7 +8,7 @@ namespace Common.Helpers
 	{
 		public static JiraDataAggregatorException GetSpecificRestException(HttpStatusCode statusCode, string absoluteUri)
 		{
-			string exceptionString = "";
+			string exceptionString;
 
 			switch (statusCode)
 			{
