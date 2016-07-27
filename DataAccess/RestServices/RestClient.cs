@@ -21,6 +21,7 @@ namespace DataAccess.RestServices
 			
 			HttpResponseMessage response = await client.GetAsync(serviceUrl);
 
+
 			if (!response.IsSuccessStatusCode)
 			{
 				throw new JiraDataAggregatorException(String.Format("{0} at {1}",

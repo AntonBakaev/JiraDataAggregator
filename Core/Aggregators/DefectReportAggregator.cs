@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.Exceptions;
@@ -15,41 +16,77 @@ namespace Core.Aggregators
 	{
 		private readonly IDefectReportRepository defectReportRepository;
 		private ILogger logger;
-		
+
+		private Dictionary<string, IssueStatus> issueStatuses;
+
 		public DefectReportAggregator(IDefectReportRepository defectReportRepository, ILogger logger)
 		{
 			this.defectReportRepository = defectReportRepository;
 			this.logger = logger;
+			issueStatuses = new Dictionary<string, IssueStatus>();
 		}
 
-		
+
 		public async Task<IEnumerable<Execution>> GetIsitLaunchCriticalViewData(string fileName)
 		{
-			IEnumerable<Execution> executions = defectReportRepository.GetIsitLaunchCriticalViewData(fileName);
+			List<Task<Tuple<string, IssueStatus>>> tasks = new List<Task<Tuple<string, IssueStatus>>>();
+			List<string> issueKeysScheduledForChecking = new List<string>();
+			Stopwatch sw = new Stopwatch();
+			sw.Start();
 
-			foreach (Execution execution in executions.Take(5))
+
+			IEnumerable<Execution> executions = defectReportRepository.GetIsitLaunchCriticalViewData(fileName);
+			foreach (Execution execution in executions)
 			{
-				List<string> filteredExecutionDefects = new List<string>();
-				var tasks = new List<Task<Tuple<int, bool>>>();
 				foreach (string executionDefect in execution.ExecutionDefects)
 				{
-					//todo: there must be issukey validation somewhere
-					try
+					if (!issueKeysScheduledForChecking.Contains(executionDefect))
 					{
-						IssueStatus executionDefectStatus = await defectReportRepository.GetIssueStatus(executionDefect);
-						if (executionDefectStatus != IssueStatus.Done)
-						{
-							filteredExecutionDefects.Add(executionDefect);
-						}
+						issueKeysScheduledForChecking.Add(executionDefect);
+						tasks.Add(GetIssueStatusWrapper(executionDefect));
 					}
-					catch (JiraDataAggregatorException ex)
+				}
+			}
+
+			foreach (var task in await Task.WhenAll(tasks))
+			{
+				string executionDefect = task.Item1;
+				IssueStatus executionDefectStatus = task.Item2;
+				if (!issueStatuses.ContainsKey(executionDefect))
+				{
+					issueStatuses.Add(executionDefect, executionDefectStatus);
+				}
+			}
+
+			foreach (Execution execution in executions)
+			{
+				List<string> filteredExecutionDefects = new List<string>();
+				foreach (string executionDefect in execution.ExecutionDefects)
+				{
+					if (issueStatuses[executionDefect] != IssueStatus.Done)
 					{
-						logger.Log(ex);
+						filteredExecutionDefects.Add(executionDefect);
 					}
 				}
 				execution.ExecutionDefects = filteredExecutionDefects;
 			}
+
+
+			sw.Stop();
 			return executions;
+		}
+
+		private async Task<Tuple<string, IssueStatus>> GetIssueStatusWrapper(string issueKey)
+		{
+			try
+			{
+				return Tuple.Create(issueKey, await defectReportRepository.GetIssueStatus(issueKey));
+			}
+			catch (JiraDataAggregatorException ex)
+			{
+				logger.Log(ex);
+			}
+			return null;
 		}
 	}
 }
