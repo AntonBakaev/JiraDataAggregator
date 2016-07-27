@@ -5,7 +5,6 @@ using System.Text.RegularExpressions;
 using System.Configuration;
 using System.IO;
 using System.Text;
-//using Core.ViewModels;
 
 namespace Common.Helpers
 {
