@@ -9,11 +9,12 @@ namespace TemplateHelper
 {
 	public class TemplateReplacer : ITemplateReplacer
 	{
-		private const string PropertyNameRegexPattern = @"\{(.*?)\}";
+		private IInputFormatter inputFormatter;
 		private IOutputFormatter outputFormatter;
 
-		public TemplateReplacer(IOutputFormatter outputFormatter = null)
+		public TemplateReplacer(IInputFormatter inputFormatter = null, IOutputFormatter outputFormatter = null)
 		{
+			this.inputFormatter = inputFormatter ?? new DefaultInputFormatter();
 			this.outputFormatter = outputFormatter ?? new DefaultOutputFormatter();
 		}				
 
@@ -27,7 +28,7 @@ namespace TemplateHelper
 			string template = allTemplates[type];
 			var propDataList = ReflectionHelper.GetPropertyData(type, data);
 			var replaceDict = new Dictionary<string, string>();
-			var matches = Regex.Matches(template, PropertyNameRegexPattern);
+			var matches = Regex.Matches(template, inputFormatter.InputPattern);
 
 			foreach (Match match in matches)
 			{
@@ -36,7 +37,7 @@ namespace TemplateHelper
 				if (propData == null) 
 					continue;
 
-				string key = String.Format("{{{0}}}", text);
+				string key = String.Format(inputFormatter.InputKeyPattern, text);
 				string value = "";
 
 				if (propData.IsModelTypeSimple)

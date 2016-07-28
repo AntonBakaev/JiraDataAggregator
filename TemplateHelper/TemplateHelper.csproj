@@ -40,9 +40,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\PropertyData.cs" />
+    <Compile Include="Helpers\DefaultInputFormatter.cs" />
     <Compile Include="Helpers\DefaultOutputFormatter.cs" />
     <Compile Include="Helpers\PropertyDataHelper.cs" />
     <Compile Include="Helpers\ReflectionHelper.cs" />
+    <Compile Include="IInputFormatter.cs" />
     <Compile Include="IOutputFormatter.cs" />
     <Compile Include="IReplaceable.cs" />
     <Compile Include="ITemplateReplacer.cs" />
