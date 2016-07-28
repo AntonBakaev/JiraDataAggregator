@@ -31,7 +31,7 @@ namespace DataAccess.RestServices
 			if (!response.IsSuccessStatusCode)
 			{
 				var message = String.Format("{0} at {1}",
-					JdaExceptionHelper.GetSpecificRestException(response.StatusCode), serviceUrl.AbsoluteUri);
+					JdaException.GetSpecificRestException(response.StatusCode), serviceUrl.AbsoluteUri);
 				logger.Error(message);
 				throw new JiraDataAggregatorException(message);
 			}
