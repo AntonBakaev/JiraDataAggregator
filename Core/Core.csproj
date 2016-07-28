@@ -71,6 +71,7 @@
     <Compile Include="Repositories\Interfaces\IDefectReportRepository.cs" />
     <Compile Include="ViewModels\AllDefectKeysVm.cs" />
     <Compile Include="ViewModels\BlockingIssuesVm.cs" />
+    <Compile Include="ViewModels\DefectKeyVm.cs" />
     <Compile Include="ViewModels\DefectReportVm.cs" />
     <Compile Include="ViewModels\DefectVm.cs" />
     <Compile Include="ViewModels\FlowStatisticsVm.cs" />
