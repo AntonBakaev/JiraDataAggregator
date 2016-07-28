@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Common.Helpers.Interfaces;
@@ -41,6 +42,9 @@ namespace JiraDataAggregator.Console
 
 			public async Task Execute(string fileName)
 			{
+				PropertyInfo[] propertiesInfoList = typeof(BlockingIssuesVm).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+
 				string basePath = @"C:\Teaakov\JiraDataAggregator\JiraDataAggregator.Console\bin\Debug\Templates\{0}Template.rtf";
 
 				var allTemplates = new Dictionary<Type, string>
@@ -111,7 +115,7 @@ namespace JiraDataAggregator.Console
 
 			private void GenerateRtfDefectReport(DefectReportVm defectReportVm)
 			{
-				var rtfReporter = new RtfDefectReporter();
+				var rtfReporter = new RtfDefectReporterBase();
 				rtfReporter.Generate(defectReportVm);
 			}
 		}
@@ -127,7 +131,7 @@ namespace JiraDataAggregator.Console
 	{
 		public string InputSearchPattern
 		{
-			get { return @"\[(.*?)\]}"; }
+			get { return @"\[(.*?)\]"; }
 		}
 
 		public string InputKeyPattern
