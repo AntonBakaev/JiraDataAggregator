@@ -11,5 +11,8 @@ namespace Core.ViewModels
 		[XmlArray("blockingDefects")]
 		[XmlArrayItem("defect", typeof(DefectVm))]
 		public List<DefectVm> DefectsList { get; set; }
+
+		[XmlIgnore]
+		public int BlockingDefectsCount { get { return DefectsList.Count; }}
 	}
 }
