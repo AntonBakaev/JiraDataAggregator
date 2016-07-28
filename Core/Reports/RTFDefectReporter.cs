@@ -68,7 +68,10 @@ namespace Core.Reports
 
 			foreach (DefectVm defect in defectReportVm.BlockingIssuesVm.DefectsList)
 			{
-				blockingIssuesBuilder.AppendLine(string.Format("\t • {0} - blocks {1} flows", defect.DefectName, defect.BlockingIssuesCount));
+				blockingIssuesBuilder.AppendLine(string.Format("\t • {{{0}}} - blocks {1} flows", defect.Link, defect.BlockingIssuesCount));
+
+				if (!links.ContainsKey(defect.Link))
+					links.Add(defect.Link, defect.DefectName);
 
 				foreach (IssueVm issue in defect.BlockingIssues)
 				{
@@ -165,32 +168,6 @@ namespace Core.Reports
 			rtbBox.Select(start, line.Length);
 
 			rtbBox.SelectionFont = new Font("Arial", 13);
-			//rtbBoxTest.Rtf = @"{\colortbl ;\red0\green0\blue238;}{\field{\*\fldinst HYPERLINK 'URL'}{\fldrslt{\ul\cf1Text to display}}}";
-
-			//string text = rtbBox.Rtf;
-
-			//text = text.Remove(text.Length - 2, 1);
-			//text += "\n";
-			//text += @" {\colortbl ;\red0\green0\blue238;} {\field{\*\fldinst HYPERLINK ""URL""}{\fldrslt{\ul\cf1Text to display}}} ";
-			//text += "}";
-
-			//RichTextBox rtb = new RichTextBox();
-			//rtb.Rtf = text;
-
-			//	@"{\rtf1\ansi\ {\colortbl ;\red0\green0\blue238;} {\field{\*\fldinst HYPERLINK ""URL""}{\fldrslt{\ul\cf1Text to display}}}}";
-
-			//StringBuilder append = new StringBuilder();
-			//append.Append(@"{\rtf1\ansi\deff3\adeflang1025 {{\field{\*\fldinst HYPERLINK """);
-			//append.Append("http://www.google.com");
-			//append.Append(@""" }{{");
-			//append.Append("google.com");
-			//append.Append(@"} }}}}}");
-
-			//string rtf = append.ToString();
-
-			//string rtf = rtbBoxTest.Rtf;
-
-			// rtbBoxTest.Rtf = rtf;
 
 			if (!File.Exists(filePath))
 			{
@@ -200,9 +177,6 @@ namespace Core.Reports
 
 			rtbBox.SaveFile(filePath, RichTextBoxStreamType.RichText);
 			string template = File.ReadAllText(filePath);
-
-			//Dictionary<string, string> dic = new Dictionary<string, string>();
-			//dic.Add(@"Hallo", @" {\colortbl ;\red0\green0\blue238;} {\field{\*\fldinst HYPERLINK ""URL""}{\fldrslt{\ul\cf1Text to display}}} ");
 
 			File.WriteAllText(filePath, GenerateRtfReport(template, links));
 		}

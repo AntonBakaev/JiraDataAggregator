@@ -9,6 +9,7 @@ namespace Core.ViewModels
 	{
 		[XmlArray("defectKeys")]
 		[XmlArrayItem("defectKey")]
-		public List<DefectKeyVm> AllDefectKeys { get; set; }
+		//public List<DefectKeyVm> AllDefectKeys { get; set; }
+		public List<string> AllDefectKeys { get; set; }
 	}
 }
