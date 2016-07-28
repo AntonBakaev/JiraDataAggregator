@@ -28,7 +28,7 @@ namespace TemplateHelper.UnitTests
 
 		class InputFormatter : IInputFormatter
 		{
-			public string InputPattern { get { return @"#\{(.*?)\}#"; } }
+			public string InputSearchPattern { get { return @"#\{(.*?)\}#"; } }
 			public string InputKeyPattern { get { return @"#{{{0}}}#"; } }
 		}
 

@@ -28,7 +28,7 @@ namespace TemplateHelper
 			string template = allTemplates[type];
 			var propDataList = ReflectionHelper.GetPropertyData(type, data);
 			var replaceDict = new Dictionary<string, string>();
-			var matches = Regex.Matches(template, inputFormatter.InputPattern);
+			var matches = Regex.Matches(template, inputFormatter.InputSearchPattern);
 
 			foreach (Match match in matches)
 			{
