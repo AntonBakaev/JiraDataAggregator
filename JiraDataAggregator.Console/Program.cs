@@ -18,14 +18,12 @@ namespace JiraDataAggregator.Console
 		public class ConsoleRunner
 		{
 			private readonly IDefectReportAggregator defectReportAggregator;
-			private readonly IDateTimeVmBuilder dateTimeVmBuilder;
 			private readonly IAllDefectKeysVmBuilder allBlockingDefectsVmBuilder;
 			private readonly IBlockingIssuesVmBuilder blockingIssuesVmBuilder;
 			private readonly IFlowStatisticsVmBuilder flowStatisticsVmBuilder;
 			private readonly ISerializeHelper<DefectReportVm> serializeHelper;
 
 			public ConsoleRunner(IDefectReportAggregator defectReportAggregator,
-								 IDateTimeVmBuilder dateTimeVmBuilder,
 								 IAllDefectKeysVmBuilder allBlockingDefectsVmBuilder,
 								 IBlockingIssuesVmBuilder blockingIssuesVmBuilder,
 								 IFlowStatisticsVmBuilder flowStatisticsVmBuilder,
@@ -36,7 +34,6 @@ namespace JiraDataAggregator.Console
 				this.blockingIssuesVmBuilder = blockingIssuesVmBuilder;
 				this.flowStatisticsVmBuilder = flowStatisticsVmBuilder;
 				this.serializeHelper = serializeHelper;
-				this.dateTimeVmBuilder = dateTimeVmBuilder;
 			}
 
 			public async Task Execute(string fileName)
@@ -58,11 +55,9 @@ namespace JiraDataAggregator.Console
 																 Convert.ToInt32(ConfigurationManager.AppSettings["NumberOfTopBlockingIssues"]));
 
 				AllDefectKeysVm allDefectKeys = allBlockingDefectsVmBuilder.GetAllBlockingDefects(executionsList);
-				DateTimeVm dateTimeVm = dateTimeVmBuilder.GetDateTimeWhenReportGenerated();
 
 				return new DefectReportVm()
 				{
-					DateTimeVm = dateTimeVm,
 					FlowStatisticsVm = flowStatistics,
 					RetailShopFlowStatisticsVm = filteredFlowStatistics,
 					BlockingIssuesVm = blockingIssuesList,
