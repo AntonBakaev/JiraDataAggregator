@@ -102,6 +102,10 @@
       <Project>{D654AD0E-D4D5-4BFA-A83D-9AC6AA8232FA}</Project>
       <Name>Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TemplateHelper\TemplateHelper.csproj">
+      <Project>{7E8D0DB9-E14A-467E-AA86-3C764C24F329}</Project>
+      <Name>TemplateHelper</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

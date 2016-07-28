@@ -46,6 +46,6 @@ count 5 \nDescription: Issue Os2 Total count 1 \nDescription: Issue Os4 Total co
 ------------------------------------------------------------------------------------
 //Rules
 - {PropertyName} syntax is used for substitution the property value.
-- It's allowed to use only SIMPLETYPEs, STRINGs and LIST<MYCLASS> for properties types. 
+- It's allowed to use only SIMPLETYPEs, STRINGs, MYCLASS and LIST<MYCLASS> for properties types. 
 	No other formats including LIST<SIMPLETYPE> or LIST<STRING> are being supported.
 	 

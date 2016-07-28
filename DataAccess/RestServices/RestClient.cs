@@ -5,11 +5,14 @@ using System.Threading.Tasks;
 using Common.Exceptions;
 using Common.Helpers;
 using Newtonsoft.Json;
+using NLog;
 
 namespace DataAccess.RestServices
 {
 	public class RestClient
 	{
+		private static Logger logger = LogManager.GetCurrentClassLogger();
+
 		async public Task<TResponse> Get<TResponse>(string serviceName, object parameters = null) where TResponse : new()
 		{
 			string authString = RestServicesHelper.GetJiraConnectionAuthData(serviceName);
@@ -21,14 +24,20 @@ namespace DataAccess.RestServices
 			
 			HttpResponseMessage response = await client.GetAsync(serviceUrl);
 
+			// todo logger info message
 
 			if (!response.IsSuccessStatusCode)
 			{
-				throw new JiraDataAggregatorException(String.Format("{0} at {1}",
-					JdaExceptionHelper.GetSpecificRestException(response.StatusCode), serviceUrl.AbsoluteUri));
+				var message = String.Format("{0} at {1}",
+					JdaExceptionHelper.GetSpecificRestException(response.StatusCode), serviceUrl.AbsoluteUri);
+				logger.Error(message);
+				throw new JiraDataAggregatorException(message);
 			}
 			
 			string jsonResult = await response.Content.ReadAsStringAsync();
+
+			// todo logger info message
+
 			return JsonConvert.DeserializeObject<TResponse>(jsonResult);
 		}
 
