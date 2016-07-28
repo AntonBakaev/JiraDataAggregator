@@ -10,6 +10,12 @@ namespace TemplateHelper
 	public class TemplateReplacer : ITemplateReplacer
 	{
 		private const string PropertyNameRegexPattern = @"\{(.*?)\}";
+		private IOutputFormatter outputFormatter;
+
+		public TemplateReplacer(IOutputFormatter outputFormatter = null)
+		{
+			this.outputFormatter = outputFormatter ?? new DefaultOutputFormatter();
+		}				
 
 		public string Replace(IReplaceable data, Dictionary<Type, string> allTemplates)
 		{
@@ -52,7 +58,7 @@ namespace TemplateHelper
 				}
 
 				if (!replaceDict.ContainsKey(key))
-					replaceDict.Add(key, value);
+					replaceDict.Add(key, outputFormatter.ToOutPutString(key, value));
 			}
 
 			return replaceDict.Aggregate(template, (current, item) => Regex.Replace(current, item.Key, item.Value));
