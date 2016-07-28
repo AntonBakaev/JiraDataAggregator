@@ -8,6 +8,9 @@ namespace Core.ViewModels
 	[XmlRoot("defectReport")]
 	public class DefectReportVm : IViewModel
 	{
+		[XmlElement("reportInfo")]
+		public DateTimeVm DateTimeVm { get; set; }
+
 		[XmlElement("flowStatistic")]
 		public FlowStatisticsVm FlowStatisticsVm { get; set; }
 
