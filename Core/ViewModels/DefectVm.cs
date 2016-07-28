@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using Core.ViewModels.Interfaces;
 
 namespace Core.ViewModels
 {
 	[Serializable]
-	public class DefectVm
+	public class DefectVm : IViewModel
 	{
 		[XmlElement("key")]
 		public string DefectName { get; set; }

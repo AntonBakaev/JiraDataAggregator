@@ -1,5 +1,8 @@
-﻿namespace Core.ViewModels.Interfaces
+﻿using TemplateHelper;
+
+namespace Core.ViewModels.Interfaces
 {
-	public interface IViewModel
-	{ }
+	public interface IViewModel : IReplaceable
+	{
+	}
 }
