@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Threading.Tasks;
+using Common.Helpers.Interfaces;
 using Core.Aggregators.Interfaces;
 using Core.Models;
 using Core.Reports;
@@ -20,16 +21,19 @@ namespace JiraDataAggregator.Console
 			private readonly IAllDefectKeysVmBuilder allBlockingDefectsVmBuilder;
 			private readonly IBlockingIssuesVmBuilder blockingIssuesVmBuilder;
 			private readonly IFlowStatisticsVmBuilder flowStatisticsVmBuilder;
+			private readonly ISerializeHelper<DefectReportVm> serializeHelper;
 
 			public ConsoleRunner(IDefectReportAggregator defectReportAggregator,
 								 IAllDefectKeysVmBuilder allBlockingDefectsVmBuilder,
 								 IBlockingIssuesVmBuilder blockingIssuesVmBuilder,
-								 IFlowStatisticsVmBuilder flowStatisticsVmBuilder)
+								 IFlowStatisticsVmBuilder flowStatisticsVmBuilder,
+								 ISerializeHelper<DefectReportVm> serializeHelper)
 			{
 				this.defectReportAggregator = defectReportAggregator;
 				this.allBlockingDefectsVmBuilder = allBlockingDefectsVmBuilder;
 				this.blockingIssuesVmBuilder = blockingIssuesVmBuilder;
 				this.flowStatisticsVmBuilder = flowStatisticsVmBuilder;
+				this.serializeHelper = serializeHelper;
 			}
 
 			public async Task Execute(string fileName)
@@ -63,7 +67,7 @@ namespace JiraDataAggregator.Console
 
 			private void GenerateXmlDefectReport(DefectReportVm defectReportVm)
 			{
-				var xmlReporter = new XmlDefectReporter();
+				var xmlReporter = new XmlDefectReporter(serializeHelper);
 				xmlReporter.Generate(defectReportVm);
 			}
 

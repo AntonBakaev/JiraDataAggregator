@@ -50,6 +50,7 @@
     <Compile Include="Exceptions\JiraDataAggregatorExceptionMessages.cs" />
     <Compile Include="Helpers\ConvertHelper.cs" />
     <Compile Include="Helpers\Interfaces\ILogger.cs" />
+    <Compile Include="Helpers\Interfaces\ISerializeHelper.cs" />
     <Compile Include="Helpers\JdaExceptionHelper.cs" />
     <Compile Include="Helpers\ReportGeneratorHelper.cs" />
     <Compile Include="Helpers\SerializeHelper.cs" />

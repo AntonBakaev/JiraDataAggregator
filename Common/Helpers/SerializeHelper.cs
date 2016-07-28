@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
+using Common.Helpers.Interfaces;
 
 namespace Common.Helpers
 {
-	public static class SerializeHelper<T> where T : new()
+	public class SerializeHelper<T> : ISerializeHelper<T>
 	{
 		private const string RootName = "executions";
 
@@ -16,7 +16,7 @@ namespace Common.Helpers
 		private const string BadOpenQuote = "«";
 		private const string BadCloseQuote = "»";
 
-		public static List<T> DeserializeXml(string filePath)
+		public T DeserializeXml(string filePath)
 		{
 			string badXml = File.ReadAllText(filePath);
 			var ampersandRegex = new Regex(BadAmpersandRegex);
@@ -24,14 +24,14 @@ namespace Common.Helpers
 										   .Replace(BadOpenQuote, Quot)
 										   .Replace(BadCloseQuote, Quot);
 
-			var serializer = new XmlSerializer(typeof(List<T>), new XmlRootAttribute(RootName));
+			var serializer = new XmlSerializer(typeof(T), new XmlRootAttribute(RootName));
 			using (var reader = new StringReader(goodXml))
 			{
-				return (List<T>)serializer.Deserialize(reader);
+				return (T)serializer.Deserialize(reader);
 			}
 		}
 
-		public static void Serialize(string fileNameToGenerate, object objectToSerialize)
+		public void Serialize(string fileNameToGenerate, T objectToSerialize)
 		{
 			var serializer = new XmlSerializer(typeof(T));
 			File.Delete(fileNameToGenerate);

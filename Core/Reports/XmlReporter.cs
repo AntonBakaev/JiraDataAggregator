@@ -1,13 +1,22 @@
-﻿using Common.Helpers;
+﻿using Common.Helpers.Interfaces;
 using Core.ViewModels.Interfaces;
 
 namespace Core.Reports
 {
-	public class XmlReporter<TViewModel> where TViewModel : IViewModel, new()
+	public abstract class XmlReporterBase<TViewModel> where TViewModel : IViewModel, new()
 	{
-		protected virtual void Generate(string fileNameToGenerate, IViewModel viewModel)
+		private readonly ISerializeHelper<TViewModel> serializeHelper;
+
+		protected XmlReporterBase(ISerializeHelper<TViewModel> serializeHelper)
 		{
-			SerializeHelper<TViewModel>.Serialize(fileNameToGenerate, viewModel);
+			this.serializeHelper = serializeHelper;
+		}
+
+		public abstract string FileName { get; }
+
+		public virtual void Generate(TViewModel viewModel)
+		{
+			serializeHelper.Serialize(FileName, viewModel);
 		}
 	}
 }
