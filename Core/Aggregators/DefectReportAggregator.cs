@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.Exceptions;
+using Common.Helpers;
 using Common.Helpers.Interfaces;
 using Core.Aggregators.Interfaces;
 using Core.Enums;
@@ -89,10 +90,9 @@ namespace Core.Aggregators
 			{
 				return Tuple.Create(issueKey, await defectReportRepository.GetIssueStatus(issueKey));
 			}
-			catch (JiraDataAggregatorException ex)
+			catch (JiraDataAggregatorException)
 			{
-				//logger.Log(ex);
-				logger.Error(ex.Message);
+				logger.Error(JdaExceptionHelper.GetSpecificRestException(0));
 			}
 			return null;
 		}

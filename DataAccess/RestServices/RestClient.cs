@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Common.Exceptions;
 using Common.Helpers;
+using Common.Messages;
 using Newtonsoft.Json;
 using NLog;
 
@@ -24,7 +26,9 @@ namespace DataAccess.RestServices
 			
 			HttpResponseMessage response = await client.GetAsync(serviceUrl);
 
-			// todo logger info message
+			logger.Info("{0} to {1}", ConnectionMessages.SuccessfulRequestSent, serviceUrl.AbsoluteUri);
+
+			//response.StatusCode = HttpStatusCode.BadRequest; ////////
 
 			if (!response.IsSuccessStatusCode)
 			{
@@ -36,7 +40,7 @@ namespace DataAccess.RestServices
 			
 			string jsonResult = await response.Content.ReadAsStringAsync();
 
-			// todo logger info message
+			logger.Info("{0} from {1}", ConnectionMessages.SuccessfulResponseReceived, serviceUrl.AbsoluteUri);
 
 			return JsonConvert.DeserializeObject<TResponse>(jsonResult);
 		}
