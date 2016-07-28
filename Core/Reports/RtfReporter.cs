@@ -13,8 +13,8 @@ namespace Core.Reports
     {
         private const string RtfReportFileConfigKey = "RtfDefectReportFileName";
 
-        public virtual void Generate(IViewModel defectReportVm)
-        {
-        }
+	    public virtual void Generate(IViewModel defectReportVm)
+	    {
+		}
     }
 }
