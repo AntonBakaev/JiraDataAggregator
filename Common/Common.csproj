@@ -51,16 +51,14 @@
     <Compile Include="Helpers\ConvertHelper.cs" />
     <Compile Include="Helpers\Interfaces\ILogger.cs" />
     <Compile Include="Helpers\Interfaces\ISerializeHelper.cs" />
-    <Compile Include="Helpers\JdaExceptionHelper.cs" />
+    <Compile Include="Helpers\JdaException.cs" />
     <Compile Include="Helpers\ReportGeneratorHelper.cs" />
     <Compile Include="Helpers\SerializeHelper.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Messages\ConnectionMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helpers\Report\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

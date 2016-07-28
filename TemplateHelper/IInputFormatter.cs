@@ -2,7 +2,7 @@
 {
 	public interface IInputFormatter
 	{
-		string InputPattern { get; }
+		string InputSearchPattern { get; }
 		string InputKeyPattern { get; }
 	}
 }

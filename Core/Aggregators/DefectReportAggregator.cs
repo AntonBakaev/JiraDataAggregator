@@ -92,7 +92,7 @@ namespace Core.Aggregators
 			}
 			catch (JiraDataAggregatorException)
 			{
-				logger.Error(JdaExceptionHelper.GetSpecificRestException(0));
+				logger.Error(JdaException.GetSpecificRestException(0));
 			}
 			return null;
 		}

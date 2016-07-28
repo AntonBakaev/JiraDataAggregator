@@ -4,7 +4,7 @@ using Common.Exceptions;
 
 namespace Common.Helpers
 {
-	public class JdaExceptionHelper
+	public class JdaException
 	{
 		private static Dictionary<HttpStatusCode, string> restExceptionMessages = new Dictionary<HttpStatusCode, string>
 		{
