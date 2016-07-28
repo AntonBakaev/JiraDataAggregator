@@ -1,4 +1,4 @@
-﻿namespace Common.Exceptions
+﻿namespace Common.Messages
 {
 	public static class JiraDataAggregatorExceptionMessages
 	{
