@@ -21,7 +21,6 @@ namespace JiraDataAggregator._Configuration_
 			x.For<IDefectReportAggregator>().Use<DefectReportAggregator>();
 			x.For<IDefectReportRepository>().Use<DefectReportRepository>();
 
-			x.For<IDateTimeVmBuilder>().Use<DateTimeVmBuilder>();
 			x.For<IFlowStatisticsVmBuilder>().Use<FlowStatisticsVmBuilder>();
 			x.For<IBlockingIssuesVmBuilder>().Use<BlockingIssuesVmBuilder>();
 			x.For<IAllDefectKeysVmBuilder>().Use<AllDefectKeysVmBuilder>();
