@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using Common.Exceptions;
+using Common.Messages;
 
 namespace Common.Helpers
 {
