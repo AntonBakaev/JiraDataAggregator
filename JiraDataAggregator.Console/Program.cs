@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using Common.Helpers.Interfaces;
 using Core.Aggregators.Interfaces;
@@ -13,7 +10,6 @@ using Core.ViewModels;
 using Core.VmBuilders.Interfaces;
 using IoC.Initialize;
 using JiraDataAggregator._Configuration_;
-using TemplateHelper;
 
 namespace JiraDataAggregator.Console
 {
@@ -42,47 +38,9 @@ namespace JiraDataAggregator.Console
 
 			public async Task Execute(string fileName)
 			{
-				PropertyInfo[] propertiesInfoList = typeof(BlockingIssuesVm).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-
-
-				string basePath = @"C:\Teaakov\JiraDataAggregator\JiraDataAggregator.Console\bin\Debug\Templates\{0}Template.rtf";
-
-				var allTemplates = new Dictionary<Type, string>
-			{
-				{typeof (IssueVm), "IssueVm"},
-				{typeof (AllDefectKeysVm), "AllDefectKeysVm"},
-				{typeof (BlockingIssuesVm), "BlockingIssuesVm"},
-				{typeof (DefectKeyVm), "DefectKeyVm"},
-				{typeof (DefectVm), "DefectVm"},
-				{typeof (FlowStatisticsVm), "FlowStatisticsVm"},
-				{typeof (DefectReportVm), "DefectReportVm"},
-
-			};
-
-				var keys = new List<Type>(allTemplates.Keys);
-
-				foreach (Type key in keys)
-				{
-					string path = String.Format(basePath, allTemplates[key]);
-					string text;
-					using (var streamReader = new StreamReader(path, Encoding.UTF8))
-					{
-						text = streamReader.ReadToEnd();
-					}
-					allTemplates[key] = text;
-				}
-
 				IEnumerable<Execution> executionsList = await defectReportAggregator.GetIsitLaunchCriticalViewData(fileName);
 
 				DefectReportVm defectReportVm = GenerateDefectReportVm(executionsList);
-				var inputFormatter = new InputFormatter();
-				var replacer = new TemplateReplacer(inputFormatter);
-
-				string actualResult = replacer.Replace(defectReportVm, allTemplates);
-				using (var streamWriter = new StreamWriter("result.rtf"))
-				{
-					streamWriter.Write(actualResult);
-				}
 
 				GenerateXmlDefectReport(defectReportVm);
 				GenerateRtfDefectReport(defectReportVm);
@@ -115,7 +73,7 @@ namespace JiraDataAggregator.Console
 
 			private void GenerateRtfDefectReport(DefectReportVm defectReportVm)
 			{
-				var rtfReporter = new RtfDefectReporterBase();
+				var rtfReporter = new RtfDefectReporter();
 				rtfReporter.Generate(defectReportVm);
 			}
 		}
@@ -123,20 +81,7 @@ namespace JiraDataAggregator.Console
 		static void Main(string[] args)
 		{
 			Application.Initialize(ConfigurationHelper.ConfigureDependencies);
-			Application.Current.Container.GetInstance<ConsoleRunner>().Execute(@"C:\Teaakov\example1.xml").Wait();
-		}
-	}
-
-	public class InputFormatter : IInputFormatter
-	{
-		public string InputSearchPattern
-		{
-			get { return @"\[(.*?)\]"; }
-		}
-
-		public string InputKeyPattern
-		{
-			get { return @"\[{0}\]"; }
+			Application.Current.Container.GetInstance<ConsoleRunner>().Execute(args[0]).Wait();
 		}
 	}
 }

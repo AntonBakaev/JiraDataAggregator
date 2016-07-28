@@ -10,7 +10,7 @@ using Core.ViewModels;
 
 namespace Core.Reports
 {
-	public class RtfDefectReporterBase : RtfReporterBase<DefectReportVm>
+	public class RtfDefectReporter : RtfReporterBase<DefectReportVm>
 	{
 		protected override string RtfReportFileConfigKey
 		{
