@@ -6,11 +6,12 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Core.Reports.Interfaces;
 using Core.ViewModels;
 
 namespace Core.Reports
 {
-	public class RtfDefectReporter : RtfReporterBase<DefectReportVm>
+	public class RtfDefectReporter : RtfReporterBase<DefectReportVm>, IRtfDefectReporter
 	{
 		protected override string RtfReportFileConfigKey
 		{

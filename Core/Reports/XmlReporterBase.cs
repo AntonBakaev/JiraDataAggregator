@@ -4,7 +4,7 @@ using Core.ViewModels.Interfaces;
 
 namespace Core.Reports
 {
-	public abstract class XmlReporterBase<TViewModel> : IXmlReporter<TViewModel>
+	public abstract class XmlReporterBase<TViewModel> : IReporter<TViewModel>
 		where TViewModel : IViewModel, new()
 	{
 		private readonly ISerializeHelper<TViewModel> serializeHelper;

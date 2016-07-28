@@ -6,10 +6,10 @@ using Common.Helpers.Interfaces;
 using Core.Aggregators.Interfaces;
 using Core.Models;
 using Core.Reports;
+using Core.Reports.Interfaces;
 using Core.ViewModels;
 using Core.VmBuilders.Interfaces;
 using IoC.Initialize;
-using JiraDataAggregator._Configuration_;
 
 namespace JiraDataAggregator.Console
 {
@@ -21,19 +21,22 @@ namespace JiraDataAggregator.Console
 			private readonly IAllDefectKeysVmBuilder allBlockingDefectsVmBuilder;
 			private readonly IBlockingIssuesVmBuilder blockingIssuesVmBuilder;
 			private readonly IFlowStatisticsVmBuilder flowStatisticsVmBuilder;
-			private readonly ISerializeHelper<DefectReportVm> serializeHelper;
+			private readonly IRtfDefectReporter rtfDefectReporter;
+			private readonly IXmlDefectReporter xmlDefectReporter;
 
 			public ConsoleRunner(IDefectReportAggregator defectReportAggregator,
 								 IAllDefectKeysVmBuilder allBlockingDefectsVmBuilder,
 								 IBlockingIssuesVmBuilder blockingIssuesVmBuilder,
 								 IFlowStatisticsVmBuilder flowStatisticsVmBuilder,
-								 ISerializeHelper<DefectReportVm> serializeHelper)
+								 RtfDefectReporter rtfDefectReporter,
+								 IXmlDefectReporter xmlDefectReporter)
 			{
 				this.defectReportAggregator = defectReportAggregator;
 				this.allBlockingDefectsVmBuilder = allBlockingDefectsVmBuilder;
 				this.blockingIssuesVmBuilder = blockingIssuesVmBuilder;
 				this.flowStatisticsVmBuilder = flowStatisticsVmBuilder;
-				this.serializeHelper = serializeHelper;
+				this.rtfDefectReporter = rtfDefectReporter;
+				this.xmlDefectReporter = xmlDefectReporter;
 			}
 
 			public async Task Execute(string fileName)
@@ -42,8 +45,8 @@ namespace JiraDataAggregator.Console
 
 				DefectReportVm defectReportVm = GenerateDefectReportVm(executionsList);
 
-				GenerateXmlDefectReport(defectReportVm);
-				GenerateRtfDefectReport(defectReportVm);
+				xmlDefectReporter.Generate(defectReportVm);
+				rtfDefectReporter.Generate(defectReportVm);
 			}
 
 			private DefectReportVm GenerateDefectReportVm(IEnumerable<Execution> executionsList)
@@ -63,18 +66,6 @@ namespace JiraDataAggregator.Console
 					BlockingIssuesVm = blockingIssuesList,
 					AllDefectKeysVm = allDefectKeys
 				};
-			}
-
-			private void GenerateXmlDefectReport(DefectReportVm defectReportVm)
-			{
-				var xmlReporter = new XmlDefectReporter(serializeHelper);
-				xmlReporter.Generate(defectReportVm);
-			}
-
-			private void GenerateRtfDefectReport(DefectReportVm defectReportVm)
-			{
-				var rtfReporter = new RtfDefectReporter();
-				rtfReporter.Generate(defectReportVm);
 			}
 		}
 
