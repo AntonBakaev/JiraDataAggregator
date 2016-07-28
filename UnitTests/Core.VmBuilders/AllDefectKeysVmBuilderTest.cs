@@ -25,21 +25,21 @@ namespace UnitTests.Core.VmBuilders
 		public void GetAllBlockingDefects_GoodInput_ReturnsExpectedVm()
 		{
 			var expectedVm = new AllDefectKeysVm();
-			var expectedList = new List<string>();
+			var expectedList = new List<DefectKeyVm>();
 
-			expectedList.Add("ONESCREEN-11608");
-			expectedList.Add("ONESCREEN-11979");
-			expectedList.Add("ONESCREEN-11788");
-			expectedList.Add("ONESCREEN-12481");
-			expectedList.Add("ONESCREEN-11770");
-			expectedList.Add("ONESCREEN-11779");
-			expectedList.Add("ONESCREEN-12058");
+			expectedList.Add(new DefectKeyVm { Value = "ONESCREEN-11608" });
+			expectedList.Add(new DefectKeyVm { Value = "ONESCREEN-11979" });
+			expectedList.Add(new DefectKeyVm { Value = "ONESCREEN-11788" });
+			expectedList.Add(new DefectKeyVm { Value = "ONESCREEN-12481" });
+			expectedList.Add(new DefectKeyVm { Value = "ONESCREEN-11770" });
+			expectedList.Add(new DefectKeyVm { Value = "ONESCREEN-11779" });
+			expectedList.Add(new DefectKeyVm { Value = "ONESCREEN-12058" });
 
 			expectedVm.AllDefectKeys = expectedList;
 
 			AllDefectKeysVm aclualVm = allDefectKeysVmBuilder.GetAllBlockingDefects(executionsList);
 
-			CollectionAssert.AreEqual(expectedVm.AllDefectKeys, aclualVm.AllDefectKeys);
+			Assert.IsTrue(IsAllDefectKeysVmsEquivalent(expectedVm, aclualVm));
 		}
 
 		private void InitializeExecutionsList()
@@ -139,6 +139,15 @@ namespace UnitTests.Core.VmBuilders
 					CreationDate = "Tue Jun 21 05:04:16 PDT 2016"
 				}
 			);
+		}
+
+		private bool IsAllDefectKeysVmsEquivalent(AllDefectKeysVm expectedVm, AllDefectKeysVm actualVm)
+		{
+			for (int i = 0; i < expectedVm.AllDefectKeys.Count; i++)
+				if (expectedVm.AllDefectKeys[i].Value != actualVm.AllDefectKeys[i].Value)
+					return false;
+
+			return true;
 		}
 	}
 }
