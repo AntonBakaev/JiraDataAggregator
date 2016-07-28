@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraDataAggregator.Console", "JiraDataAggregator.Console\JiraDataAggregator.Console.csproj", "{AED81B80-2866-4557-9E46-A7A9B4356894}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemplateHelper", "TemplateHelper\TemplateHelper.csproj", "{7E8D0DB9-E14A-467E-AA86-3C764C24F329}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemplateHelper.UnitTests", "TemplateHelper.UnitTests\TemplateHelper.UnitTests.csproj", "{A59522BE-1B82-4495-9B39-DF0CA4ABC0FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +53,14 @@ Global
 		{AED81B80-2866-4557-9E46-A7A9B4356894}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AED81B80-2866-4557-9E46-A7A9B4356894}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AED81B80-2866-4557-9E46-A7A9B4356894}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E8D0DB9-E14A-467E-AA86-3C764C24F329}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E8D0DB9-E14A-467E-AA86-3C764C24F329}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E8D0DB9-E14A-467E-AA86-3C764C24F329}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E8D0DB9-E14A-467E-AA86-3C764C24F329}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A59522BE-1B82-4495-9B39-DF0CA4ABC0FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A59522BE-1B82-4495-9B39-DF0CA4ABC0FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A59522BE-1B82-4495-9B39-DF0CA4ABC0FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A59522BE-1B82-4495-9B39-DF0CA4ABC0FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
