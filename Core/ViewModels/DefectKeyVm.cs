@@ -6,7 +6,7 @@ namespace Core.ViewModels
 	[Serializable]
 	public class DefectKeyVm
 	{
-		[XmlElement("defectKey")]
+		[XmlAttribute("value")]
 		public string Value { get; set; }
 	}
 }
