@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using TemplateReplacer;
-using TemplateReplacer.Helpers;
+using TemplateHelper.Helpers;
 
 namespace TemplateHelper
 {

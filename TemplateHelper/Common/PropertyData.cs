@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TemplateReplacer.Common
+namespace TemplateHelper.Common
 {
 	internal class PropertyData
 	{

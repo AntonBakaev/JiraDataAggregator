@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using TemplateReplacer.Common;
+using TemplateHelper.Common;
 
-namespace TemplateReplacer.Helpers
+namespace TemplateHelper.Helpers
 {
 	internal class ReflectionHelper
 	{

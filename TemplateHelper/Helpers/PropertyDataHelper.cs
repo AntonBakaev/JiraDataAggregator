@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TemplateReplacer.Common;
+using TemplateHelper.Common;
 
-namespace TemplateReplacer.Helpers
+namespace TemplateHelper.Helpers
 {
 	internal class PropertyDataHelper
 	{

@@ -1,4 +1,4 @@
-﻿namespace TemplateReplacer
+﻿namespace TemplateHelper
 {
 	public interface IReplaceable
 	{

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TemplateReplacer
+namespace TemplateHelper
 {
 	public interface ITemplateReplacer
 	{
