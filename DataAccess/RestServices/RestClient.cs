@@ -28,8 +28,6 @@ namespace DataAccess.RestServices
 
 			logger.Info("{0} to {1}", ConnectionMessages.SuccessfulRequestSent, serviceUrl.AbsoluteUri);
 
-			//response.StatusCode = HttpStatusCode.BadRequest; ////////
-
 			if (!response.IsSuccessStatusCode)
 			{
 				var message = String.Format("{0} at {1}",
