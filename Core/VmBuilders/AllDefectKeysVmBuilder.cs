@@ -10,11 +10,11 @@ namespace Core.VmBuilders
 	{
 		public AllDefectKeysVm GetAllBlockingDefects(IEnumerable<Execution> executionsList)
 		{
-			var defectsKeysList = new List<string>();
+			var defectsKeysList = new List<DefectKeyVm>();
 			foreach (var execution in executionsList)
 				foreach (var defect in execution.ExecutionDefects)
-					if (defect != String.Empty && !defectsKeysList.Contains(defect))
-						defectsKeysList.Add(defect);
+					if (defect != String.Empty && !defectsKeysList.Exists(d => d.Value == defect))
+						defectsKeysList.Add(new DefectKeyVm { Value = defect });
 
 			return new AllDefectKeysVm() { AllDefectKeys = defectsKeysList };
 		}

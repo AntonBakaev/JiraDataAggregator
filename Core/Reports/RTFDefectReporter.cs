@@ -84,9 +84,9 @@ namespace Core.Reports
 
 			StringBuilder allDefectKeysStr = new StringBuilder();
 
-			foreach (string defectKey in defectReportVm.AllDefectKeysVm.AllDefectKeys)
+			foreach (DefectKeyVm defectKey in defectReportVm.AllDefectKeysVm.AllDefectKeys)
 			{
-				allDefectKeysStr.AppendLine("\t •" + defectKey);
+				allDefectKeysStr.AppendLine("\t •" + defectKey.Value);
 			}
 
 			RichTextBox rtbBox = new RichTextBox();
