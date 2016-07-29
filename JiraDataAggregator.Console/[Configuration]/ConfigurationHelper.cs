@@ -1,0 +1,39 @@
+﻿using System.Collections.Generic;
+using Common.Helpers;
+using Common.Helpers.Interfaces;
+using Core.Aggregators;
+using Core.Aggregators.Interfaces;
+using Core.Models;
+using Core.Reports;
+using Core.Reports.Interfaces;
+using Core.Repositories;
+using Core.Repositories.Interfaces;
+using Core.ViewModels;
+using Core.VmBuilders;
+using Core.VmBuilders.Interfaces;
+using JiraDataAggregator.Console.Utilities;
+using StructureMap;
+
+namespace JiraDataAggregator.Console
+{
+	public class ConfigurationHelper
+	{
+		public static void ConfigureDependencies(ConfigurationExpression x)
+		{
+			x.For<IDefectReportAggregator>().Use<DefectReportAggregator>();
+			x.For<IDefectReportRepository>().Use<DefectReportRepository>();
+
+			x.For<IFlowStatisticsVmBuilder>().Use<FlowStatisticsVmBuilder>();
+			x.For<IBlockingIssuesVmBuilder>().Use<BlockingIssuesVmBuilder>();
+			x.For<IAllDefectKeysVmBuilder>().Use<AllDefectKeysVmBuilder>();
+
+			x.For<IRtfDefectReporter>().Use<RtfDefectReporter>();
+			x.For<IXmlDefectReporter>().Use<XmlDefectReporter>();
+
+			x.For<ISerializeHelper<List<Execution>>>().Use<SerializeHelper<List<Execution>>>();
+			x.For<ISerializeHelper<DefectReportVm>>().Use<SerializeHelper<DefectReportVm>>();
+
+			x.For<ILogger>().Use<ConsoleLogger>();
+		}
+	}
+}
