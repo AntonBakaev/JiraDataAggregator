@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Core.Reports.Interfaces;
-using Core.ViewModels;
 using Core.ViewModels.Interfaces;
 using TemplateHelper;
 
@@ -14,6 +12,8 @@ namespace Core.Reports
 	public abstract class AutomaticRtfReporterBase<TViewModel> : IRtfReporter<TViewModel>
 		where TViewModel : IViewModel, IReplaceable
 	{
+		private const string RtfReportFileNameKey = "RtfReportFileName";
+
 		private readonly InputFormatter inputFormatter;
 		private Dictionary<Type, string> allTemplates;
 
@@ -53,7 +53,7 @@ namespace Core.Reports
 
 		private static void GenerateReportFile(string content)
 		{
-			using (var streamWriter = new StreamWriter("result.rtf"))
+			using (var streamWriter = new StreamWriter(ConfigurationManager.AppSettings[RtfReportFileNameKey]))
 			{
 				streamWriter.Write(content);
 			}

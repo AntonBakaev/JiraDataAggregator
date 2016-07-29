@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{D654AD0E-D4D5-4BFA-A83D-9AC6AA8232FA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{31BE8653-0084-4627-8B0B-CDB6818AB8B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{9290982E-EFC1-4299-A13A-DEF574B45ABD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoC", "IoC\IoC.csproj", "{A6C27638-F027-4A26-9BD7-043934BE55DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoC", "IoC\IoC.csproj", "{69BFF805-EC12-4F31-8418-BA2D3A74F41B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{5C9466E3-1E4E-4A14-919C-86BC24F3897E}"
 EndProject
@@ -37,10 +39,10 @@ Global
 		{9290982E-EFC1-4299-A13A-DEF574B45ABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9290982E-EFC1-4299-A13A-DEF574B45ABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9290982E-EFC1-4299-A13A-DEF574B45ABD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A6C27638-F027-4A26-9BD7-043934BE55DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6C27638-F027-4A26-9BD7-043934BE55DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A6C27638-F027-4A26-9BD7-043934BE55DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A6C27638-F027-4A26-9BD7-043934BE55DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69BFF805-EC12-4F31-8418-BA2D3A74F41B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69BFF805-EC12-4F31-8418-BA2D3A74F41B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69BFF805-EC12-4F31-8418-BA2D3A74F41B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69BFF805-EC12-4F31-8418-BA2D3A74F41B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5C9466E3-1E4E-4A14-919C-86BC24F3897E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5C9466E3-1E4E-4A14-919C-86BC24F3897E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C9466E3-1E4E-4A14-919C-86BC24F3897E}.Release|Any CPU.ActiveCfg = Release|Any CPU

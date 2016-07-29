@@ -10,6 +10,7 @@ using Core.Reports.Interfaces;
 using Core.ViewModels;
 using Core.VmBuilders.Interfaces;
 using IoC.Initialize;
+using JiraDataAggregator.Console;
 
 namespace JiraDataAggregator.Console
 {
@@ -71,8 +72,15 @@ namespace JiraDataAggregator.Console
 
 		static void Main(string[] args)
 		{
-			Application.Initialize(ConfigurationHelper.ConfigureDependencies);
-			Application.Current.Container.GetInstance<ConsoleRunner>().Execute(args[0]).Wait();
+			try
+			{
+				Application.Initialize(ConfigurationHelper.ConfigureDependencies);
+				Application.Current.Container.GetInstance<ConsoleRunner>().Execute(args[0]).Wait();
+			}
+			catch
+			{
+				System.Console.WriteLine("The program stopped working due to internal errors.");
+			}
 		}
 	}
 }

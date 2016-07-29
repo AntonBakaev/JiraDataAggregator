@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using Common.Helpers.Interfaces;
@@ -18,7 +19,18 @@ namespace Common.Helpers
 
 		public T DeserializeXml(string filePath)
 		{
-			string badXml = File.ReadAllText(filePath);
+			string badXml;
+
+			try
+			{
+				badXml = File.ReadAllText(filePath);
+			}
+			catch (IOException ex)
+			{
+				Console.WriteLine(ex.Message);
+				throw;
+			}
+
 			var ampersandRegex = new Regex(BadAmpersandRegex);
 			string goodXml = ampersandRegex.Replace(badXml, Amp)
 										   .Replace(BadOpenQuote, Quot)
@@ -33,11 +45,19 @@ namespace Common.Helpers
 
 		public void Serialize(string fileNameToGenerate, T objectToSerialize)
 		{
-			var serializer = new XmlSerializer(typeof(T));
-			File.Delete(fileNameToGenerate);
-			using (var stream = new FileStream(fileNameToGenerate, FileMode.OpenOrCreate))
+			try
 			{
-				serializer.Serialize(stream, objectToSerialize);
+				var serializer = new XmlSerializer(typeof(T));
+				File.Delete(fileNameToGenerate);
+				using (var stream = new FileStream(fileNameToGenerate, FileMode.OpenOrCreate))
+				{
+					serializer.Serialize(stream, objectToSerialize);
+				}
+			}
+			catch (IOException ex)
+			{
+				Console.WriteLine(ex.Message);
+				throw;
 			}
 		}
 	}

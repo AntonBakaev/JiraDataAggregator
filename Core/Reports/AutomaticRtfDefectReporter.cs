@@ -7,7 +7,8 @@ namespace Core.Reports
 {
 	public class AutomaticRtfDefectReporter : AutomaticRtfReporterBase<DefectReportVm>, IRtfDefectReporter
 	{
-		public AutomaticRtfDefectReporter(InputFormatter inputFormatter) : base(inputFormatter)
+		public AutomaticRtfDefectReporter(InputFormatter inputFormatter)
+			: base(inputFormatter)
 		{
 		}
 
