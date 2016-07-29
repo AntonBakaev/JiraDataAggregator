@@ -38,7 +38,6 @@ namespace Core.Reports
 				             + paramName + @"""}{\fldrslt{\ul\cf1" + paramValue + "}}} ";
 
 				template = template.Replace(string.Format("\\{{{0}\\}}", paramName), paramValue);
-				//parameters.Remove(paramName);
 			}
 
 			return template;
@@ -94,7 +93,7 @@ namespace Core.Reports
 			var rtbBox = new RichTextBox();
 
 			int start = rtbBox.TextLength;
-			string line = "Defect report - Phase 1\n";
+			string line = "Defect report\n\n";
 			rtbBox.AppendText(line);
 
 			rtbBox.Select(start, line.Length);
@@ -103,13 +102,17 @@ namespace Core.Reports
 			rtbBox.SelectionAlignment = HorizontalAlignment.Center;
 
 			start = rtbBox.TextLength;
-			line = "(No Jira integration)\n\n";
-			rtbBox.AppendText(line);
 
+			line = "Generated: " + defectReportVm.GeneratedDateTime + "\n";
+
+			rtbBox.AppendText(line);
 			rtbBox.Select(start, line.Length);
 
 			rtbBox.SelectionFont = new Font("Arial", 13);
-			rtbBox.SelectionAlignment = HorizontalAlignment.Center;
+
+			rtbBox.Select(start, line.Length + 2);
+
+			rtbBox.SelectionFont = new Font("Arial", 13);
 
 			start = rtbBox.TextLength;
 			line = "\nOneScreen Flow statistics\n\n";
@@ -125,6 +128,14 @@ namespace Core.Reports
 			rtbBox.Select(start, line.Length);
 
 			rtbBox.SelectionFont = new Font("Arial", 13);
+
+			//start = rtbBox.TextLength;
+			//line = "\nDate.Time\n\n";
+
+			//rtbBox.AppendText(line);
+			//rtbBox.Select(start, line.Length);
+
+			//rtbBox.SelectionFont = new Font("Arial", 13, FontStyle.Bold);
 
 			start = rtbBox.TextLength;
 			line = "\nRetail shop flow statistics\n\n";

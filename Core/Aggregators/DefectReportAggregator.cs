@@ -20,7 +20,7 @@ namespace Core.Aggregators
 		//private ILogger logger;
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 
-		private Dictionary<string, IssueStatus> issueStatuses;
+		private Dictionary<string, IssueStatus> issueStatuses; // todo rename
 
 		public DefectReportAggregator(IDefectReportRepository defectReportRepository)//, ILogger logger)
 		{
