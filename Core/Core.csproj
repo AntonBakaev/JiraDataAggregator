@@ -60,13 +60,16 @@
     <Compile Include="Enums\StepStatus.cs" />
     <Compile Include="Models\Defect.cs" />
     <Compile Include="Models\Execution.cs" />
-    <Compile Include="Models\IsitLaunchCriticalMain.cs" />
     <Compile Include="Models\TestStep.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\InputFormatter.cs" />
+    <Compile Include="Reports\Interfaces\IReporter.cs" />
+    <Compile Include="Reports\Interfaces\IRtfDefectReporter.cs" />
+    <Compile Include="Reports\Interfaces\IXmlDefectReporter.cs" />
     <Compile Include="Reports\RtfDefectReporter.cs" />
-    <Compile Include="Reports\RtfReporter.cs" />
+    <Compile Include="Reports\RtfReporterBase.cs" />
     <Compile Include="Reports\XmlDefectReporter.cs" />
-    <Compile Include="Reports\XmlReporter.cs" />
+    <Compile Include="Reports\XmlReporterBase.cs" />
     <Compile Include="Repositories\DefectReportRepository.cs" />
     <Compile Include="Repositories\Interfaces\IDefectReportRepository.cs" />
     <Compile Include="ViewModels\AllDefectKeysVm.cs" />
@@ -93,13 +96,15 @@
       <Project>{f8e59fb6-0158-40da-9cab-3b9cd7937cfd}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TemplateHelper\TemplateHelper.csproj">
+      <Project>{7e8d0db9-e14a-467e-aa86-3c764c24f329}</Project>
+      <Name>TemplateHelper</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Reports\Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

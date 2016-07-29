@@ -1,9 +1,11 @@
 ﻿using Common.Helpers.Interfaces;
+using Core.Reports.Interfaces;
 using Core.ViewModels.Interfaces;
 
 namespace Core.Reports
 {
-	public abstract class XmlReporterBase<TViewModel> where TViewModel : IViewModel, new()
+	public abstract class XmlReporterBase<TViewModel> : IReporter<TViewModel>
+		where TViewModel : IViewModel, new()
 	{
 		private readonly ISerializeHelper<TViewModel> serializeHelper;
 

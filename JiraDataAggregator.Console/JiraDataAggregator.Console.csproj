@@ -68,6 +68,27 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Templates\AllDefectKeysVmTemplate.rtf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\BlockingIssuesVmTemplate.rtf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\DefectKeyVmTemplate.rtf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\DefectReportVmTemplate.rtf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\DefectVmTemplate.rtf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\FlowStatisticsVmTemplate.rtf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\IssueVmTemplate.rtf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\Template.rtf" />
   </ItemGroup>
   <ItemGroup>
@@ -86,6 +107,10 @@
     <ProjectReference Include="..\IoC\IoC.csproj">
       <Project>{a6c27638-f027-4a26-9bd7-043934be55da}</Project>
       <Name>IoC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TemplateHelper\TemplateHelper.csproj">
+      <Project>{7E8D0DB9-E14A-467E-AA86-3C764C24F329}</Project>
+      <Name>TemplateHelper</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

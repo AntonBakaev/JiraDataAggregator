@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Xml.Serialization;
+using Core.ViewModels.Interfaces;
 
 namespace Core.ViewModels
 {
 	[Serializable]
-	public class FlowStatisticsVm
+	public class FlowStatisticsVm : IViewModel
 	{
 		[XmlElement("passed")]
 		public int Passed { get; set; }

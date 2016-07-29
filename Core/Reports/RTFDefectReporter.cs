@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Core.Reports.Interfaces;
 using Core.ViewModels;
-using Common.Helpers;
 
 namespace Core.Reports
 {
-    public class RtfDefectReporter : RtfReporter<DefectReportVm>
-    {
-        private const string RtfReportFileConfigKey = "RtfDefectReportFileName";
+	public class RtfDefectReporter : RtfReporterBase<DefectReportVm>, IRtfDefectReporter
+	{
+		protected override string RtfReportFileConfigKey
+		{
+			get { return "RtfDefectReportFileName"; }
+		}
 
 		public static string GenerateRtfReport(string template, IDictionary<string, string> parameters)
 		{
@@ -34,7 +35,7 @@ namespace Core.Reports
 				}
 
 				paramValue = @" {\colortbl ;\red0\green0\blue238;} {\field{\*\fldinst HYPERLINK """
-					+ paramName + @"""}{\fldrslt{\ul\cf1" + paramValue + "}}} ";
+				             + paramName + @"""}{\fldrslt{\ul\cf1" + paramValue + "}}} ";
 
 				template = template.Replace(string.Format("\\{{{0}\\}}", paramName), paramValue);
 				//parameters.Remove(paramName);
@@ -43,13 +44,13 @@ namespace Core.Reports
 			return template;
 		}
 
-		public void Generate(DefectReportVm defectReportVm)
+		public override void Generate(DefectReportVm defectReportVm)
 		{
 			string filePath = ConfigurationManager.AppSettings[RtfReportFileConfigKey];
 
-			Dictionary<string, string> links = new Dictionary<string, string>();
+			var links = new Dictionary<string, string>();
 
-			StringBuilder flowStatisticsStr = new StringBuilder();
+			var flowStatisticsStr = new StringBuilder();
 
 			// first piece
 			flowStatisticsStr.AppendLine("\t • Passed: " + defectReportVm.FlowStatisticsVm.Passed);
@@ -57,18 +58,19 @@ namespace Core.Reports
 			flowStatisticsStr.AppendLine("\t • Wip: " + defectReportVm.FlowStatisticsVm.Wip);
 			flowStatisticsStr.AppendLine("\t • Blocked: " + defectReportVm.FlowStatisticsVm.Blocked);
 
-			StringBuilder retailShopFlowStatisticsStr = new StringBuilder();
+			var retailShopFlowStatisticsStr = new StringBuilder();
 			// first piece
 			retailShopFlowStatisticsStr.AppendLine("\t • Passed: " + defectReportVm.FlowStatisticsVm.Passed);
 			retailShopFlowStatisticsStr.AppendLine("\t • Failed: " + defectReportVm.FlowStatisticsVm.Failed);
 			retailShopFlowStatisticsStr.AppendLine("\t • Wip: " + defectReportVm.FlowStatisticsVm.Wip);
 			retailShopFlowStatisticsStr.AppendLine("\t • Blocked: " + defectReportVm.FlowStatisticsVm.Blocked);
 
-			StringBuilder blockingIssuesBuilder = new StringBuilder();
+			var blockingIssuesBuilder = new StringBuilder();
 
 			foreach (DefectVm defect in defectReportVm.BlockingIssuesVm.DefectsList)
 			{
-				blockingIssuesBuilder.AppendLine(string.Format("\t • {{{0}}} - blocks {1} flows", defect.Link, defect.BlockingIssuesCount));
+				blockingIssuesBuilder.AppendLine(string.Format("\t • {{{0}}} - blocks {1} flows", defect.Link,
+					defect.BlockingIssuesCount));
 
 				if (!links.ContainsKey(defect.Link))
 					links.Add(defect.Link, defect.DefectName);
@@ -82,14 +84,14 @@ namespace Core.Reports
 				}
 			}
 
-			StringBuilder allDefectKeysStr = new StringBuilder();
+			var allDefectKeysStr = new StringBuilder();
 
 			foreach (DefectKeyVm defectKey in defectReportVm.AllDefectKeysVm.AllDefectKeys)
 			{
 				allDefectKeysStr.AppendLine("\t •" + defectKey.Value);
 			}
 
-			RichTextBox rtbBox = new RichTextBox();
+			var rtbBox = new RichTextBox();
 
 			int start = rtbBox.TextLength;
 			string line = "Defect report - Phase 1\n";
@@ -180,5 +182,5 @@ namespace Core.Reports
 
 			File.WriteAllText(filePath, GenerateRtfReport(template, links));
 		}
-    }
+	}
 }

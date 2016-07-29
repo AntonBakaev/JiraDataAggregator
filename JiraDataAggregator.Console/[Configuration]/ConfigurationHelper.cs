@@ -4,6 +4,8 @@ using Common.Helpers.Interfaces;
 using Core.Aggregators;
 using Core.Aggregators.Interfaces;
 using Core.Models;
+using Core.Reports;
+using Core.Reports.Interfaces;
 using Core.Repositories;
 using Core.Repositories.Interfaces;
 using Core.ViewModels;
@@ -12,7 +14,7 @@ using Core.VmBuilders.Interfaces;
 using JiraDataAggregator.Console.Utilities;
 using StructureMap;
 
-namespace JiraDataAggregator._Configuration_
+namespace JiraDataAggregator.Console
 {
 	public class ConfigurationHelper
 	{
@@ -24,6 +26,9 @@ namespace JiraDataAggregator._Configuration_
 			x.For<IFlowStatisticsVmBuilder>().Use<FlowStatisticsVmBuilder>();
 			x.For<IBlockingIssuesVmBuilder>().Use<BlockingIssuesVmBuilder>();
 			x.For<IAllDefectKeysVmBuilder>().Use<AllDefectKeysVmBuilder>();
+
+			x.For<IRtfDefectReporter>().Use<RtfDefectReporter>();
+			x.For<IXmlDefectReporter>().Use<XmlDefectReporter>();
 
 			x.For<ISerializeHelper<List<Execution>>>().Use<SerializeHelper<List<Execution>>>();
 			x.For<ISerializeHelper<DefectReportVm>>().Use<SerializeHelper<DefectReportVm>>();
