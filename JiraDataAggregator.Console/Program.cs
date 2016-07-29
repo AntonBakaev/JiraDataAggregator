@@ -28,7 +28,7 @@ namespace JiraDataAggregator.Console
 								 IAllDefectKeysVmBuilder allBlockingDefectsVmBuilder,
 								 IBlockingIssuesVmBuilder blockingIssuesVmBuilder,
 								 IFlowStatisticsVmBuilder flowStatisticsVmBuilder,
-								 RtfDefectReporter rtfDefectReporter,
+								 IRtfDefectReporter rtfDefectReporter,
 								 IXmlDefectReporter xmlDefectReporter)
 			{
 				this.defectReportAggregator = defectReportAggregator;
