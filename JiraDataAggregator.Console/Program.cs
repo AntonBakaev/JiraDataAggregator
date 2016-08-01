@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Threading.Tasks;
 using Common.Exceptions;
-using Common.Helpers.Interfaces;
 using Core.Aggregators.Interfaces;
 using Core.Models;
-using Core.Reports;
 using Core.Reports.Interfaces;
 using Core.ViewModels;
 using Core.VmBuilders.Interfaces;
 using IoC.Initialize;
-using JiraDataAggregator.Console;
 
 namespace JiraDataAggregator.Console
 {

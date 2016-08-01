@@ -14,7 +14,7 @@ namespace Core.Reports
 	public abstract class AutomaticRtfReporterBase<TViewModel> : IRtfReporter<TViewModel>
 		where TViewModel : IViewModel, IReplaceable
 	{
-		private const string RtfReportFileNameKey = "RtfReportFileName";
+		private const string RtfReportFileNameKey = "RtfDefectReportFileName";
 
 		private readonly InputFormatter inputFormatter;
 		private Dictionary<Type, string> allTemplates;

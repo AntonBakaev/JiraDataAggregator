@@ -13,6 +13,9 @@ namespace Core.Enums
 		[XmlEnum("FAIL")]
 		Fail,
 
+		[XmlEnum("WIP")]
+		WIP,
+
 		[XmlEnum("UNEXECUTED")]
 		Unexecuted,
 
