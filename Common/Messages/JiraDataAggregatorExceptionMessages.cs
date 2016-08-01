@@ -16,8 +16,7 @@
 		public static class FileExceptionMessages
 		{
 			public const string ReadFromFileError = "The file you are trying to access is used by another process";
-			public const string WriteToXmlFileError = "Writing data to xml file is impossible because it is used by another process";
-			public const string WriteToRtfFileError = "Writing data to rtf file is impossible because it is used by another process";
+			public const string WriteToFileError = "Writing data to file is impossible because it is used by another process";
 			public const string LoadFromTemplateError = "Failed to load template because it is used by another process";
 		}
 	}

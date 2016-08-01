@@ -61,7 +61,7 @@ namespace Common.Helpers
 			{
 				throw new JiraDataAggregatorException(
 					string.Format("{0} at {1}", 
-					JiraDataAggregatorExceptionMessages.FileExceptionMessages.WriteToRtfFileError,fileNameToGenerate));
+					JiraDataAggregatorExceptionMessages.FileExceptionMessages.WriteToFileError,fileNameToGenerate));
 			}
 		}
 	}

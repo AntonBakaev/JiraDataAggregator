@@ -78,7 +78,18 @@ namespace JiraDataAggregator.Console
 				Application.Initialize(ConfigurationHelper.ConfigureDependencies);
 				Application.Current.Container.GetInstance<ConsoleRunner>().Execute(args[0]).Wait();
 			}
-			catch (JiraDataAggregatorException ex)
+			catch (AggregateException ex)
+			{
+				if (ex.InnerExceptions.Count > 0)
+				{
+					System.Console.WriteLine(ex.InnerExceptions[0].Message);
+				}
+				else
+				{
+					System.Console.WriteLine(ex.Message);
+				}
+			}
+			catch (Exception ex)
 			{
 				System.Console.WriteLine(ex.Message);
 			}

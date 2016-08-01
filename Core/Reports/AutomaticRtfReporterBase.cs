@@ -78,7 +78,7 @@ namespace Core.Reports
 			{
 				throw new JiraDataAggregatorException(
 					string.Format("{0} at {1}",
-					JiraDataAggregatorExceptionMessages.FileExceptionMessages.WriteToRtfFileError, rtfReportFileName));
+					JiraDataAggregatorExceptionMessages.FileExceptionMessages.WriteToFileError, rtfReportFileName));
 			}
 		}
 	}
