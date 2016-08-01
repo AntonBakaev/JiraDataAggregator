@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Threading.Tasks;
+using Common.Exceptions;
 using Common.Helpers.Interfaces;
 using Core.Aggregators.Interfaces;
 using Core.Models;
@@ -77,9 +78,9 @@ namespace JiraDataAggregator.Console
 				Application.Initialize(ConfigurationHelper.ConfigureDependencies);
 				Application.Current.Container.GetInstance<ConsoleRunner>().Execute(args[0]).Wait();
 			}
-			catch
+			catch (JiraDataAggregatorException ex)
 			{
-				System.Console.WriteLine("The program stopped working due to internal errors.");
+				System.Console.WriteLine(ex.Message);
 			}
 		}
 	}

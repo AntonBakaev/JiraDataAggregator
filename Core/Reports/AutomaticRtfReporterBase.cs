@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Text;
+using Common.Exceptions;
+using Common.Messages;
 using Core.Reports.Interfaces;
 using Core.ViewModels.Interfaces;
 using TemplateHelper;
@@ -36,26 +38,47 @@ namespace Core.Reports
 		private static Dictionary<Type, string> LoadTemplates(Dictionary<Type, string> templatesLocations, string basePath)
 		{
 			var allTemplates = new Dictionary<Type, string>();
+			string templatePath = string.Empty;
 
-			foreach (var template in templatesLocations)
+			try
 			{
-				string path = String.Format(basePath, template.Value);
-				string text;
-				using (var streamReader = new StreamReader(path, Encoding.UTF8))
+				foreach (var template in templatesLocations)
 				{
-					text = streamReader.ReadToEnd();
+					string path = String.Format(basePath, template.Value);
+					templatePath = path;
+					string text;
+					using (var streamReader = new StreamReader(path, Encoding.UTF8))
+					{
+						text = streamReader.ReadToEnd();
+					}
+					allTemplates.Add(template.Key, text);
 				}
-				allTemplates.Add(template.Key, text);
 			}
-
+			catch (IOException)
+			{
+				throw new JiraDataAggregatorException(
+					string.Format("{0} at {1}",
+					JiraDataAggregatorExceptionMessages.FileExceptionMessages.LoadFromTemplateError, templatePath));
+			}
+			
 			return allTemplates;
 		}
 
 		private static void GenerateReportFile(string content)
 		{
-			using (var streamWriter = new StreamWriter(ConfigurationManager.AppSettings[RtfReportFileNameKey]))
+			string rtfReportFileName = ConfigurationManager.AppSettings[RtfReportFileNameKey];
+			try
 			{
-				streamWriter.Write(content);
+				using (var streamWriter = new StreamWriter(rtfReportFileName))
+				{
+					streamWriter.Write(content);
+				}
+			}
+			catch (IOException)
+			{
+				throw new JiraDataAggregatorException(
+					string.Format("{0} at {1}",
+					JiraDataAggregatorExceptionMessages.FileExceptionMessages.WriteToRtfFileError, rtfReportFileName));
 			}
 		}
 	}

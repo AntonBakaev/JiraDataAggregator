@@ -2,7 +2,9 @@
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
+using Common.Exceptions;
 using Common.Helpers.Interfaces;
+using Common.Messages;
 
 namespace Common.Helpers
 {
@@ -25,10 +27,11 @@ namespace Common.Helpers
 			{
 				badXml = File.ReadAllText(filePath);
 			}
-			catch (IOException ex)
+			catch (IOException)
 			{
-				Console.WriteLine(ex.Message);
-				throw;
+				throw new JiraDataAggregatorException(
+					string.Format("{0} at {1}",
+					JiraDataAggregatorExceptionMessages.FileExceptionMessages.ReadFromFileError, filePath));
 			}
 
 			var ampersandRegex = new Regex(BadAmpersandRegex);
@@ -54,10 +57,11 @@ namespace Common.Helpers
 					serializer.Serialize(stream, objectToSerialize);
 				}
 			}
-			catch (IOException ex)
+			catch (IOException)
 			{
-				Console.WriteLine(ex.Message);
-				throw;
+				throw new JiraDataAggregatorException(
+					string.Format("{0} at {1}", 
+					JiraDataAggregatorExceptionMessages.FileExceptionMessages.WriteToRtfFileError,fileNameToGenerate));
 			}
 		}
 	}

@@ -6,6 +6,8 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Common.Exceptions;
+using Common.Messages;
 using Core.Reports.Interfaces;
 using Core.ViewModels;
 
@@ -35,7 +37,7 @@ namespace Core.Reports
 				}
 
 				paramValue = @" {\colortbl ;\red0\green0\blue238;} {\field{\*\fldinst HYPERLINK """
-				             + paramName + @"""}{\fldrslt{\ul\cf1" + paramValue + "}}} ";
+							 + paramName + @"""}{\fldrslt{\ul\cf1" + paramValue + "}}} ";
 
 				template = template.Replace(string.Format("\\{{{0}\\}}", paramName), paramValue);
 			}
@@ -182,16 +184,24 @@ namespace Core.Reports
 
 			rtbBox.SelectionFont = new Font("Arial", 13);
 
-			if (!File.Exists(filePath))
+			try
 			{
+				File.Delete(filePath);
 				FileStream stream = File.Create(filePath);
 				stream.Close();
+
+				rtbBox.SaveFile(filePath, RichTextBoxStreamType.RichText);
+				string template = File.ReadAllText(filePath);
+
+				File.WriteAllText(filePath, GenerateRtfReport(template, links));
 			}
-
-			rtbBox.SaveFile(filePath, RichTextBoxStreamType.RichText);
-			string template = File.ReadAllText(filePath);
-
-			File.WriteAllText(filePath, GenerateRtfReport(template, links));
+			catch (IOException)
+			{
+				throw new JiraDataAggregatorException(
+					string.Format("{0} at {1}", 
+					JiraDataAggregatorExceptionMessages.FileExceptionMessages.WriteToRtfFileError, filePath));
+			}
+			
 		}
 	}
 }
