@@ -23,8 +23,18 @@ namespace DataAccess.RestServices
 			Uri serviceUrl = serviceUrlTemplate.BindByName(baseAddress, ConvertHelper.ToDictionary(parameters));
 
 			HttpClient client = CreateClient(baseAddress, authString);
+			HttpResponseMessage response;
+			try
+			{
+				response = await client.GetAsync(serviceUrl);
+			}
+			catch (Exception)
+			{
+				
+				throw;
+			}
+
 			
-			HttpResponseMessage response = await client.GetAsync(serviceUrl);
 
 			logger.Info("{0} to {1}", ConnectionMessages.SuccessfulRequestSent, serviceUrl.AbsoluteUri);
 
