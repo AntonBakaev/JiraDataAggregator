@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Common.Exceptions;
 using Common.Helpers;
-using Common.Helpers.Interfaces;
 using Core.Aggregators.Interfaces;
 using Core.Enums;
 using Core.Models;
@@ -17,23 +14,24 @@ namespace Core.Aggregators
 	public class DefectReportAggregator : IDefectReportAggregator
 	{
 		private readonly IDefectReportRepository defectReportRepository;
-		//private ILogger logger;
-		private static Logger logger = LogManager.GetCurrentClassLogger();
+		private readonly ILogger logger;
 
-		private Dictionary<string, IssueStatus> issueStatuses; // todo rename
+		private readonly Dictionary<string, IssueStatus> issueStatuses; // todo rename
 
-		public DefectReportAggregator(IDefectReportRepository defectReportRepository)//, ILogger logger)
+		public DefectReportAggregator(IDefectReportRepository defectReportRepository, ILogger logger)
 		{
 			this.defectReportRepository = defectReportRepository;
-			//this.logger = logger;
+			this.logger = logger;
 			issueStatuses = new Dictionary<string, IssueStatus>();
 		}
 
-
-		public async Task<IEnumerable<Execution>> GetIsitLaunchCriticalViewData(string fileName)
+		public IEnumerable<Execution> GetExecutions(string fileName)
 		{
-			IEnumerable<Execution> executions = defectReportRepository.GetIsitLaunchCriticalViewData(fileName);
+			return defectReportRepository.GetIsitLaunchCriticalViewData(fileName);
+		}
 
+		public async Task<IEnumerable<Execution>> FilterExecutions(IEnumerable<Execution> executions)
+		{
 			return await FilterExecutionDefects(executions);
 		}
 
@@ -93,8 +91,8 @@ namespace Core.Aggregators
 			catch (JiraDataAggregatorException)
 			{
 				logger.Error(JdaException.GetSpecificRestException(0));
+				throw;
 			}
-			return null;
 		}
 	}
 }

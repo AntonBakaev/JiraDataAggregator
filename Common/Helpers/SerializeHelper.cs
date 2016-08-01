@@ -1,7 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
+using Common.Exceptions;
 using Common.Helpers.Interfaces;
+using Common.Messages;
 
 namespace Common.Helpers
 {
@@ -18,7 +21,19 @@ namespace Common.Helpers
 
 		public T DeserializeXml(string filePath)
 		{
-			string badXml = File.ReadAllText(filePath);
+			string badXml;
+
+			try
+			{
+				badXml = File.ReadAllText(filePath);
+			}
+			catch (IOException)
+			{
+				throw new JiraDataAggregatorException(
+					string.Format("{0} at {1}",
+					JiraDataAggregatorExceptionMessages.FileExceptionMessages.ReadFromFileError, filePath));
+			}
+
 			var ampersandRegex = new Regex(BadAmpersandRegex);
 			string goodXml = ampersandRegex.Replace(badXml, Amp)
 										   .Replace(BadOpenQuote, Quot)
@@ -33,11 +48,20 @@ namespace Common.Helpers
 
 		public void Serialize(string fileNameToGenerate, T objectToSerialize)
 		{
-			var serializer = new XmlSerializer(typeof(T));
-			File.Delete(fileNameToGenerate);
-			using (var stream = new FileStream(fileNameToGenerate, FileMode.OpenOrCreate))
+			try
 			{
-				serializer.Serialize(stream, objectToSerialize);
+				var serializer = new XmlSerializer(typeof(T));
+				File.Delete(fileNameToGenerate);
+				using (var stream = new FileStream(fileNameToGenerate, FileMode.OpenOrCreate))
+				{
+					serializer.Serialize(stream, objectToSerialize);
+				}
+			}
+			catch (IOException)
+			{
+				throw new JiraDataAggregatorException(
+					string.Format("{0} at {1}", 
+					JiraDataAggregatorExceptionMessages.FileExceptionMessages.WriteToFileError,fileNameToGenerate));
 			}
 		}
 	}

@@ -6,7 +6,7 @@ namespace Core.Reports
 	{
 		public string InputSearchPattern
 		{
-			get { return @"\[(.*?)\]}"; }
+			get { return @"\[(.*?)\]"; }
 		}
 
 		public string InputKeyPattern

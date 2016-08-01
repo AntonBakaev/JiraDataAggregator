@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Threading.Tasks;
-using Common.Helpers.Interfaces;
+using Common.Exceptions;
 using Core.Aggregators.Interfaces;
 using Core.Models;
-using Core.Reports;
 using Core.Reports.Interfaces;
 using Core.ViewModels;
 using Core.VmBuilders.Interfaces;
@@ -28,7 +27,7 @@ namespace JiraDataAggregator.Console
 								 IAllDefectKeysVmBuilder allBlockingDefectsVmBuilder,
 								 IBlockingIssuesVmBuilder blockingIssuesVmBuilder,
 								 IFlowStatisticsVmBuilder flowStatisticsVmBuilder,
-								 RtfDefectReporter rtfDefectReporter,
+								 IRtfDefectReporter rtfDefectReporter,
 								 IXmlDefectReporter xmlDefectReporter)
 			{
 				this.defectReportAggregator = defectReportAggregator;
@@ -41,7 +40,8 @@ namespace JiraDataAggregator.Console
 
 			public async Task Execute(string fileName)
 			{
-				IEnumerable<Execution> executionsList = await defectReportAggregator.GetIsitLaunchCriticalViewData(fileName);
+				IEnumerable<Execution> executionsList = defectReportAggregator.GetExecutions(fileName);
+				executionsList = await defectReportAggregator.FilterExecutions(executionsList);
 
 				DefectReportVm defectReportVm = GenerateDefectReportVm(executionsList);
 
@@ -71,8 +71,26 @@ namespace JiraDataAggregator.Console
 
 		static void Main(string[] args)
 		{
-			Application.Initialize(ConfigurationHelper.ConfigureDependencies);
-			Application.Current.Container.GetInstance<ConsoleRunner>().Execute(args[0]).Wait();
+			try
+			{
+				Application.Initialize(ConfigurationHelper.ConfigureDependencies);
+				Application.Current.Container.GetInstance<ConsoleRunner>().Execute(args[0]).Wait();
+			}
+			catch (AggregateException ex)
+			{
+				if (ex.InnerExceptions.Count > 0)
+				{
+					System.Console.WriteLine(ex.InnerExceptions[0].Message);
+				}
+				else
+				{
+					System.Console.WriteLine(ex.Message);
+				}
+			}
+			catch (Exception ex)
+			{
+				System.Console.WriteLine(ex.Message);
+			}
 		}
 	}
 }

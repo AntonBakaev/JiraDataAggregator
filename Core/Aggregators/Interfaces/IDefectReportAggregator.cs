@@ -6,6 +6,7 @@ namespace Core.Aggregators.Interfaces
 {
 	public interface IDefectReportAggregator
 	{
-		Task<IEnumerable<Execution>> GetIsitLaunchCriticalViewData(string fileName);
+		IEnumerable<Execution> GetExecutions(string fileName);
+		Task<IEnumerable<Execution>> FilterExecutions(IEnumerable<Execution> executions);
 	}
 }

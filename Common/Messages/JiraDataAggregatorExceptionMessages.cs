@@ -12,5 +12,12 @@
 			public const string InternalServerError = "The server encountered an unexpected condition which prevented it from fulfilling the request";
 			public const string DefaultError = "Unpredictable rest error occured";
 		}
+
+		public static class FileExceptionMessages
+		{
+			public const string ReadFromFileError = "The file you are trying to access is used by another process";
+			public const string WriteToFileError = "Writing data to file is impossible because it is used by another process";
+			public const string LoadFromTemplateError = "Failed to load template because it is used by another process";
+		}
 	}
 }

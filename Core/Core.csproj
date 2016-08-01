@@ -62,9 +62,12 @@
     <Compile Include="Models\Execution.cs" />
     <Compile Include="Models\TestStep.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\AutomaticRtfDefectReporter.cs" />
+    <Compile Include="Reports\AutomaticRtfReporterBase.cs" />
     <Compile Include="Reports\InputFormatter.cs" />
     <Compile Include="Reports\Interfaces\IReporter.cs" />
     <Compile Include="Reports\Interfaces\IRtfDefectReporter.cs" />
+    <Compile Include="Reports\Interfaces\IRtfReporter.cs" />
     <Compile Include="Reports\Interfaces\IXmlDefectReporter.cs" />
     <Compile Include="Reports\RtfDefectReporter.cs" />
     <Compile Include="Reports\RtfReporterBase.cs" />
