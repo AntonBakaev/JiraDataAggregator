@@ -1,19 +1,24 @@
 ﻿using System;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Common.Exceptions;
 using Common.Helpers;
 using Common.Messages;
+using DataAccess.RestServices.Interfaces;
 using Newtonsoft.Json;
 using NLog;
 
 namespace DataAccess.RestServices
 {
-	public class RestClient
+	public class RestClient: IRestClient
 	{
-		private static Logger logger = LogManager.GetCurrentClassLogger();
+		private readonly ILogger logger;
+
+		public RestClient(ILogger logger)
+		{
+			this.logger = logger;
+		}
 
 		async public Task<TResponse> Get<TResponse>(string serviceName, object parameters = null) where TResponse : new()
 		{

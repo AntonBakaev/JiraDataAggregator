@@ -14,15 +14,14 @@ namespace Core.Aggregators
 	public class DefectReportAggregator : IDefectReportAggregator
 	{
 		private readonly IDefectReportRepository defectReportRepository;
-		//private ILogger logger;
-		private static Logger logger = LogManager.GetCurrentClassLogger();
+		private readonly ILogger logger;
 
-		private Dictionary<string, IssueStatus> issueStatuses; // todo rename
+		private readonly Dictionary<string, IssueStatus> issueStatuses; // todo rename
 
-		public DefectReportAggregator(IDefectReportRepository defectReportRepository)//, ILogger logger)
+		public DefectReportAggregator(IDefectReportRepository defectReportRepository, ILogger logger)
 		{
 			this.defectReportRepository = defectReportRepository;
-			//this.logger = logger;
+			this.logger = logger;
 			issueStatuses = new Dictionary<string, IssueStatus>();
 		}
 

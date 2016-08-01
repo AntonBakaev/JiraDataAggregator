@@ -56,7 +56,6 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\ConsoleLogger.cs" />
     <Compile Include="[Configuration]\ConfigurationHelper.cs" />
   </ItemGroup>
   <ItemGroup>
