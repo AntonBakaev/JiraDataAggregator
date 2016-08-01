@@ -31,8 +31,8 @@ namespace JiraDataAggregator.Console
 			x.For<IBlockingIssuesVmBuilder>().Use<BlockingIssuesVmBuilder>();
 			x.For<IAllDefectKeysVmBuilder>().Use<AllDefectKeysVmBuilder>();
 
-			//x.For<IRtfDefectReporter>().Use<RtfDefectReporter>();
-			x.For<IRtfDefectReporter>().Use<AutomaticRtfDefectReporter>();
+			x.For<IRtfDefectReporter>().Use<RtfDefectReporter>();
+			//x.For<IRtfDefectReporter>().Use<AutomaticRtfDefectReporter>();
 			x.For<IXmlDefectReporter>().Use<XmlDefectReporter>();
 
 			x.For<ISerializeHelper<List<Execution>>>().Use<SerializeHelper<List<Execution>>>();

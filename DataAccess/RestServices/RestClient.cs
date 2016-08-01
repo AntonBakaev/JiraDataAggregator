@@ -23,7 +23,7 @@ namespace DataAccess.RestServices
 		async public Task<TResponse> Get<TResponse>(string serviceName, object parameters = null) where TResponse : new()
 		{
 			string authString = RestServicesHelper.GetJiraConnectionAuthData(serviceName);
-			Uri baseAddress = new Uri(RestServicesHelper.GetJiraConnectionBaseUrl(serviceName));
+			var baseAddress = new Uri(RestServicesHelper.GetJiraConnectionBaseUrl(serviceName));
 			var serviceUrlTemplate = new UriTemplate(RestServicesHelper.GetServiceUrl(serviceName));
 			Uri serviceUrl = serviceUrlTemplate.BindByName(baseAddress, ConvertHelper.ToDictionary(parameters));
 
@@ -33,13 +33,11 @@ namespace DataAccess.RestServices
 			{
 				response = await client.GetAsync(serviceUrl);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				
+				logger.Error(ex.Message);
 				throw;
 			}
-
-			
 
 			logger.Info("{0} to {1}", ConnectionMessages.SuccessfulRequestSent, serviceUrl.AbsoluteUri);
 
