@@ -40,7 +40,8 @@ namespace JiraDataAggregator.Console
 
 			public async Task Execute(string fileName)
 			{
-				IEnumerable<Execution> executionsList = await defectReportAggregator.GetIsitLaunchCriticalViewData(fileName);
+				IEnumerable<Execution> executionsList = defectReportAggregator.GetExecutions(fileName);
+				executionsList = await defectReportAggregator.FilterExecutions(executionsList);
 
 				DefectReportVm defectReportVm = GenerateDefectReportVm(executionsList);
 

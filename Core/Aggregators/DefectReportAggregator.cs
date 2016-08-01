@@ -26,11 +26,13 @@ namespace Core.Aggregators
 			issueStatuses = new Dictionary<string, IssueStatus>();
 		}
 
-
-		public async Task<IEnumerable<Execution>> GetIsitLaunchCriticalViewData(string fileName)
+		public IEnumerable<Execution> GetExecutions(string fileName)
 		{
-			IEnumerable<Execution> executions = defectReportRepository.GetIsitLaunchCriticalViewData(fileName);
+			return defectReportRepository.GetIsitLaunchCriticalViewData(fileName);
+		}
 
+		public async Task<IEnumerable<Execution>> FilterExecutions(IEnumerable<Execution> executions)
+		{
 			return await FilterExecutionDefects(executions);
 		}
 
