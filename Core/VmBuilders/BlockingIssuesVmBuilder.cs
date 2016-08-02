@@ -10,7 +10,7 @@ namespace Core.VmBuilders
 {
 	public class BlockingIssuesVmBuilder : IBlockingIssuesVmBuilder
 	{
-		private const string BaseLinkFormatConfigKey = "BaseLinkFormat";
+		private const string BaseLinkFormatConfigKey = "BaseLinkFormat"; 
 
 		public BlockingIssuesVm GetTopBlockingIssues(IEnumerable<Execution> executionsList, int numberOfTopBlockingIssues)
 		{
