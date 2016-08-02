@@ -43,7 +43,6 @@ namespace JiraDataAggregator.Console
 				Dictionary<string, DefectInfo> defectInfoList = await defectReportAggregator.GetExecutionsDefectInfo(executionsList);
 				executionsList = defectReportAggregator.Filter(executionsList, defectInfoList);
 
-
 				DefectReportVm defectReportVm = GenerateDefectReportVm(executionsList, defectInfoList);
 
 				xmlDefectReporter.Generate(defectReportVm);

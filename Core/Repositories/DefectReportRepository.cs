@@ -50,13 +50,13 @@ namespace Core.Repositories
 			if (status != null)
 				statusString = status["name"].ToString();
 			var assignee = jObject["fields"]["assignee"];
-			if (assignee != null)
+			if (assignee != null && assignee.HasValues)
 				assigneeName = assignee["name"].ToString();
 			var components = jObject["fields"]["components"].First;
 			if (components != null)
 				componentsName = components["name"].ToString();
 			var severity = jObject["fields"]["customfield_10401"];
-			if (severity != null)
+			if (severity != null && severity.HasValues)
 				severityValue = severity["value"].ToString();
 			var summary = jObject["fields"]["summary"];
 			if (summary != null)
