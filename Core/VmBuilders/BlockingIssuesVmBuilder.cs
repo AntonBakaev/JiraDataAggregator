@@ -10,13 +10,13 @@ namespace Core.VmBuilders
 {
 	public class BlockingIssuesVmBuilder : IBlockingIssuesVmBuilder
 	{
-		private const string BaseLinkFormatConfigKey = "BaseLinkFormat";
+		private const string BaseLinkFormatConfigKey = "BaseLinkFormat"; 
 
 		public BlockingIssuesVm GetTopBlockingIssues(IEnumerable<Execution> executionsList, int numberOfTopBlockingIssues)
 		{
 			var defectsList = GetDefectsList(executionsList);
 
-			string baseLinkFormat = ConfigurationManager.AppSettings["BaseLinkFormat"];
+			string baseLinkFormat = ConfigurationManager.AppSettings[BaseLinkFormatConfigKey];
 
 			var defectsVmList = new List<DefectVm>();
 			foreach (var defect in defectsList)

@@ -40,9 +40,6 @@ namespace Core.Aggregators
 			List<Task<Tuple<string, IssueStatus>>> tasks = new List<Task<Tuple<string, IssueStatus>>>();
 			List<string> scheduledForCheckingIssueKeysList = new List<string>();
 
-			//Stopwatch sw = new Stopwatch();
-			//sw.Start();
-
 			foreach (Execution execution in executions)
 			{
 				foreach (string executionDefect in execution.ExecutionDefects)
@@ -79,7 +76,6 @@ namespace Core.Aggregators
 			}
 
 			return executions;
-			//sw.Stop();
 		}
 
 		private async Task<Tuple<string, IssueStatus>> GetIssueStatusWrapper(string issueKey)

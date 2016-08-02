@@ -4,7 +4,7 @@ namespace Core.Enums
 {
 	[DataContract]
     public enum IssueStatus
-    {//todo add more
+    {//todo maybe add more
 		Unknown = 0, 
 		[EnumMember(Value = "Open")]
         Open,

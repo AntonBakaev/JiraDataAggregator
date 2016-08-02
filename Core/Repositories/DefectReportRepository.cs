@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Common.Exceptions;
 using Core.Models;
 using Core.Repositories.Interfaces;
 using Common.Helpers;
 using Common.Helpers.Interfaces;
 using Core.Enums;
-using DataAccess.RestServices;
 using DataAccess.RestServices.Interfaces;
 using Newtonsoft.Json.Linq;
 
