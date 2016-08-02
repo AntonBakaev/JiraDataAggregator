@@ -4,12 +4,13 @@ using Core.Enums;
 using Core.Models;
 using Core.ViewModels;
 using Core.VmBuilders.Interfaces;
+using System.Configuration;
 
 namespace Core.VmBuilders
 {
 	public class FlowStatisticsVmBuilder : IFlowStatisticsVmBuilder
 	{
-		private const string RetailStr = "Shop_E2E: Retail";
+		private const string FilterFlowStatistics = "FilterFlowStatistics";
 
 		public FlowStatisticsVm GetFlowStatisticsVm(IEnumerable<Execution> executionsList)
 		{
@@ -24,7 +25,10 @@ namespace Core.VmBuilders
 
 		public FlowStatisticsVm GetFlowStatisticsVmByFilter(IEnumerable<Execution> executionsList)
 		{
-			return GetFlowStatisticsVm(executionsList.Where(e => e.TestSummary.Trim().StartsWith(RetailStr)).ToList());
+			return GetFlowStatisticsVm(executionsList.Where(e => e.TestSummary.
+				Trim().
+				StartsWith(ConfigurationManager.
+				AppSettings[FilterFlowStatistics])).ToList());
 		}
 	}
 }

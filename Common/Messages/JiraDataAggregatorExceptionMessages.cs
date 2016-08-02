@@ -19,5 +19,13 @@
 			public const string WriteToFileError = "Writing data to file is impossible because it is used by another process";
 			public const string LoadFromTemplateError = "Failed to load template because it is used by another process";
 		}
+
+		public static class ConfigurationExceptionMessages
+		{
+			public const string RestServicesSectionNotFoundError = "RestServices section not found";
+			public const string InvalidServiceNameError = "Service name is invalid";
+			public const string JiraConnectionsSectionNotFoundError = "JiraConnections section not found.";
+			public const string InvalidConnectionNameError = "Connection name is invalid";
+		}
 	}
 }

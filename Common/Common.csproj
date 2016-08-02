@@ -51,7 +51,6 @@
     <Compile Include="Helpers\Interfaces\ISerializeHelper.cs" />
     <Compile Include="Helpers\JdaException.cs" />
     <Compile Include="Helpers\SerializeHelper.cs" />
-    <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Messages\ConnectionMessages.cs" />
     <Compile Include="Messages\JiraDataAggregatorExceptionMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

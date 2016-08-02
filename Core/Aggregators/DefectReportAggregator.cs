@@ -37,12 +37,12 @@ namespace Core.Aggregators
 
 		private async Task<IEnumerable<Execution>> FilterExecutionDefects(IEnumerable<Execution> executions)
 		{
-			List<Task<Tuple<string, IssueStatus>>> tasks = new List<Task<Tuple<string, IssueStatus>>>();
-			List<string> scheduledForCheckingIssueKeysList = new List<string>();
+			var tasks = new List<Task<Tuple<string, IssueStatus>>>();
+			var scheduledForCheckingIssueKeysList = new List<string>();
 
-			foreach (Execution execution in executions)
+			foreach (var execution in executions)
 			{
-				foreach (string executionDefect in execution.ExecutionDefects)
+				foreach (var executionDefect in execution.ExecutionDefects)
 				{
 					if (!scheduledForCheckingIssueKeysList.Contains(executionDefect))
 					{
@@ -62,10 +62,10 @@ namespace Core.Aggregators
 				}
 			}
 
-			foreach (Execution execution in executions)
+			foreach (var execution in executions)
 			{
-				List<string> filteredExecutionDefects = new List<string>();
-				foreach (string executionDefect in execution.ExecutionDefects)
+				var filteredExecutionDefects = new List<string>();
+				foreach (var executionDefect in execution.ExecutionDefects)
 				{
 					if (issueStatuses[executionDefect] != IssueStatus.Done)
 					{

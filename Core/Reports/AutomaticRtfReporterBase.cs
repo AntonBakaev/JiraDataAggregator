@@ -38,13 +38,13 @@ namespace Core.Reports
 		private static Dictionary<Type, string> LoadTemplates(Dictionary<Type, string> templatesLocations, string basePath)
 		{
 			var allTemplates = new Dictionary<Type, string>();
-			string templatePath = string.Empty;
+			var templatePath = string.Empty;
 
 			try
 			{
 				foreach (var template in templatesLocations)
 				{
-					string path = String.Format(basePath, template.Value);
+					var path = String.Format(basePath, template.Value);
 					templatePath = path;
 					string text;
 					using (var streamReader = new StreamReader(path, Encoding.UTF8))
