@@ -7,14 +7,20 @@ using System.Threading.Tasks;
 using Common.Exceptions;
 using Common.Helpers;
 using Common.Messages;
+using DataAccess.RestServices.Interfaces;
 using Newtonsoft.Json;
 using NLog;
 
 namespace DataAccess.RestServices
 {
-	public class RestClient
+	public class RestClient : IRestClient
 	{
-		private static Logger logger = LogManager.GetCurrentClassLogger();
+		private readonly ILogger logger;
+
+		public RestClient(ILogger logger)
+		{
+			this.logger = logger;
+		}
 
 		async public Task<TResponse> Get<TResponse>(string serviceName, object parameters = null) where TResponse : new()
 		{
@@ -29,13 +35,11 @@ namespace DataAccess.RestServices
 			{
 				response = await client.GetAsync(serviceUrl);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				
+				logger.Error(ex.Message);
 				throw;
 			}
-
-			
 
 			logger.Info("{0} to {1}", ConnectionMessages.SuccessfulRequestSent, serviceUrl.AbsoluteUri);
 
@@ -46,7 +50,7 @@ namespace DataAccess.RestServices
 				logger.Error(message);
 				throw new JiraDataAggregatorException(message);
 			}
-			
+
 			string jsonResult = await response.Content.ReadAsStringAsync();
 
 			logger.Info("{0} from {1}", ConnectionMessages.SuccessfulResponseReceived, serviceUrl.AbsoluteUri);

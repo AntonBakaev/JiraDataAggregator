@@ -9,7 +9,7 @@ namespace Common.Exceptions
 		{
 		}
 
-		public JiraDataAggregatorException(string message) 
+		public JiraDataAggregatorException(string message)
 			: base(message)
 		{
 		}
@@ -19,10 +19,9 @@ namespace Common.Exceptions
 		{
 		}
 
-		public JiraDataAggregatorException(SerializationInfo info, StreamingContext context) 
+		public JiraDataAggregatorException(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{
-			
 		}
 	}
 }

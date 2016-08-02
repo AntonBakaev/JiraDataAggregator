@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Common.Exceptions;
 using Common.Helpers;
@@ -15,17 +14,16 @@ namespace Core.Aggregators
 	public class DefectReportAggregator : IDefectReportAggregator
 	{
 		private readonly IDefectReportRepository defectReportRepository;
-		//private ILogger logger;
-		private static Logger logger = LogManager.GetCurrentClassLogger();
+		private readonly ILogger logger;
 
 		 // todo rename
 		private Dictionary<string, DefectInfo> defectInfos;
 
-		public DefectReportAggregator(IDefectReportRepository defectReportRepository)//, ILogger logger)
+		public DefectReportAggregator(IDefectReportRepository defectReportRepository, ILogger logger)
 		{
 			this.defectReportRepository = defectReportRepository;
 			defectInfos = new Dictionary<string, DefectInfo>();
-			//this.logger = logger;
+			this.logger = logger;
 		}
 
 		public IEnumerable<Execution> GetExecutions(string fileName)
@@ -38,12 +36,9 @@ namespace Core.Aggregators
 			List<Task<Tuple<string, DefectInfo>>> tasks = new List<Task<Tuple<string, DefectInfo>>>();
 			List<string> scheduledForCheckingIssueKeysList = new List<string>();
 
-			//Stopwatch sw = new Stopwatch();
-			//sw.Start();
-
-			foreach (Execution execution in executions)
+			foreach (var execution in executions)
 			{
-				foreach (string executionDefect in execution.ExecutionDefects)
+				foreach (var executionDefect in execution.ExecutionDefects)
 				{
 					if (!scheduledForCheckingIssueKeysList.Contains(executionDefect))
 					{
@@ -69,10 +64,10 @@ namespace Core.Aggregators
 
 		public IEnumerable<Execution> Filter(IEnumerable<Execution> executions, Dictionary<string, DefectInfo> infos)
 		{
-			foreach (Execution execution in executions)
+			foreach (var execution in executions)
 			{
-				List<string> filteredExecutionDefects = new List<string>();
-				foreach (string executionDefect in execution.ExecutionDefects)
+				var filteredExecutionDefects = new List<string>();
+				foreach (var executionDefect in execution.ExecutionDefects)
 				{
 					if (ConvertHelper.ToEnum<IssueStatus>(infos[executionDefect].Status) != IssueStatus.Done)
 					{

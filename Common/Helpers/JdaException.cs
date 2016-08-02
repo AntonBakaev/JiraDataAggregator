@@ -15,10 +15,10 @@ namespace Common.Helpers
 			{HttpStatusCode.MethodNotAllowed, JiraDataAggregatorExceptionMessages.RestExceptionMessages.MethodNotAllowedError},
 			{HttpStatusCode.InternalServerError, JiraDataAggregatorExceptionMessages.RestExceptionMessages.InternalServerError},
 		};
-		
+
 		public static string GetSpecificRestException(HttpStatusCode statusCode)
 		{
-			return !restExceptionMessages.ContainsKey(statusCode) 
+			return !restExceptionMessages.ContainsKey(statusCode)
 				? JiraDataAggregatorExceptionMessages.RestExceptionMessages.DefaultError
 				: restExceptionMessages[statusCode];
 		}

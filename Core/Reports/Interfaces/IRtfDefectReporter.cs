@@ -2,7 +2,7 @@
 
 namespace Core.Reports.Interfaces
 {
-	public interface IRtfDefectReporter : IRtfReporter<DefectReportVm> 
+	public interface IRtfDefectReporter : IRtfReporter<DefectReportVm>
 	{
 	}
 }

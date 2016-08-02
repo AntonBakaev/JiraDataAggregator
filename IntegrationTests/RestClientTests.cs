@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DataAccess.RestServices;
 using Newtonsoft.Json.Linq;
+using NLog;
 using NUnit.Framework;
 
 namespace IntegrationTests
@@ -9,24 +9,14 @@ namespace IntegrationTests
 	[TestFixture]
 	public class RestClientTests
 	{
-		//private readonly IJiraConfigurationHelper jiraConfiguration = new JiraConfigurationHelper(); todo cleanup
-
 		[Test]
 		public async Task GetIssueStatus_ValidData_ReturnsSuccess()
 		{
-			var client = new RestClient();
+			var client = new RestClient(LogManager.GetCurrentClassLogger());
 			var dataObject = await client.Get<object>("GetIssueStatus", new { issuekey = "ONESCREEN-11682" });
 
 			Assert.IsNotNull(dataObject);
 			Assert.DoesNotThrow(() => JObject.FromObject(dataObject)["fields"]["status"]["name"].ToString());
 		}
-
-		//[Test]
-		//public async Task GetIssueStatus_InvalidParameters_ThrowsArgumentException()
-		//{
-		//	var client = new RestClient();
-
-		//	Assert.Throws<ArgumentException>(() => client.Get<object>("GetIssueStatus", new { d12 = "ONESCREEN-12551" }));
-		//}
 	}
 }

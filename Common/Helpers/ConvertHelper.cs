@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 
 namespace Common.Helpers
 {
@@ -47,6 +48,12 @@ namespace Common.Helpers
 			}
 
 			return default(T);
+		}
+
+		public static string ToBase64String(string value)
+		{
+			byte[] bytes = Encoding.UTF8.GetBytes(value);
+			return Convert.ToBase64String(bytes);
 		}
 	}
 }
