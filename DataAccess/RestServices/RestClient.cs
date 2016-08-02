@@ -11,7 +11,7 @@ using NLog;
 
 namespace DataAccess.RestServices
 {
-	public class RestClient: IRestClient
+	public class RestClient : IRestClient
 	{
 		private readonly ILogger logger;
 
@@ -48,7 +48,7 @@ namespace DataAccess.RestServices
 				logger.Error(message);
 				throw new JiraDataAggregatorException(message);
 			}
-			
+
 			string jsonResult = await response.Content.ReadAsStringAsync();
 
 			logger.Info("{0} from {1}", ConnectionMessages.SuccessfulResponseReceived, serviceUrl.AbsoluteUri);

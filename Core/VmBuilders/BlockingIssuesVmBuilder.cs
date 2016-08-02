@@ -16,7 +16,7 @@ namespace Core.VmBuilders
 		{
 			var defectsList = GetDefectsList(executionsList);
 
-			string baseLinkFormat = ConfigurationManager.AppSettings["BaseLinkFormat"];
+			string baseLinkFormat = ConfigurationManager.AppSettings[BaseLinkFormatConfigKey];
 
 			var defectsVmList = new List<DefectVm>();
 			foreach (var defect in defectsList)

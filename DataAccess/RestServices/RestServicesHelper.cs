@@ -26,7 +26,7 @@ namespace DataAccess.RestServices
 		}
 
 		public static string GetJiraConnectionBaseUrl(string serviceName)
-		 {
+		{
 			return GetConnection(GetService(serviceName).EndPointName).BaseUrl;
 		}
 

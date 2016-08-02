@@ -13,6 +13,6 @@ namespace Core.ViewModels
 		public List<DefectVm> DefectsList { get; set; }
 
 		[XmlIgnore]
-		public int BlockingDefectsCount { get { return DefectsList.Count; }}
+		public int BlockingDefectsCount { get { return DefectsList.Count; } }
 	}
 }

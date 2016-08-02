@@ -60,7 +60,7 @@ namespace Core.Reports
 					string.Format("{0} at {1}",
 					JiraDataAggregatorExceptionMessages.FileExceptionMessages.LoadFromTemplateError, templatePath));
 			}
-			
+
 			return allTemplates;
 		}
 

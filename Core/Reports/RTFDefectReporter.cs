@@ -131,14 +131,6 @@ namespace Core.Reports
 
 			rtbBox.SelectionFont = new Font("Arial", 13);
 
-			//start = rtbBox.TextLength;
-			//line = "\nDate.Time\n\n";
-
-			//rtbBox.AppendText(line);
-			//rtbBox.Select(start, line.Length);
-
-			//rtbBox.SelectionFont = new Font("Arial", 13, FontStyle.Bold);
-
 			start = rtbBox.TextLength;
 			line = "\nRetail shop flow statistics\n\n";
 
@@ -198,10 +190,10 @@ namespace Core.Reports
 			catch (IOException)
 			{
 				throw new JiraDataAggregatorException(
-					string.Format("{0} at {1}", 
+					string.Format("{0} at {1}",
 					JiraDataAggregatorExceptionMessages.FileExceptionMessages.WriteToFileError, filePath));
 			}
-			
+
 		}
 	}
 }

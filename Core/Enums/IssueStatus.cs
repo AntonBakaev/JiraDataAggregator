@@ -3,13 +3,13 @@
 namespace Core.Enums
 {
 	[DataContract]
-    public enum IssueStatus
-    {//todo add more
-		Unknown = 0, 
+	public enum IssueStatus
+	{
+		Unknown = 0,
 		[EnumMember(Value = "Open")]
-        Open,
+		Open,
 		[EnumMember(Value = "Resolved")]
-        Resolved,
+		Resolved,
 		[EnumMember(Value = "Closed")]
 		Closed,
 		[EnumMember(Value = "Reopened")]
@@ -18,5 +18,5 @@ namespace Core.Enums
 		InProgress,
 		[EnumMember(Value = "Done")]
 		Done
-    }
+	}
 }

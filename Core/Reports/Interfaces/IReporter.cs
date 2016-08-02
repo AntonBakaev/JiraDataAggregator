@@ -2,7 +2,7 @@
 
 namespace Core.Reports.Interfaces
 {
-	public interface IReporter<in TViewModel> 
+	public interface IReporter<in TViewModel>
 		where TViewModel : IViewModel
 	{
 		void Generate(TViewModel viewModel);

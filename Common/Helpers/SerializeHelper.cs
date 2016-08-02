@@ -57,11 +57,11 @@ namespace Common.Helpers
 					serializer.Serialize(stream, objectToSerialize);
 				}
 			}
-			catch (IOException)
+			catch (IOException ex)
 			{
 				throw new JiraDataAggregatorException(
-					string.Format("{0} at {1}", 
-					JiraDataAggregatorExceptionMessages.FileExceptionMessages.WriteToFileError,fileNameToGenerate));
+					string.Format("{0} at {1}",
+					JiraDataAggregatorExceptionMessages.FileExceptionMessages.WriteToFileError, fileNameToGenerate), ex);
 			}
 		}
 	}

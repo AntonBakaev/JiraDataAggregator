@@ -16,7 +16,7 @@ namespace Core.Aggregators
 		private readonly IDefectReportRepository defectReportRepository;
 		private readonly ILogger logger;
 
-		private readonly Dictionary<string, IssueStatus> issueStatuses; // todo rename
+		private readonly Dictionary<string, IssueStatus> issueStatuses;
 
 		public DefectReportAggregator(IDefectReportRepository defectReportRepository, ILogger logger)
 		{
@@ -39,9 +39,6 @@ namespace Core.Aggregators
 		{
 			List<Task<Tuple<string, IssueStatus>>> tasks = new List<Task<Tuple<string, IssueStatus>>>();
 			List<string> scheduledForCheckingIssueKeysList = new List<string>();
-
-			//Stopwatch sw = new Stopwatch();
-			//sw.Start();
 
 			foreach (Execution execution in executions)
 			{
@@ -79,7 +76,6 @@ namespace Core.Aggregators
 			}
 
 			return executions;
-			//sw.Stop();
 		}
 
 		private async Task<Tuple<string, IssueStatus>> GetIssueStatusWrapper(string issueKey)
