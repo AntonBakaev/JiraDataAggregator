@@ -37,5 +37,39 @@ namespace Core.Repositories
 
 			return ConvertHelper.ToEnum<IssueStatus>(statusString);
 		}
+
+		public async Task<DefectInfo> GetIssueInfo(string issueKey)
+		{
+			string statusString = String.Empty;
+			string assigneeName = String.Empty;
+			string componentsName = String.Empty;
+			string severityValue = String.Empty;
+			string summaryValue = String.Empty;
+
+			var dataObject = await restClient.Get<object>("GetIssueInfo", new { issueKey });
+			JObject jObject = JObject.FromObject(dataObject);
+			var status = jObject["fields"]["status"];
+			if (status != null)
+				statusString = status["name"].ToString();
+			var assignee = jObject["fields"]["assignee"];
+			if (assignee != null)
+				assigneeName = assignee["name"].ToString();
+			var components = jObject["fields"]["components"].First;
+			if (components != null)
+				componentsName = components["name"].ToString();
+			var severity = jObject["fields"]["customfield_10401"];
+			if (severity != null)
+				severityValue = severity["value"].ToString();
+			var summary = jObject["fields"]["summary"];
+			if (summary != null)
+				summaryValue = summary.ToString();
+			DefectInfo issueInfo = new DefectInfo();
+			issueInfo.Status = statusString;
+			issueInfo.Assignee = assigneeName;
+			issueInfo.Components = componentsName;
+			issueInfo.Severity = severityValue;
+			issueInfo.Summary = summaryValue;
+			return issueInfo;
+		}
 	}
 }

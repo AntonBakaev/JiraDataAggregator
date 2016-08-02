@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -18,9 +19,9 @@ namespace DataAccess.RestServices
 		async public Task<TResponse> Get<TResponse>(string serviceName, object parameters = null) where TResponse : new()
 		{
 			string authString = RestServicesHelper.GetJiraConnectionAuthData(serviceName);
-			Uri baseAddress = new Uri(RestServicesHelper.GetJiraConnectionBaseUrl(serviceName));
+			Uri baseAddress = new Uri(RestServicesHelper.GetJiraConnectionBaseUrl(serviceName) + ConfigurationManager.AppSettings["GetIssueInfoFields"]);
 			var serviceUrlTemplate = new UriTemplate(RestServicesHelper.GetServiceUrl(serviceName));
-			Uri serviceUrl = serviceUrlTemplate.BindByName(baseAddress, ConvertHelper.ToDictionary(parameters));
+			Uri serviceUrl = serviceUrlTemplate.BindByName(baseAddress, ConvertHelper.ToDictionary(parameters), false);
 
 			HttpClient client = CreateClient(baseAddress, authString);
 			HttpResponseMessage response;

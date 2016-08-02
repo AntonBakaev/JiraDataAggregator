@@ -89,7 +89,9 @@ namespace Core.Reports
 
 			foreach (DefectKeyVm defectKey in defectReportVm.AllDefectKeysVm.AllDefectKeys)
 			{
-				allDefectKeysStr.AppendLine("\t •" + defectKey.Value);
+				allDefectKeysStr.AppendLine(string.Format("\t • {0} {1} {2} {3} {4}", defectKey.Value, defectKey.Assignee, defectKey.Components, defectKey.Severity, defectKey.Status));
+				//allDefectKeysStr.AppendLine(string.Format("\t • {0} {1}", defectKey.Value, defectKey.Status));
+				//allDefectKeysStr.AppendLine(string.Format("\n {0}", defectKey.Summary));
 			}
 
 			var rtbBox = new RichTextBox();

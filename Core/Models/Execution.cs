@@ -56,7 +56,7 @@ namespace Core.Models
 		[XmlArray("teststeps")]
 		[XmlArrayItem("teststep", typeof(TestStep))]
 		public List<TestStep> TestSteps { get; set; }
-
+		
 		[XmlIgnore]
 		public IEnumerable<string> ExecutionDefects
 		{
