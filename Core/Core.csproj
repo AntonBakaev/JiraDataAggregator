@@ -55,6 +55,7 @@
     <Compile Include="Aggregators\Interfaces\IDefectReportAggregator.cs" />
     <Compile Include="Enums\ComponentType.cs" />
     <Compile Include="Enums\ExecutedStatus.cs" />
+    <Compile Include="Enums\IssueSeverity.cs" />
     <Compile Include="Enums\IssueStatus.cs" />
     <Compile Include="Enums\PriorityType.cs" />
     <Compile Include="Enums\StepStatus.cs" />
