@@ -18,7 +18,7 @@ namespace Core.ViewModels
 		public string Summary { get; set; }
 
 		[XmlAttribute("severity")]
-		public IssueSeverity Severity { get; set; }
+		public string Severity { get; set; }
 
 		[XmlAttribute("components")]
 		public string Components { get; set; }
