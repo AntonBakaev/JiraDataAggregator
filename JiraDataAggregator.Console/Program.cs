@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Threading.Tasks;
-using Common.Exceptions;
 using Core.Aggregators.Interfaces;
 using Core.Models;
 using Core.Reports.Interfaces;
@@ -41,15 +40,16 @@ namespace JiraDataAggregator.Console
 			public async Task Execute(string fileName)
 			{
 				IEnumerable<Execution> executionsList = defectReportAggregator.GetExecutions(fileName);
-				executionsList = await defectReportAggregator.FilterExecutions(executionsList);
+				Dictionary<string, DefectInfo> defectInfoList = await defectReportAggregator.GetExecutionsDefectInfo(executionsList);
+				executionsList = defectReportAggregator.Filter(executionsList, defectInfoList);
 
-				DefectReportVm defectReportVm = GenerateDefectReportVm(executionsList);
+				DefectReportVm defectReportVm = GenerateDefectReportVm(executionsList, defectInfoList);
 
 				xmlDefectReporter.Generate(defectReportVm);
 				rtfDefectReporter.Generate(defectReportVm);
 			}
 
-			private DefectReportVm GenerateDefectReportVm(IEnumerable<Execution> executionsList)
+			private DefectReportVm GenerateDefectReportVm(IEnumerable<Execution> executionsList, Dictionary<string, DefectInfo> defectInfoList)
 			{
 				FlowStatisticsVm flowStatistics = flowStatisticsVmBuilder.GetFlowStatisticsVm(executionsList);
 				FlowStatisticsVm filteredFlowStatistics = flowStatisticsVmBuilder.GetFlowStatisticsVmByFilter(executionsList);
@@ -57,7 +57,7 @@ namespace JiraDataAggregator.Console
 				BlockingIssuesVm blockingIssuesList = blockingIssuesVmBuilder.GetTopBlockingIssues(executionsList,
 																 Convert.ToInt32(ConfigurationManager.AppSettings["NumberOfTopBlockingIssues"]));
 
-				AllDefectKeysVm allDefectKeys = allBlockingDefectsVmBuilder.GetAllBlockingDefects(executionsList);
+				AllDefectKeysVm allDefectKeys = allBlockingDefectsVmBuilder.GetAllBlockingDefects(executionsList, defectInfoList);
 
 				return new DefectReportVm()
 				{

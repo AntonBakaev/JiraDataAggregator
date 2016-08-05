@@ -6,6 +6,6 @@ namespace Core.VmBuilders.Interfaces
 {
 	public interface IAllDefectKeysVmBuilder
 	{
-		AllDefectKeysVm GetAllBlockingDefects(IEnumerable<Execution> executionsList);
+		AllDefectKeysVm GetAllBlockingDefects(IEnumerable<Execution> executionsList, Dictionary<string, DefectInfo> defectInfoList);
 	}
 }

@@ -20,7 +20,7 @@ namespace Core.Reports
 			get { return "RtfDefectReportFileName"; }
 		}
 
-		public static string GenerateRtfReport(string template, IDictionary<string, string> parameters)
+		public static string ActivateLinks(string template, IDictionary<string, string> parameters)
 		{
 			foreach (Match match in Regex.Matches(template, @"\\\{(.*?)\\\}"))
 			{
@@ -41,7 +41,18 @@ namespace Core.Reports
 
 				template = template.Replace(string.Format("\\{{{0}\\}}", paramName), paramValue);
 			}
+			
+			return template;
+		}
 
+		public static string InsertTable(string template, string table)
+		{
+			template = template.Remove(template.LastIndexOf('}'));
+			template += "\n";
+
+			//insert table here
+			template += table;
+			template += " }";
 			return template;
 		}
 
@@ -85,11 +96,20 @@ namespace Core.Reports
 				}
 			}
 
-			var allDefectKeysStr = new StringBuilder();
+			var allDefectKeysStrHeader = new StringBuilder();
+			allDefectKeysStrHeader.Append(@"\trowd\cellx2000\cellx4000\cellx6000\cellx8000\cellx10000");
+			allDefectKeysStrHeader.Append(string.Format(@" \intbl {{{0}}}\cell {{{1}}}\cell {{{2}}}\cell {{{3}}}\cell {{{4}}}\cell \row ",
+					"Name", "Assignee", "Components", "Severity", "Status"));
 
+			var allDefectKeysStr = new StringBuilder();
 			foreach (DefectKeyVm defectKey in defectReportVm.AllDefectKeysVm.AllDefectKeys)
 			{
-				allDefectKeysStr.AppendLine("\t •" + defectKey.Value);
+				allDefectKeysStr.Append(@"\trowd\cellx2000\cellx4000\cellx6000\cellx8000\cellx10000");
+				allDefectKeysStr.Append(string.Format(@" \intbl {{{0}}}\cell {{{1}}}\cell {{{2}}}\cell {{{3}}}\cell {{{4}}}\cell \row ",
+					defectKey.Value, defectKey.Assignee, defectKey.Components, defectKey.Severity, defectKey.Status));
+
+				//allDefectKeysStr.AppendLine(string.Format("\t • {0} {1}", defectKey.Value, defectKey.Status));
+				//allDefectKeysStr.AppendLine(string.Format("\n {0}", defectKey.Summary));
 			}
 
 			var rtbBox = new RichTextBox();
@@ -131,14 +151,6 @@ namespace Core.Reports
 
 			rtbBox.SelectionFont = new Font("Arial", 13);
 
-			//start = rtbBox.TextLength;
-			//line = "\nDate.Time\n\n";
-
-			//rtbBox.AppendText(line);
-			//rtbBox.Select(start, line.Length);
-
-			//rtbBox.SelectionFont = new Font("Arial", 13, FontStyle.Bold);
-
 			start = rtbBox.TextLength;
 			line = "\nRetail shop flow statistics\n\n";
 
@@ -178,11 +190,22 @@ namespace Core.Reports
 			rtbBox.SelectionFont = new Font("Arial", 13, FontStyle.Bold);
 
 			start = rtbBox.TextLength;
-			line = allDefectKeysStr.ToString();
+			line = "#tableheader#\n";
+
 			rtbBox.AppendText(line);
 			rtbBox.Select(start, line.Length);
 
-			rtbBox.SelectionFont = new Font("Arial", 13);
+			rtbBox.SelectionFont = new Font("Calibri", 13, FontStyle.Bold);
+			rtbBox.SelectionAlignment = HorizontalAlignment.Center;
+
+			start = rtbBox.TextLength;
+			line = "#table#\n";
+
+			rtbBox.AppendText(line);
+			rtbBox.Select(start, line.Length);
+
+			rtbBox.SelectionFont = new Font("Calibri", 12);
+			rtbBox.SelectionAlignment = HorizontalAlignment.Center;
 
 			try
 			{
@@ -193,15 +216,22 @@ namespace Core.Reports
 				rtbBox.SaveFile(filePath, RichTextBoxStreamType.RichText);
 				string template = File.ReadAllText(filePath);
 
-				File.WriteAllText(filePath, GenerateRtfReport(template, links));
+				template = ActivateLinks(template, links);
+
+				template = template.Replace("#tableheader#", allDefectKeysStrHeader.ToString());
+				template = template.Replace("#table#", allDefectKeysStr.ToString());
+
+				//template = InsertTable(template, allDefectKeysStr.ToString());
+
+				File.WriteAllText(filePath, template);
 			}
 			catch (IOException)
 			{
 				throw new JiraDataAggregatorException(
-					string.Format("{0} at {1}", 
+					string.Format("{0} at {1}",
 					JiraDataAggregatorExceptionMessages.FileExceptionMessages.WriteToFileError, filePath));
 			}
-			
+
 		}
 	}
 }

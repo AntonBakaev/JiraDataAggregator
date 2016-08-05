@@ -248,7 +248,7 @@ namespace UnitTests.Core.VmBuilders
 		private bool IsIssueVmsEquivalent(IssueVm expectedIssueVm, IssueVm actualIssueVm)
 		{
 			if (expectedIssueVm.IssueName != actualIssueVm.IssueName
-			    || expectedIssueVm.Link != actualIssueVm.Link)
+				|| expectedIssueVm.Link != actualIssueVm.Link)
 				return false;
 
 			return true;

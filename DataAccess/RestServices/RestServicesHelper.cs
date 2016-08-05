@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Configuration;
 using System.Linq;
+using Common.Exceptions;
 using Common.Helpers;
+using Common.Messages;
 using DataAccess.RestServices.JiraConnectionConfig;
 using DataAccess.RestServices.RestServiceConfig;
 
@@ -22,11 +24,11 @@ namespace DataAccess.RestServices
 			JiraConnectionElement connection = GetConnection(GetService(serviceName).EndPointName);
 			string authData = String.Format("{0}:{1}", connection.Login, connection.Password);
 
-			return StringExtensions.ToBase64String(authData);
+			return ConvertHelper.ToBase64String(authData);
 		}
 
 		public static string GetJiraConnectionBaseUrl(string serviceName)
-		 {
+		{
 			return GetConnection(GetService(serviceName).EndPointName).BaseUrl;
 		}
 
@@ -34,7 +36,9 @@ namespace DataAccess.RestServices
 		{
 			var section = (RestServicesSection)ConfigurationManager.GetSection(RestServicesSectionName);
 			if (section == null)
-				throw new Exception("RestServices section not found.");
+				throw new JiraDataAggregatorException(JiraDataAggregatorExceptionMessages
+					.ConfigurationExceptionMessages
+					.RestServicesSectionNotFoundError);
 
 			var services = section.Services.Cast<RestServiceElement>();
 
@@ -42,14 +46,18 @@ namespace DataAccess.RestServices
 			if (service != null)
 				return service;
 
-			throw new Exception("Service name is invalid.");
+			throw new JiraDataAggregatorException(JiraDataAggregatorExceptionMessages
+				.ConfigurationExceptionMessages
+				.InvalidServiceNameError);
 		}
 
 		private static JiraConnectionElement GetConnection(string endPointName)
 		{
 			var section = (JiraConnectionsSection)ConfigurationManager.GetSection(JiraConnectionsSectionName);
 			if (section == null)
-				throw new Exception("JiraConnections section not found.");
+				throw new JiraDataAggregatorException(JiraDataAggregatorExceptionMessages
+					.ConfigurationExceptionMessages
+					.JiraConnectionsSectionNotFoundError);
 
 			var connections = section.Connections.Cast<JiraConnectionElement>();
 
@@ -57,7 +65,9 @@ namespace DataAccess.RestServices
 			if (connection != null)
 				return connection;
 
-			throw new Exception("Connection name is invalid.");
+			throw new JiraDataAggregatorException(JiraDataAggregatorExceptionMessages
+				.ConfigurationExceptionMessages
+				.InvalidConnectionNameError);
 		}
 	}
 }

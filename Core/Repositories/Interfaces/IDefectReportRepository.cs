@@ -10,5 +10,7 @@ namespace Core.Repositories.Interfaces
 		IEnumerable<Execution> GetIsitLaunchCriticalViewData(string filePath);
 
 		Task<IssueStatus> GetIssueStatus(string issueKey);
+
+		Task<DefectInfo> GetIssueInfo(string issueKey);
 	}
 }

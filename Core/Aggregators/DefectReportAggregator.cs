@@ -16,13 +16,14 @@ namespace Core.Aggregators
 		private readonly IDefectReportRepository defectReportRepository;
 		private readonly ILogger logger;
 
-		private readonly Dictionary<string, IssueStatus> issueStatuses; // todo rename
+		 // todo rename
+		private Dictionary<string, DefectInfo> defectInfos;
 
 		public DefectReportAggregator(IDefectReportRepository defectReportRepository, ILogger logger)
 		{
 			this.defectReportRepository = defectReportRepository;
+			defectInfos = new Dictionary<string, DefectInfo>();
 			this.logger = logger;
-			issueStatuses = new Dictionary<string, IssueStatus>();
 		}
 
 		public IEnumerable<Execution> GetExecutions(string fileName)
@@ -30,27 +31,19 @@ namespace Core.Aggregators
 			return defectReportRepository.GetIsitLaunchCriticalViewData(fileName);
 		}
 
-		public async Task<IEnumerable<Execution>> FilterExecutions(IEnumerable<Execution> executions)
+		public async Task<Dictionary<string, DefectInfo>> GetExecutionsDefectInfo(IEnumerable<Execution> executions)
 		{
-			return await FilterExecutionDefects(executions);
-		}
-
-		private async Task<IEnumerable<Execution>> FilterExecutionDefects(IEnumerable<Execution> executions)
-		{
-			List<Task<Tuple<string, IssueStatus>>> tasks = new List<Task<Tuple<string, IssueStatus>>>();
+			List<Task<Tuple<string, DefectInfo>>> tasks = new List<Task<Tuple<string, DefectInfo>>>();
 			List<string> scheduledForCheckingIssueKeysList = new List<string>();
 
-			//Stopwatch sw = new Stopwatch();
-			//sw.Start();
-
-			foreach (Execution execution in executions)
+			foreach (var execution in executions)
 			{
-				foreach (string executionDefect in execution.ExecutionDefects)
+				foreach (var executionDefect in execution.ExecutionDefects)
 				{
 					if (!scheduledForCheckingIssueKeysList.Contains(executionDefect))
 					{
 						scheduledForCheckingIssueKeysList.Add(executionDefect);
-						tasks.Add(GetIssueStatusWrapper(executionDefect));
+						tasks.Add(GetIssueInfoWrapper(executionDefect));
 					}
 				}
 			}
@@ -58,28 +51,32 @@ namespace Core.Aggregators
 			foreach (var task in await Task.WhenAll(tasks))
 			{
 				string executionDefect = task.Item1;
-				IssueStatus executionDefectStatus = task.Item2;
-				if (!issueStatuses.ContainsKey(executionDefect))
+				DefectInfo executionDefectInfo = task.Item2;
+				if (!defectInfos.ContainsKey(executionDefect))
 				{
-					issueStatuses.Add(executionDefect, executionDefectStatus);
+					defectInfos.Add(executionDefect, executionDefectInfo);
 				}
 			}
 
-			foreach (Execution execution in executions)
+			return defectInfos;
+			//sw.Stop();
+		}
+
+		public IEnumerable<Execution> Filter(IEnumerable<Execution> executions, Dictionary<string, DefectInfo> infos)
+		{
+			foreach (var execution in executions)
 			{
-				List<string> filteredExecutionDefects = new List<string>();
-				foreach (string executionDefect in execution.ExecutionDefects)
+				var filteredExecutionDefects = new List<string>();
+				foreach (var executionDefect in execution.ExecutionDefects)
 				{
-					if (issueStatuses[executionDefect] != IssueStatus.Done)
+					if (ConvertHelper.ToEnum<IssueStatus>(infos[executionDefect].Status) != IssueStatus.Done)
 					{
 						filteredExecutionDefects.Add(executionDefect);
 					}
 				}
 				execution.ExecutionDefects = filteredExecutionDefects;
 			}
-
 			return executions;
-			//sw.Stop();
 		}
 
 		private async Task<Tuple<string, IssueStatus>> GetIssueStatusWrapper(string issueKey)
@@ -87,6 +84,19 @@ namespace Core.Aggregators
 			try
 			{
 				return Tuple.Create(issueKey, await defectReportRepository.GetIssueStatus(issueKey));
+			}
+			catch (JiraDataAggregatorException)
+			{
+				logger.Error(JdaException.GetSpecificRestException(0));
+			}
+			return null;
+		}
+
+		private async Task<Tuple<string, DefectInfo>> GetIssueInfoWrapper(string issueKey)
+		{
+			try
+			{
+				return Tuple.Create(issueKey, await defectReportRepository.GetIssueInfo(issueKey));
 			}
 			catch (JiraDataAggregatorException)
 			{

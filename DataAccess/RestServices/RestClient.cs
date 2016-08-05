@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Configuration;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -11,7 +13,7 @@ using NLog;
 
 namespace DataAccess.RestServices
 {
-	public class RestClient: IRestClient
+	public class RestClient : IRestClient
 	{
 		private readonly ILogger logger;
 
@@ -23,9 +25,9 @@ namespace DataAccess.RestServices
 		async public Task<TResponse> Get<TResponse>(string serviceName, object parameters = null) where TResponse : new()
 		{
 			string authString = RestServicesHelper.GetJiraConnectionAuthData(serviceName);
-			var baseAddress = new Uri(RestServicesHelper.GetJiraConnectionBaseUrl(serviceName));
+			Uri baseAddress = new Uri(RestServicesHelper.GetJiraConnectionBaseUrl(serviceName) + ConfigurationManager.AppSettings["GetIssueInfoFields"]);
 			var serviceUrlTemplate = new UriTemplate(RestServicesHelper.GetServiceUrl(serviceName));
-			Uri serviceUrl = serviceUrlTemplate.BindByName(baseAddress, ConvertHelper.ToDictionary(parameters));
+			Uri serviceUrl = serviceUrlTemplate.BindByName(baseAddress, ConvertHelper.ToDictionary(parameters), false);
 
 			HttpClient client = CreateClient(baseAddress, authString);
 			HttpResponseMessage response;
@@ -48,7 +50,7 @@ namespace DataAccess.RestServices
 				logger.Error(message);
 				throw new JiraDataAggregatorException(message);
 			}
-			
+
 			string jsonResult = await response.Content.ReadAsStringAsync();
 
 			logger.Info("{0} from {1}", ConnectionMessages.SuccessfulResponseReceived, serviceUrl.AbsoluteUri);

@@ -7,7 +7,7 @@ namespace Common.Comparators
 	public class DictionaryComparer<TKey, TValue> : IEqualityComparer<Dictionary<TKey, TValue>>
 	{
 		private readonly IEqualityComparer<TValue> valueComparer;
-		
+
 		public DictionaryComparer(IEqualityComparer<TValue> valueComparer = null)
 		{
 			this.valueComparer = valueComparer ?? EqualityComparer<TValue>.Default;
@@ -23,7 +23,7 @@ namespace Common.Comparators
 
 			if (y.Keys.Except(x.Keys).Any())
 				return false;
-			
+
 			return x.All(pair => valueComparer.Equals(pair.Value, y[pair.Key]));
 		}
 

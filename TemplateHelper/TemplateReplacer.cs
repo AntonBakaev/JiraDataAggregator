@@ -16,7 +16,7 @@ namespace TemplateHelper
 		{
 			this.inputFormatter = inputFormatter ?? new DefaultInputFormatter();
 			this.outputFormatter = outputFormatter ?? new DefaultOutputFormatter();
-		}				
+		}
 
 		public string Replace(IReplaceable data, Dictionary<Type, string> allTemplates)
 		{
@@ -34,7 +34,7 @@ namespace TemplateHelper
 			{
 				var text = match.Groups[1].Value;
 				var propData = PropertyDataHelper.GetPropertyByName(propDataList, text);
-				if (propData == null) 
+				if (propData == null)
 					continue;
 
 				string key = String.Format(inputFormatter.InputKeyPattern, text);

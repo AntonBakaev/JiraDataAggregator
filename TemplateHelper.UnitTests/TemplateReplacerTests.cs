@@ -80,13 +80,13 @@ namespace TemplateHelper.UnitTests
 				{typeof(IssueDependencyVm), @"Static text \n {Issue} : {DepIssueList}"}
 			};
 
-			string expectedResult = @"Static text \n {Issue|Description: Issue {Name|Os1} Total count {Count|3} \n} : "+"" +
-									@"{DepIssueList|Description: Issue {Name|Os3} Total count {Count|5} \nDescription: Issue {Name|Os2} "+
+			string expectedResult = @"Static text \n {Issue|Description: Issue {Name|Os1} Total count {Count|3} \n} : " + "" +
+									@"{DepIssueList|Description: Issue {Name|Os3} Total count {Count|5} \nDescription: Issue {Name|Os2} " +
 									@"Total count {Count|1} \nDescription: Issue {Name|Os4} Total count {Count|2} \n}";
 
 			var outputFormatter = new OutputFormatter();
 			var replacer = new TemplateReplacer(outputFormatter: outputFormatter);
-			
+
 			string actualResult = replacer.Replace(depIssue, allTemplates);
 
 			Assert.AreEqual(actualResult, expectedResult);
