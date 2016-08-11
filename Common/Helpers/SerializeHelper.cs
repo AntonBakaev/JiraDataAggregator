@@ -50,7 +50,7 @@ namespace Common.Helpers
 			try
 			{
 				var serializer = new XmlSerializer(typeof(T));
-				File.Delete(fileNameToGenerate);
+
 				using (var stream = new FileStream(fileNameToGenerate, FileMode.OpenOrCreate))
 				{
 					serializer.Serialize(stream, objectToSerialize);

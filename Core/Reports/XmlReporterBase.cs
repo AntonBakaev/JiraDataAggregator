@@ -1,4 +1,5 @@
-﻿using Common.Helpers.Interfaces;
+﻿using System.IO;
+using Common.Helpers.Interfaces;
 using Core.Reports.Interfaces;
 using Core.ViewModels.Interfaces;
 
@@ -18,6 +19,9 @@ namespace Core.Reports
 
 		public virtual void Generate(TViewModel viewModel)
 		{
+			if (File.Exists(FileName))
+				File.Delete(FileName);
+
 			serializeHelper.Serialize(FileName, viewModel);
 		}
 	}
