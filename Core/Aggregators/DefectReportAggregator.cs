@@ -79,19 +79,6 @@ namespace Core.Aggregators
 			return executions;
 		}
 
-		private async Task<Tuple<string, IssueStatus>> GetIssueStatusWrapper(string issueKey)
-		{
-			try
-			{
-				return Tuple.Create(issueKey, await defectReportRepository.GetIssueStatus(issueKey));
-			}
-			catch (JiraDataAggregatorException)
-			{
-				logger.Error(JdaException.GetSpecificRestException(0));
-			}
-			return null;
-		}
-
 		private async Task<Tuple<string, DefectInfo>> GetIssueInfoWrapper(string issueKey)
 		{
 			try
